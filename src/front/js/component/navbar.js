@@ -15,7 +15,7 @@ export const Navbar = () => {
   };
 
   if (store.token && store.token != "" && store.token != undefined) {
-    history.push("/Directorio");
+    history.push("/vistaInflu");
   }
 
   return (

@@ -63,7 +63,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const resp = await fetch(
 						"https://3001-jaygosling-influere-gyow40i3nvc.ws-eu47.gitpod.io/login", requestOptions)
 					if (resp.status != 200) {
-						alert("There has been some error");
+						alert("Correo o contraseña erroneo!");
 						return false;
 					}
 	
