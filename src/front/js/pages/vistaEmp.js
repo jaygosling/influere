@@ -18,14 +18,11 @@ export const VistaEmp = () => {
           style={{
             display: "flex",
             justifyContent: "right",
-            alignItems: "right",
+            alignItems: "center",
             marginTop: "5px",
           }}
         >
-          <div
-            class="btn-group"
-            style={{ height: "40px", width: "40px", marginRight: "100px" }}
-          >
+          <div class="btn-group" style={{ height: "40px", width: "40px" }}>
             {/* <button type="button" class="btn btn-light"><i class="fas fa-home"><a class="dropdown-item" href={"/vistaInflu"}></a></i></button> */}
             <button
               type="button"
@@ -55,7 +52,7 @@ export const VistaEmp = () => {
           </div>
         </div>
         {/* ----------------------------------------------------------------------------------- */}
-        <div className="container" style={{ maxWidth: "1000px" }}>
+        <div className="container" style={{ maxWidth: "3000px" }}>
           <div className="row container">
             <div
               className="col-md-7"
