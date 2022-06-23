@@ -166,7 +166,7 @@ export const FormEmpresas = () => (
               </label>
               <div className="col-sm-7">
                 <select
-                  className="form-select"
+                  className="form-select menu"
                   aria-label="Default select example"
                   id="autonomia"
                   defaultValue="Selecciona"

@@ -151,9 +151,9 @@ export const FormInfluencers = () => {
                   for="categoria"
                   className="col-sm-3 col-form-label camposform"
                 >
-                  País
+                  Sector
                 </label>
-                <div className="col-sm-9">
+                <div className="col-sm-9 menu">
                   <select
                     className="form-select"
                     aria-label="Default select example"
@@ -224,7 +224,7 @@ export const FormInfluencers = () => {
                 </label>
                 <div className="col-sm-7">
                   <select
-                    className="form-select"
+                    className="form-select menu"
                     aria-label="Default select example"
                     id="autonomia"
                     defaultValue="Selecciona"
@@ -308,7 +308,7 @@ export const FormInfluencers = () => {
               </p>
               <div className="d-flex ">
                 <input
-                  className="form-control"
+                  className="form-control menu"
                   type="text"
                   placeholder="Pega aquí el enlace a tu post"
                   aria-label="default input example"

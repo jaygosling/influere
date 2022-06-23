@@ -25,7 +25,7 @@ export const Search = () => {
                 </div>
               </div>
             </div>
-            <div className="card bg-dark">
+            <div className="card bg-warning">
               <div className="card-body p-3">
                 <h6 className="busqueda">BÚSQUEDA AVANZADA</h6>
 
@@ -263,13 +263,13 @@ export const Search = () => {
                   <div className="col-md-2 pe-1 ms-5">
                     <button
                       type="button"
-                      className="btn btn-link text-white"
+                      className="btn btn-secondary text-white"
                       data-mdb-ripple-color="dark"
                     >
                       {" "}
                       Reiniciar{" "}
                     </button>
-                    <button type="button" className="btn btn-warning fw-bold">
+                    <button type="button" className="btn btn-secondary fw-bold">
                       {" "}
                       Buscar{" "}
                     </button>
