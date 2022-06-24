@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
@@ -6,19 +6,20 @@ import { IframeInstagram } from "../component/iFrameInsta";
 import { useParams } from "react-router-dom";
 import { Headervistainflu } from "../component/headervistainflu";
 
-export const VistaInflu = ({
-  imagen,
-  nombre,
-  username,
-  seguidores,
-  provincia,
-  ciudad,
-  sector,
-}) => {
+export const VistaInflu = () => {
   const { store, actions } = useContext(Context);
   const [url, setUrl] = useState("");
-  // const parametro = useParams ();
-
+  const[email, setEmail] = useState("");
+  const[password, setPassword]= useState("");
+  const[nombre, setNombre]= useState("");
+  const[apellidos, setApellidos]= useState("");
+  const[igUser, setIgUser]= useState("");
+  const [autonomia, setAutonomia]= useState("");
+  const [ciudad, setCiudad]= useState("");
+  const [sector, setSector]= useState("");
+  const [cuentame, setCuentame] =useState("");
+ 
+   
   return (
     <div>
       <Headervistainflu />
