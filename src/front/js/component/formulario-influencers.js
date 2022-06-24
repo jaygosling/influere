@@ -1,4 +1,5 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, useContext } from "react";
+import {Context} from "../store/appContext";
 
 
 
@@ -7,6 +8,7 @@ export const FormInfluencers = () => {
     var allData = {}
     var finalData = {}
     const [igLinks, addLinks] = useState([]);
+    
 
     function sendData() {
         var myHeaders = new Headers();
@@ -66,13 +68,14 @@ export const FormInfluencers = () => {
                 allData.nombre &&
                 allData.autonomia &&
                 allData.ciudad &&
-                allData.bio &&
+                // allData.bio &&
                 allData.ig_user &&
                 allData.categoria &&
-                allData.post1 &&
-                allData.precio_post &&
-                allData.precio_reel &&
-                allData.precio_story) {
+                // allData.post1 &&
+                // allData.precio_post &&
+                // allData.precio_reel &&
+                allData.precio_story
+                ) {
                 finalData = allData
                 console.log(finalData)
                 sendData()
@@ -112,6 +115,21 @@ export const FormInfluencers = () => {
             document.getElementById("ig-link").value = ""
         }
     }
+// ---------------------------------------------------------------------------------------------------------
+    const[email, setEmail] = useState("");
+    const[password, setPassword]= useState("");
+    const[nombre, setNombre]= useState("");
+    const[apellidos, setApellidos]= useState("");
+    const[igUser, setIgUser]= useState("");
+    const [autonomia, setAutonomia]= useState("");
+    const [ciudad, setCiudad]= useState("");
+    const [sector, setSector]= useState("");
+    const [cuentame, setCuentame] =useState("");
+
+    
+    const {actions} = useContext(Context);
+    useEffect(()=>{console.log(email, password, nombre, apellidos, igUser, autonomia, ciudad, sector)}, [email, password, nombre, apellidos, igUser, autonomia, ciudad, sector]);
+    
 
     return (
         <div className="container-fluid m-0 p-0">
@@ -120,25 +138,45 @@ export const FormInfluencers = () => {
                 <div className="col-6 m-auto "><p className="h2 text-end">¡Enhorabuena!<br />Estás a un paso de que<br />empresas afines a tí<br />te encuentren</p></div>
             </div>
             <div className="container-fluid pt-5">
+                <from
+                onSubmit={(e)=>{
+                    e.preventDefault();
+                    // actions.register(email, password, nombre, apellidos, igUser, autonomia, ciudad, categoria, cuentame );
+
+
+                }}
+                >
                 <p className="h1 text-center my-5">Tus datos</p>
                 <div className="container row d-flex justify-content-center text-end mx-auto mb-3">
                     <div className="col">
                         <div className="mb-3 row">
                             <label for="email-influ" className="col-sm-3 col-form-label">Email</label>
                             <div className="col-sm-9">
-                                <input type="text" className="form-control" id="email-influ" />
+                                <input  
+                                onChange={(e)=>{
+                                    e.preventDefault();
+                                    setEmail(e.target.value)}}
+                                type="text" className="form-control" id="email-influ" />
                             </div>
                         </div>
                         <div className="mb-3 row">
                             <label for="apellidos" className="col-sm-3 col-form-label">Apellidos</label>
                             <div className="col-sm-9">
-                                <input type="text" className="form-control" id="apellidos" />
+                                <input 
+                                onChange={(e)=> {
+                                    e.preventDefault();
+                                    setApellidos(e.target.value)}}
+                                type="text" className="form-control" id="apellidos" />
                             </div>
                         </div>
                         <div className="mb-3 row">
-                            <label for="categoria" className="col-sm-3 col-form-label">País</label>
+                            <label for="categoria" className="col-sm-3 col-form-label">Sector</label>
                             <div className="col-sm-9">
-                                <select className="form-select" aria-label="Default select example" id="categoria" defaultValue="Selecciona">
+                                <select 
+                                    onChange={(e)=>{
+                                        e.preventDefault();
+                                        setSector(e.target.value)}}
+                                    className="form-select" aria-label="Default select example" id="categoria" defaultValue="Selecciona">
                                     <option value="Moda y belleza">Moda y belleza</option>
                                     <option value="Maquillaje y cosméticos">Maquillaje y cosméticos</option>
                                     <option value="Tecnología">Tecnología</option>
@@ -163,18 +201,30 @@ export const FormInfluencers = () => {
                         <div className="mb-3 row">
                             <label for="password-influ" className="col-sm-5 col-form-label">Contraseña</label>
                             <div className="col-sm-7">
-                                <input type="password" className="form-control" id="password-influ" />
+                                <input 
+                                onChange={(e)=>{
+                                    e.preventDefault();
+                                    setPassword(e.target.value)}}
+                                type="password" className="form-control" id="password-influ" />
                             </div>
                         </div>
                         <div className="mb-3 row">
                             <label for="nombre" className="col-sm-5 col-form-label">Nombre</label>
                             <div className="col-sm-7">
-                                <input type="text" className="form-control" id="nombre" />
+                                <input 
+                                onChange={(e)=>{
+                                    e.preventDefault();
+                                    setNombre(e.target.value)}}
+                                type="text" className="form-control" id="nombre" />
                             </div>
                         </div>
                         <div className="mb-3 row d-flex">
                             <label for="autonomia" className="col-sm-5 col-form-label">C. Autónoma</label>
-                            <div className="col-sm-7">
+                            <div 
+                                onChange={(e)=>{
+                                    e.preventDefault();
+                                    setAutonomia(e.target.value)}}
+                                className="col-sm-7">
                                 <select className="form-select" aria-label="Default select example" id="autonomia" defaultValue="Selecciona">
                                     <option value="Andalucía">Andalucía</option>
                                     <option value="Aragón">Aragón</option>
@@ -210,13 +260,21 @@ export const FormInfluencers = () => {
                         <div className="mb-3 row">
                             <label for="ig-user" className="col-sm-6 col-form-label">Usuario Instagram</label>
                             <div className="col-sm-6">
-                                <input type="text" className="form-control" id="ig-user" />
+                                <input 
+                                onChange={(e)=>{
+                                    e.preventDefault();
+                                    setIgUser(e.target.value)}}
+                                type="text" className="form-control" id="ig-user" />
                             </div>
                         </div>
                         <div className="mb-3 row">
                             <label for="ciudad" className="col-sm-6 col-form-label">Ciudad</label>
                             <div className="col-sm-6">
-                                <input type="text" className="form-control" id="ciudad" />
+                                <input 
+                                onChange={(e)=>{
+                                    e.preventDefault();
+                                    setCiudad(e.target.value)}}
+                                type="text" className="form-control" id="ciudad" />
                             </div>
                         </div>
                     </div>
@@ -257,7 +315,11 @@ export const FormInfluencers = () => {
                 <div className="container-fluid row text-center mx-0 py-3">
                     <div className="mb-3 col-8 mx-auto">
                         <label for="bio" className="form-label">Cuéntanos un poco más de ti</label>
-                        <textarea className="form-control" id="bio" rows="3"></textarea>
+                        <textarea 
+                         onChange={(e)=>{
+                            e.preventDefault();
+                            setCuentame(e.target.value)}}
+                        className="form-control" id="bio" rows="3"></textarea>
                     </div>
                 </div>
                 <p className="h1 text-center my-5">Tus precios</p>
@@ -282,10 +344,16 @@ export const FormInfluencers = () => {
                     </div>
                 </div>
                 <div className="button-container my-5 d-flex justify-content-center pb-5">
-                    <button type="button" className="btn btn-danger btn-sm col-1 me-3" onClick={() => { delData() }}>Borrar</button>
+                    <button type="submit" className="btn btn-danger btn-sm col-1 me-3" 
+                    onClick={(e) => { 
+                        
+                        actions.register(email, password, nombre, apellidos, sector, ciudad, atonomia, cuentame);
+                        delData() }}>Borrar</button>
                     <button type="button" className="btn btn-success btn-sm col-1 ms-3" onClick={() => { addData() }}>Enviar</button>
                 </div>
+                </from>
             </div>
+
         </div>
     )
 }

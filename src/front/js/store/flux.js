@@ -21,22 +21,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			agregar: (url)=>{
+			agregar: (url) => {
 				const store = getStore();
 				setStore({ posts: [...store.posts, url] });
 			},
 
-			addFavInf: (name)=>{
-				setStore({favInf:[...getStore().favInf, name]})		
+			addFavInf: (name) => {
+				setStore({ favInf: [...getStore().favInf, name] })
 
 
 			},
-			deleteFavInf: (name)=>{
-				let newArray = getStore().favInf.filter((valor)=> {
+			deleteFavInf: (name) => {
+				let newArray = getStore().favInf.filter((valor) => {
 					return valor != name;
 
 				})
-				setStore({favInf:newArray})
+				setStore({ favInf: newArray })
 			},
 
 
@@ -46,12 +46,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			login: async (email, password) => {
 				var myHeaders = new Headers();
-  				myHeaders.append("Content-Type", "application/json");
+				myHeaders.append("Content-Type", "application/json");
 
-  				var raw = JSON.stringify({
-    				"email": email,
-    				"password": password,
-  				});
+				var raw = JSON.stringify({
+					"email": email,
+					"password": password,
+				});
 
 				var requestOptions = {
 					method: 'POST',
@@ -60,23 +60,55 @@ const getState = ({ getStore, getActions, setStore }) => {
 					redirect: 'follow'
 				};
 
-				try{
+				try {
 					const resp = await fetch(
 						"https://3001-jaygosling-influere-gyow40i3nvc.ws-eu47.gitpod.io/login", requestOptions)
 					if (resp.status != 200) {
 						alert("There has been some error");
 						return false;
 					}
-	
+
 					const data = await resp.json();
-					console.log("this come form the backend", data);	
+					console.log("this come form the backend", data);
 					sessionStorage.setItem("token", data.access_token);
-					setStore({token: data.access_token});
+					setStore({ token: data.access_token });
 					return true;
 				}
-				catch(error){
+				catch (error) {
 					console.error("Error al iniciar sesion")
 				}
+			},
+			register: (email, password, apellidos, nombre, autonomia, ciudad, ig_user, sector, cuentame) => {
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+
+				var raw = JSON.stringify({
+					email: email,
+					password: password, 
+					nombre:nombre,
+					apellidos: apellidos,
+					autonomia: autonomia,
+					ciudad: ciudad,
+					sector: sector,
+					cuentame: cuentame,
+					igUser: ig_user
+
+				});
+				
+
+				var requestOptions = {
+					method: 'POST',
+					headers: myHeaders,
+					body: raw,
+					redirect: 'follow'
+				};
+
+				fetch("https://3000-jaygosling-influere-jgc6l2vgma4.ws-eu47.gitpod.io/formulario-influencers", requestOptions)
+					.then(response => response.json())
+					.then(result => console.log(result))
+					.catch(error => console.log('error', error));
+
+
 			},
 
 			getMessage: () => {

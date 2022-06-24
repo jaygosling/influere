@@ -4,6 +4,8 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, Influencers, Empresas, Favoritos
 from api.utils import generate_sitemap, APIException
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+import datetime
 
 api = Blueprint('api', __name__)
 
@@ -99,9 +101,9 @@ def registro_influencers():
     email_exists = list(map(lambda x: x.serialize(), email_exists))
 
     if email_exists:
-        print("This user already exists")
+        return jsonify(({"error": "ya existe este usuario"})), 418
     else:
-        influencers = Influencers(email=body["email"], password=body["password"], apellidos=body["apellidos"], nombre=body["nombre"], ig_user=body["ig_user"], categoria=body["categoria"], autonomia = body["autonomia"], ciudad = body["ciudad"], bio = body["bio"],post1=body["post1"])
+        influencers = Influencers(email=body["email"], password=body["password"], apellidos=body["apellidos"], nombre=body["nombre"], ig_user=body["ig_user"], categoria=body["categoria"], autonomia = body["autonomia"], ciudad = body["ciudad"], bio = body["bio"],post1=body["post1"], is_active=True)
         if "post2" in body:
             influencers.post2 = body["post2"]
         if "post3" in body:
@@ -121,3 +123,9 @@ def registro_influencers():
     }
 
     return jsonify(response_body), 200
+
+
+# @api.route('/register_Influ', methods =['POST'])
+# def register_influ():
+#     body = request.get_json()
+#     one_people = Influencers.query.filter_by(email=body['email'])
