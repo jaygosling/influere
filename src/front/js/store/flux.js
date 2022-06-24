@@ -78,7 +78,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("Error al iniciar sesion")
 				}
 			},
-			register: (email, password, apellidos, nombre, autonomia, ciudad, ig_user, sector, cuentame) => {
+			register_Influ: (email, password, apellidos, nombre, autonomia, ciudad, ig_user, sector, cuentame) => {
 				var myHeaders = new Headers();
 				myHeaders.append("Content-Type", "application/json");
 

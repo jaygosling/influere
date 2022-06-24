@@ -68,12 +68,12 @@ export const FormInfluencers = () => {
                 allData.nombre &&
                 allData.autonomia &&
                 allData.ciudad &&
-                // allData.bio &&
+                allData.bio &&
                 allData.ig_user &&
                 allData.categoria &&
-                // allData.post1 &&
-                // allData.precio_post &&
-                // allData.precio_reel &&
+                allData.post1 &&
+                allData.precio_post &&
+                allData.precio_reel &&
                 allData.precio_story
                 ) {
                 finalData = allData
@@ -141,8 +141,6 @@ export const FormInfluencers = () => {
                 <from
                 onSubmit={(e)=>{
                     e.preventDefault();
-                    // actions.register(email, password, nombre, apellidos, igUser, autonomia, ciudad, categoria, cuentame );
-
 
                 }}
                 >
@@ -347,7 +345,7 @@ export const FormInfluencers = () => {
                     <button type="submit" className="btn btn-danger btn-sm col-1 me-3" 
                     onClick={(e) => { 
                         
-                        actions.register(email, password, nombre, apellidos, sector, ciudad, atonomia, cuentame);
+                        actions.register_Influ(email, password, nombre, apellidos, sector, ciudad, atonomia, cuentame);
                         delData() }}>Borrar</button>
                     <button type="button" className="btn btn-success btn-sm col-1 ms-3" onClick={() => { addData() }}>Enviar</button>
                 </div>
