@@ -31,17 +31,17 @@ export const Navbar = () => {
           </span>
         </Link>
         <div className="ml-auto">
-          <Link to="/Directorio">
+          <Link to="/Directorio" style={{ textDecoration: "none" }}>
             <span className="navbar-item mx-2 text-black menu">
               Influencers
             </span>
           </Link>
-          <Link to="/formulario-empresas">
+          <Link to="/formulario-empresas" style={{ textDecoration: "none" }}>
             <span className="navbar-item mx-3 text-black">
               Regístrate como Empresa
             </span>
           </Link>
-          <Link to="/formulario-influencers">
+          <Link to="/formulario-influencers" style={{ textDecoration: "none" }}>
             <span className="navbar-item mx-3 text-black">
               Regístrate como Influencer
             </span>
@@ -52,6 +52,7 @@ export const Navbar = () => {
             className="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
+            style={{ marginLeft: "15px" }}
           >
             <i className="far fa-user-circle" id="icono">
               {" "}
