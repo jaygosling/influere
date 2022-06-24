@@ -19,8 +19,8 @@ export const VistaInflu = () => {
   const [sector, setSector]= useState("");
   const [cuentame, setCuentame] =useState("");
 
-  // este useEffect
-  useEffect(()=>{}, [])
+
+  useEffect(()=>{}, []);
  
    
   return (

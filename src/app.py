@@ -78,7 +78,7 @@ def iniciar_sesion():
     else:
         return jsonify({"error": "user no existe"}), 400
     
-    a
+    
 
 @app.route('/privada', methods=['GET'])
 @jwt_required()
