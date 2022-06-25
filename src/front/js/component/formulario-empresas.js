@@ -1,90 +1,50 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, useContext } from "react";
 import { Headerformularioempresa } from "./headerformularioempresa";
+import { Context } from "../store/appContext";
 
 var allData = {};
 var finalData = {};
 
-function sendData() {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-
-  var raw = JSON.stringify(finalData);
-
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow",
-  };
-
-  fetch(
-    "https://3001-jaygosling-influere-s5lmjehtutj.ws-eu47.gitpod.io/api/registro-empresas",
-    requestOptions
-  )
-    .then(function (response) {
-      if (response.ok == true) {
-        alert("Usuario creado con éxito");
-      } else {
-        alert(
-          "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
-        );
-      }
-      return response.text();
-    })
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
-}
-function addData() {
-  if (
-    document.getElementById("password-empresa").value ==
-    document.getElementById("rep-password-empresa").value
-  ) {
-    allData.email = document.getElementById("email-empresa").value;
-    allData.password = document.getElementById("password-empresa").value;
-    allData.apellidos = document.getElementById("apellidos").value;
-    allData.nombre = document.getElementById("nombre").value;
-    allData.razon_social = document.getElementById("razon").value;
-    allData.sector = document.getElementById("sector").value;
-    allData.autonomia = document.getElementById("autonomia").value;
-    allData.ciudad = document.getElementById("ciudad").value;
-    allData.bio = document.getElementById("bio").value;
+export const FormEmpresas = () => {
+  const { actions } = useContext(Context)
+  function addData() {
+  
     if (
-      allData.email &&
-      allData.password &&
-      allData.apellidos &&
-      allData.nombre &&
-      allData.razon_social &&
-      allData.sector &&
-      allData.autonomia &&
-      allData.ciudad &&
-      allData.bio
+      document.getElementById("password-empresa").value ==
+      document.getElementById("rep-password-empresa").value
     ) {
-      finalData = allData;
-      console.log(finalData);
-      sendData();
+      allData.email = document.getElementById("email-empresa").value;
+      allData.password = document.getElementById("password-empresa").value;
+      allData.apellidos = document.getElementById("apellidos").value;
+      allData.nombre = document.getElementById("nombre").value;
+      allData.razon_social = document.getElementById("razon").value;
+      allData.sector = document.getElementById("sector").value;
+      allData.autonomia = document.getElementById("autonomia").value;
+      allData.ciudad = document.getElementById("ciudad").value;
+      allData.bio = document.getElementById("bio").value;
+      if (
+        allData.email &&
+        allData.password &&
+        allData.apellidos &&
+        allData.nombre &&
+        allData.razon_social &&
+        allData.sector &&
+        allData.autonomia &&
+        allData.ciudad &&
+        allData.bio
+      ) {
+        finalData = allData;
+        console.log(finalData);
+        actions.registrarEmpresa(finalData)
+      } else {
+        alert("Todos los campos son obligatorios");
+      }
     } else {
-      alert("Todos los campos son obligatorios");
+      alert("Las contraseñas no coinciden");
     }
-  } else {
-    alert("Las contraseñas no coinciden");
   }
-}
 
-function delData() {
-  document.getElementById("email-empresa").value = "";
-  document.getElementById("password-empresa").value = "";
-  document.getElementById("rep-password-empresa").value = "";
-  document.getElementById("apellidos").value = "";
-  document.getElementById("nombre").value = "";
-  document.getElementById("razon").value = "";
-  document.getElementById("sector").value = "";
-  document.getElementById("autonomia").value = "";
-  document.getElementById("ciudad").value = "";
-  document.getElementById("bio").value = "";
-}
-
-export const FormEmpresas = () => (
-  <div>
+ return ( <div>
     <Headerformularioempresa />
 
     <div className="container-fluid m-0 p-0">
@@ -250,7 +210,7 @@ export const FormEmpresas = () => (
             type="button"
             className="btn btn-danger rounded-pill btn-sm col-1 me-3"
             onClick={() => {
-              delData();
+              actions.delData();
             }}
           >
             BORRAR
@@ -268,4 +228,4 @@ export const FormEmpresas = () => (
       </div>
     </div>
   </div>
-);
+)}

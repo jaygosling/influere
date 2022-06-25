@@ -5,6 +5,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			message: null,
 			favInf: [],
 			posts: [],
+			datosEmpresa: {},
+			datosInfluencer: {},
 			demo: [
 				{
 					title: "FIRST",
@@ -20,24 +22,219 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			agregar: (url)=>{
+			agregar: (url) => {
 				const store = getStore();
 				setStore({ posts: [...store.posts, url] });
 			},
 
-			addFavInf: (name)=>{
-				setStore({favInf:[...getStore().favInf, name]})		
+			addFavInf: (name) => {
+				setStore({ favInf: [...getStore().favInf, name] })
 
 
 			},
-			deleteFavInf: (name)=>{
-				let newArray = getStore().favInf.filter((valor)=> {
+			deleteFavInf: (name) => {
+				let newArray = getStore().favInf.filter((valor) => {
 					return valor != name;
 
 				})
-				setStore({favInf:newArray})
+				setStore({ favInf: newArray })
+			},
+			conseguirInfluencer: (id) => {
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+				const store = getStore()
+
+				fetch(`${process.env.BACKEND_URL}/api/influencers/${id}`)
+					.then(function (response) {
+						return response.json()
+					})
+					.then(function (result) {
+
+						setStore({ datosInfluencer: result })
+						fetch(`${process.env.BACKEND_URL}/api/instagram/${store.datosInfluencer.ig_user}`)
+							.then(function (response) {
+								return response.json()
+							})
+							.then(function (result) {
+								setStore({ datosInfluencer: { ...store.datosInfluencer, ...result } })
+
+								return console.log(result)
+							})
+
+							.catch(error => console.log('error', error));
+						return console.log(result)
+					})
+
+					.catch(error => console.log('error', error));
+
+
+
+
+
+
+
 			},
 
+			actualizarEmpresa: (id, datos) => {
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+
+				var raw = JSON.stringify(datos);
+
+				var requestOptions = {
+					method: 'PUT',
+					headers: myHeaders,
+					body: raw,
+					redirect: 'follow'
+				};
+
+				fetch(`${process.env.BACKEND_URL}/api/empresas/${id}`, requestOptions)
+					.then(function (response) {
+						if (response.ok == true) {
+							alert("Usuario actualizado con éxito")
+						} else {
+
+							alert("Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros.")
+						}
+						return response.text()
+					})
+					.then(result => console.log(result))
+					.catch(error => console.log('error', error));
+			},
+			actualizarInfluencer: (id, datos) => {
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+
+				var raw = JSON.stringify(datos);
+
+				var requestOptions = {
+					method: 'PUT',
+					headers: myHeaders,
+					body: raw,
+					redirect: 'follow'
+				};
+
+				fetch(`${process.env.BACKEND_URL}/api/influencers/${id}`, requestOptions)
+					.then(function (response) {
+						if (response.ok == true) {
+							alert("Usuario actualizado con éxito")
+						} else {
+
+							alert("Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros.")
+						}
+						return response.text()
+					})
+					.then(result => console.log(result))
+					.catch(error => console.log('error', error));
+			},
+			delDataEmpresas: () => {
+				document.getElementById("email-empresa").value = "";
+				document.getElementById("password-empresa").value = "";
+				document.getElementById("rep-password-empresa").value = "";
+				document.getElementById("apellidos").value = "";
+				document.getElementById("nombre").value = "";
+				document.getElementById("razon").value = "";
+				document.getElementById("sector").value = "";
+				document.getElementById("autonomia").value = "";
+				document.getElementById("ciudad").value = "";
+				document.getElementById("bio").value = "";
+			},
+
+			delDataInfluencers: () => {
+				document.getElementById("email-influ").value = "";
+				document.getElementById("password-influ").value = "";
+				document.getElementById("rep-password-influ").value = "";
+				document.getElementById("apellidos").value = "";
+				document.getElementById("nombre").value = "";
+				document.getElementById("autonomia").value = "";
+				document.getElementById("categoria").value = "";
+				document.getElementById("ig-user").value = "";
+				document.getElementById("ciudad").value = "";
+				document.getElementById("bio").value = "";
+				document.getElementById("precio-story").value = "";
+				document.getElementById("precio-reel").value = "";
+				document.getElementById("precio-post").value = "";
+			},
+
+			conseguirEmpresa: (id) => {
+				var myHeaders = new Headers();
+				const store = getStore()
+				myHeaders.append("Content-Type", "application/json");
+
+
+				fetch(process.env.BACKEND_URL + "/api/empresas/" + id)
+					.then(function (response) {
+						return response.json()
+					})
+					.then(function (result) {
+
+						setStore({ datosEmpresa: result })
+						console.log(getStore())
+						return console.log(result)
+					})
+					.catch(error => console.log('error', error));
+			},
+
+			registrarEmpresa: (datosEmpresa) => {
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+
+				var raw = JSON.stringify(datosEmpresa);
+
+				var requestOptions = {
+					method: "POST",
+					headers: myHeaders,
+					body: raw,
+					redirect: "follow",
+				};
+
+				fetch(
+					process.env.BACKEND_URL + "/api/registro-empresas",
+					requestOptions
+				)
+					.then(function (response) {
+						if (response.ok == true) {
+							alert("Usuario creado con éxito");
+						} else {
+							alert(
+								"Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
+							);
+						}
+						return response.text();
+					})
+					.then((result) => console.log(result))
+					.catch((error) => console.log("error", error));
+			},
+			registrarInfluencer: (datosInfluencer) => {
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+
+				var raw = JSON.stringify(datosInfluencer);
+
+				var requestOptions = {
+					method: "POST",
+					headers: myHeaders,
+					body: raw,
+					redirect: "follow",
+				};
+
+				fetch(
+					process.env.BACKEND_URL + "/api/registro-influencers",
+					requestOptions
+				)
+					.then(function (response) {
+						if (response.ok == true) {
+							alert("Usuario creado con éxito");
+						} else {
+							alert(
+								"Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
+							);
+						}
+						return response.text();
+					})
+					.then((result) => console.log(result))
+					.catch((error) => console.log("error", error));
+			},
 
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
@@ -45,12 +242,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			login: async (email, password) => {
 				var myHeaders = new Headers();
-  				myHeaders.append("Content-Type", "application/json");
+				myHeaders.append("Content-Type", "application/json");
 
-  				var raw = JSON.stringify({
-    				"email": email,
-    				"password": password,
-  				});
+				var raw = JSON.stringify({
+					"email": email,
+					"password": password,
+				});
 
 				var requestOptions = {
 					method: 'POST',
@@ -59,21 +256,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					redirect: 'follow'
 				};
 
-				try{
+				try {
 					const resp = await fetch(
-						"https://3001-jaygosling-influere-gyow40i3nvc.ws-eu47.gitpod.io/login", requestOptions)
+						process.env.BACKEND_URL + "/login", requestOptions)
 					if (resp.status != 200) {
 						alert("There has been some error");
 						return false;
 					}
-	
+
 					const data = await resp.json();
-					console.log("this come form the backend", data);	
+					console.log("this come form the backend", data);
 					sessionStorage.setItem("token", data.access_token);
-					setStore({token: data.access_token});
+					setStore({ token: data.access_token });
 					return true;
 				}
-				catch(error){
+				catch (error) {
 					console.error("Error al iniciar sesion")
 				}
 			},

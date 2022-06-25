@@ -1,109 +1,38 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 
 
 
 export const EditarEmpresa = () => {
-
+    const {actions, store} = useContext(Context)
     const parametro = useParams()
 
     var allData = {}
     var finalData = {}
-
     useEffect(() => {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-
-        fetch(`https://3001-jaygosling-influere-s5lmjehtutj.ws-eu47.gitpod.io/api/empresas/${parametro.id}`)
-            .then(function (response) {
-                return response.json()
-            })
-            .then(function (result) {
-
-                document.getElementById('email').value = result["email"];
-                document.getElementById('password').value = "";
-                document.getElementById('rep-password').value = "";
-                document.getElementById('apellidos').value = result["apellidos"];
-                document.getElementById('nombre').value = result["nombre"];
-                document.getElementById('autonomia').value = result["autonomia"];
-                document.getElementById('sector').value = result["sector"];
-                document.getElementById('razon').value = result["razon_social"];
-                document.getElementById('ciudad').value = result["ciudad"];
-                document.getElementById('bio').value = result["bio"];
-                console.log(result)
-
-                return console.log(result)
-            })
-            .catch(error => console.log('error', error));
-
-
-
-
-
+        actions.conseguirEmpresa(parametro.id)
     }, [])
+    useEffect(()=> {
+        document.getElementById('email-empresa').value = store.datosEmpresa.email
+        document.getElementById('apellidos').value = store.datosEmpresa.apellidos
+        document.getElementById('nombre').value = store.datosEmpresa.nombre
+        document.getElementById('autonomia').value = store.datosEmpresa.autonomia
+        document.getElementById('sector').value = store.datosEmpresa.sector
+        document.getElementById('razon').value = store.datosEmpresa.razon_social
+        document.getElementById('ciudad').value = store.datosEmpresa.ciudad
+        document.getElementById('bio').value = store.datosEmpresa.bio
+    },[store.datosEmpresa])
 
-    function updateData() {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify(finalData);
-
-        var requestOptions = {
-            method: 'PUT',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch(`https://3001-jaygosling-influere-s5lmjehtutj.ws-eu47.gitpod.io/api/empresas/${parametro.id}`, requestOptions)
-            .then(function (response) {
-                if (response.ok == true) {
-                    alert("Usuario actualizado con éxito")
-                } else {
-
-                    alert("Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros.")
-                }
-                return response.text()
-            })
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-    }
-
-    function sendData() {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify(finalData);
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch("https://3001-jaygosling-influere-s5lmjehtutj.ws-eu47.gitpod.io/api/registro-empresas", requestOptions)
-            .then(function (response) {
-                if (response.ok == true) {
-                    alert("Usuario creado con éxito")
-                } else {
-
-                    alert("Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros.")
-                }
-                return response.text()
-            })
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
+    
 
 
-    }
     function addData() {
-        if (document.getElementById('password').value == document.getElementById('rep-password').value) {
+        if (document.getElementById('password-empresa').value == document.getElementById('rep-password-empresa').value) {
 
-            allData.email = document.getElementById('email').value;
-            allData.password = document.getElementById('password').value;
+            allData.email = document.getElementById('email-empresa').value;
+            allData.password = document.getElementById('password-empresa').value;
             allData.apellidos = document.getElementById('apellidos').value;
             allData.nombre = document.getElementById('nombre').value;
             allData.razon_social = document.getElementById('razon').value;
@@ -122,7 +51,7 @@ export const EditarEmpresa = () => {
                 allData.bio) {
                 finalData = allData
                 console.log(finalData)
-                updateData()
+                actions.actualizarEmpresa(parametro.id, finalData)
             } else {
                 alert("Todos los campos son obligatorios")
             }
@@ -132,18 +61,6 @@ export const EditarEmpresa = () => {
     }
 
 
-    function delData() {
-        document.getElementById('email').value = "";
-        document.getElementById('password').value = "";
-        document.getElementById('rep-password').value = "";
-        document.getElementById('apellidos').value = "";
-        document.getElementById('nombre').value = "";
-        document.getElementById('razon').value = "";
-        document.getElementById('sector').value = "";
-        document.getElementById('autonomia').value = "";
-        document.getElementById('ciudad').value = "";
-        document.getElementById('bio').value = "";
-    }
 
     return <div className="container-fluid m-0 p-0">
 
@@ -152,9 +69,9 @@ export const EditarEmpresa = () => {
             <div className="container row d-flex justify-content-center text-end mx-auto mb-3">
                 <div className="col">
                     <div className="mb-3 row">
-                        <label for="email" className="col-sm-3 col-form-label">Email</label>
+                        <label for="email-empresa" className="col-sm-3 col-form-label">Email</label>
                         <div className="col-sm-9">
-                            <input type="text" className="form-control" id="email" />
+                            <input type="text" className="form-control" id="email-empresa" />
                         </div>
                     </div>
                     <div className="mb-3 row">
@@ -172,9 +89,9 @@ export const EditarEmpresa = () => {
                 </div>
                 <div className="col">
                     <div className="mb-3 row">
-                        <label for="password" className="col-sm-5 col-form-label">Contraseña</label>
+                        <label for="password-empresa" className="col-sm-5 col-form-label">Contraseña</label>
                         <div className="col-sm-7">
-                            <input type="password" className="form-control" id="password" />
+                            <input type="password" className="form-control" id="password-empresa" />
                         </div>
                     </div>
                     <div className="mb-3 row">
@@ -212,9 +129,9 @@ export const EditarEmpresa = () => {
                 </div>
                 <div className="col">
                     <div className="mb-3 row">
-                        <label for="rep-password" className="col-sm-6 col-form-label">Repite contraseña</label>
+                        <label for="rep-password-empresa" className="col-sm-6 col-form-label">Repite contraseña</label>
                         <div className="col-sm-6">
-                            <input type="password" className="form-control" id="rep-password" />
+                            <input type="password" className="form-control" id="rep-password-empresa" />
                         </div>
                     </div>
                     <div className="mb-3 row">
@@ -238,7 +155,7 @@ export const EditarEmpresa = () => {
                 </div>
             </div>
             <div className="button-container my-5 d-flex justify-content-center pb-5">
-                <button type="button" className="btn btn-danger btn-sm col-1 me-3" onClick={() => { delData() }}>Borrar</button>
+                <button type="button" className="btn btn-danger btn-sm col-1 me-3" onClick={() => { actions.delDataEmpresas() }}>Borrar</button>
                 <button type="button" className="btn btn-success btn-sm col-1 ms-3" onClick={() => { addData() }}>Enviar</button>
             </div>
         </div>
