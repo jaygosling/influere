@@ -275,39 +275,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("Error al iniciar sesion")
 				}
 			},
-			register_Influ: (email, password, apellidos, nombre, autonomia, ciudad, ig_user, sector, cuentame) => {
-				var myHeaders = new Headers();
-				myHeaders.append("Content-Type", "application/json");
-
-				var raw = JSON.stringify({
-					email: email,
-					password: password, 
-					nombre:nombre,
-					apellidos: apellidos,
-					autonomia: autonomia,
-					ciudad: ciudad,
-					sector: sector,
-					cuentame: cuentame,
-					igUser: ig_user
-
-				});
-				
-
-				var requestOptions = {
-					method: 'POST',
-					headers: myHeaders,
-					body: raw,
-					redirect: 'follow'
-				};
-
-				fetch("https://3000-jaygosling-influere-jgc6l2vgma4.ws-eu47.gitpod.io/formulario-influencers", requestOptions)
-					.then(response => response.json())
-					.then(result => console.log(result))
-					.catch(error => console.log('error', error));
-
-
-			},
-
+		
 			getMessage: () => {
 				// fetching data from the backend
 				fetch(process.env.BACKEND_URL + "/api/hello")

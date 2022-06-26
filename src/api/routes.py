@@ -4,12 +4,9 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, Influencers, Empresas, Favoritos
 from api.utils import generate_sitemap, APIException
-<<<<<<< HEAD
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import datetime
-=======
 import instaloader
->>>>>>> afc231e4b62d4d94b2ec9d7cbc75da4f15ec3e44
 
 api = Blueprint('api', __name__)
 
@@ -117,11 +114,7 @@ def registro_influencers():
     if email_exists:
         return jsonify(({"error": "ya existe este usuario"})), 418
     else:
-<<<<<<< HEAD
-        influencers = Influencers(email=body["email"], password=body["password"], apellidos=body["apellidos"], nombre=body["nombre"], ig_user=body["ig_user"], categoria=body["categoria"], autonomia = body["autonomia"], ciudad = body["ciudad"], bio = body["bio"],post1=body["post1"], is_active=True)
-=======
         influencers = Influencers(email=body["email"], password=body["password"], apellidos=body["apellidos"], nombre=body["nombre"], ig_user=body["ig_user"], categoria=body["categoria"], autonomia = body["autonomia"], ciudad = body["ciudad"], bio = body["bio"],post1=body["post1"], precio_post=body["precio_post"], precio_reel=body["precio_reel"], precio_story=body["precio_story"])
->>>>>>> afc231e4b62d4d94b2ec9d7cbc75da4f15ec3e44
         if "post2" in body:
             influencers.post2 = body["post2"]
         if "post3" in body:
@@ -165,7 +158,9 @@ def login():
 @jwt_required()
 def vistaInflu():
 
-    return jsonify({"mensaje": "tienes permiso para entrar", "permiso": True})
+    identidad = get_jwt_identity()
+
+    return jsonify({"mensaje": "tienes permiso para entrar", "permiso": True, "email": identidad})
 
 
 
