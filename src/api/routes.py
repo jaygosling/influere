@@ -6,7 +6,7 @@ from api.models import db, Influencers, Empresas, Favoritos
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import datetime
-import instaloader
+# import instaloader
 
 api = Blueprint('api', __name__)
 
