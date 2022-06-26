@@ -1,47 +1,14 @@
-<<<<<<< HEAD
-import React, { Component, useState, useEffect, useContext } from "react";
-import {Context} from "../store/appContext";
-
-
-=======
 import React, { Component, useState, useEffect } from "react";
 import { Headerformularioinfluencer } from "./headerformularioinfluencer";
->>>>>>> 1adb879d6fbac63365d1ded04d9345117e2d7898
 
 export const FormInfluencers = () => {
   var allData = {};
   var finalData = {};
   const [igLinks, addLinks] = useState([]);
 
-<<<<<<< HEAD
-    var allData = {}
-    var finalData = {}
-    const [igLinks, addLinks] = useState([]);
-    
-
-    function sendData() {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify(finalData);
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch("https://3001-jaygosling-influere-s5lmjehtutj.ws-eu47.gitpod.io/api/registro-influencers", requestOptions)
-            .then(function (response) {
-                if (response.ok == true) {
-                    alert("Usuario creado con éxito")
-                } else {
-=======
   function sendData() {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
->>>>>>> 1adb879d6fbac63365d1ded04d9345117e2d7898
 
     var raw = JSON.stringify(finalData);
 
@@ -52,53 +19,6 @@ export const FormInfluencers = () => {
       redirect: "follow",
     };
 
-<<<<<<< HEAD
-    }
-    function addData() {
-        console.log(document.getElementById('password-influ').value)
-        if (document.getElementById('password-influ').value == document.getElementById('rep-password-influ').value) {
-
-            allData.email = document.getElementById('email-influ').value;
-            allData.password = document.getElementById('password-influ').value;
-            allData.apellidos = document.getElementById('apellidos').value;
-            allData.nombre = document.getElementById('nombre').value;
-            allData.autonomia = document.getElementById('autonomia').value;
-            allData.ciudad = document.getElementById('ciudad').value;
-            allData.bio = document.getElementById('bio').value;
-            allData.ig_user = document.getElementById('ig-user').value;
-            allData.categoria = document.getElementById('categoria').value
-            allData.precio_post = document.getElementById('precio-post').value
-            allData.precio_reel = document.getElementById('precio-reel').value
-            allData.precio_story = document.getElementById('precio-story').value
-            allData.post1 = igLinks[0]
-            allData.post2 = igLinks[1]
-            allData.post3 = igLinks[2]
-            allData.post4 = igLinks[3]
-            allData.post5 = igLinks[4]
-            allData.post6 = igLinks[5]
-
-
-            if (allData.email &&
-                allData.password &&
-                allData.apellidos &&
-                allData.nombre &&
-                allData.autonomia &&
-                allData.ciudad &&
-                allData.bio &&
-                allData.ig_user &&
-                allData.categoria &&
-                allData.post1 &&
-                allData.precio_post &&
-                allData.precio_reel &&
-                allData.precio_story
-                ) {
-                finalData = allData
-                console.log(finalData)
-                sendData()
-            } else {
-                alert("Todos los campos son obligatorios")
-            }
-=======
     fetch(
       "https://3001-jaygosling-influere-s5lmjehtutj.ws-eu47.gitpod.io/api/registro-influencers",
       requestOptions
@@ -106,7 +26,6 @@ export const FormInfluencers = () => {
       .then(function (response) {
         if (response.ok == true) {
           alert("Usuario creado con éxito");
->>>>>>> 1adb879d6fbac63365d1ded04d9345117e2d7898
         } else {
           alert(
             "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
@@ -191,25 +110,7 @@ export const FormInfluencers = () => {
       addLinks([...igLinks, document.getElementById("ig-link").value]);
       document.getElementById("ig-link").value = "";
     }
-<<<<<<< HEAD
-// ---------------------------------------------------------------------------------------------------------
-    const[email, setEmail] = useState("");
-    const[password, setPassword]= useState("");
-    const[nombre, setNombre]= useState("");
-    const[apellidos, setApellidos]= useState("");
-    const[igUser, setIgUser]= useState("");
-    const [autonomia, setAutonomia]= useState("");
-    const [ciudad, setCiudad]= useState("");
-    const [sector, setSector]= useState("");
-    const [cuentame, setCuentame] =useState("");
-
-    
-    const {actions} = useContext(Context);
-    useEffect(()=>{console.log(email, password, nombre, apellidos, igUser, autonomia, ciudad, sector)}, [email, password, nombre, apellidos, igUser, autonomia, ciudad, sector]);
-    
-=======
   }
->>>>>>> 1adb879d6fbac63365d1ded04d9345117e2d7898
 
   return (
     <div>
@@ -287,147 +188,6 @@ export const FormInfluencers = () => {
                 </div>
               </div>
             </div>
-<<<<<<< HEAD
-            <div className="container-fluid pt-5">
-                <from
-                onSubmit={(e)=>{
-                    e.preventDefault();
-
-                }}
-                >
-                <p className="h1 text-center my-5">Tus datos</p>
-                <div className="container row d-flex justify-content-center text-end mx-auto mb-3">
-                    <div className="col">
-                        <div className="mb-3 row">
-                            <label for="email-influ" className="col-sm-3 col-form-label">Email</label>
-                            <div className="col-sm-9">
-                                <input  
-                                onChange={(e)=>{
-                                    e.preventDefault();
-                                    setEmail(e.target.value)}}
-                                type="text" className="form-control" id="email-influ" />
-                            </div>
-                        </div>
-                        <div className="mb-3 row">
-                            <label for="apellidos" className="col-sm-3 col-form-label">Apellidos</label>
-                            <div className="col-sm-9">
-                                <input 
-                                onChange={(e)=> {
-                                    e.preventDefault();
-                                    setApellidos(e.target.value)}}
-                                type="text" className="form-control" id="apellidos" />
-                            </div>
-                        </div>
-                        <div className="mb-3 row">
-                            <label for="categoria" className="col-sm-3 col-form-label">Sector</label>
-                            <div className="col-sm-9">
-                                <select 
-                                    onChange={(e)=>{
-                                        e.preventDefault();
-                                        setSector(e.target.value)}}
-                                    className="form-select" aria-label="Default select example" id="categoria" defaultValue="Selecciona">
-                                    <option value="Moda y belleza">Moda y belleza</option>
-                                    <option value="Maquillaje y cosméticos">Maquillaje y cosméticos</option>
-                                    <option value="Tecnología">Tecnología</option>
-                                    <option value="Fitness y gym">Fitness y gym</option>
-                                    <option value="Comida y recetas">Comida y recetas</option>
-                                    <option value="Mamá y premamá">Mamá y premamá</option>
-                                    <option value="Vegano y vegetariano">Vegano y vegetariano</option>
-                                    <option value="Deportes">Deportes</option>
-                                    <option value="Emprendimiento">Emprendimiento</option>
-                                    <option value="Viajes">Viajes</option>
-                                    <option value="Coches y motos">Coches y motos</option>
-                                    <option value="Reality y televisión">Reality y televisión</option>
-                                    <option value="Actores y cantantes">Actores y cantantes</option>
-                                    <option value="Mascotas">Mascotas</option>
-                                    <option value="Family friendly">Family friendly</option>
-                                    <option value="Otro">Otro</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className="mb-3 row">
-                            <label for="password-influ" className="col-sm-5 col-form-label">Contraseña</label>
-                            <div className="col-sm-7">
-                                <input 
-                                onChange={(e)=>{
-                                    e.preventDefault();
-                                    setPassword(e.target.value)}}
-                                type="password" className="form-control" id="password-influ" />
-                            </div>
-                        </div>
-                        <div className="mb-3 row">
-                            <label for="nombre" className="col-sm-5 col-form-label">Nombre</label>
-                            <div className="col-sm-7">
-                                <input 
-                                onChange={(e)=>{
-                                    e.preventDefault();
-                                    setNombre(e.target.value)}}
-                                type="text" className="form-control" id="nombre" />
-                            </div>
-                        </div>
-                        <div className="mb-3 row d-flex">
-                            <label for="autonomia" className="col-sm-5 col-form-label">C. Autónoma</label>
-                            <div 
-                                onChange={(e)=>{
-                                    e.preventDefault();
-                                    setAutonomia(e.target.value)}}
-                                className="col-sm-7">
-                                <select className="form-select" aria-label="Default select example" id="autonomia" defaultValue="Selecciona">
-                                    <option value="Andalucía">Andalucía</option>
-                                    <option value="Aragón">Aragón</option>
-                                    <option value="Canarias">Canarias</option>
-                                    <option value="Cantabria">Cantabria</option>
-                                    <option value="Castilla y León">Castilla y León</option>
-                                    <option value="Castilla-La Mancha">Castilla-La Mancha</option>
-                                    <option value="Cataluña">Cataluña</option>
-                                    <option value="Ceuta">Ceuta</option>
-                                    <option value="Comunidad de Madrid">Comunidad de Madrid</option>
-                                    <option value="Comunidad Valenciana">Comunidad Valenciana</option>
-                                    <option value="Extremadura">Extremadura</option>
-                                    <option value="Galicia">Galicia</option>
-                                    <option value="Islas Baleares">Islas Baleares</option>
-                                    <option value="La Rioja">La Rioja</option>
-                                    <option value="Melilla">Melilla</option>
-                                    <option value="Navarra">Navarra</option>
-                                    <option value="País Vasco">País Vasco</option>
-                                    <option value="Principado de Asturias">Principado de Asturias</option>
-                                    <option value="Región de Murcia">Región de Murcia</option>
-
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className="mb-3 row">
-                            <label for="rep-password-influ" className="col-sm-6 col-form-label">Repite contraseña</label>
-                            <div className="col-sm-6">
-                                <input type="password" className="form-control" id="rep-password-influ" />
-                            </div>
-                        </div>
-                        <div className="mb-3 row">
-                            <label for="ig-user" className="col-sm-6 col-form-label">Usuario Instagram</label>
-                            <div className="col-sm-6">
-                                <input 
-                                onChange={(e)=>{
-                                    e.preventDefault();
-                                    setIgUser(e.target.value)}}
-                                type="text" className="form-control" id="ig-user" />
-                            </div>
-                        </div>
-                        <div className="mb-3 row">
-                            <label for="ciudad" className="col-sm-6 col-form-label">Ciudad</label>
-                            <div className="col-sm-6">
-                                <input 
-                                onChange={(e)=>{
-                                    e.preventDefault();
-                                    setCiudad(e.target.value)}}
-                                type="text" className="form-control" id="ciudad" />
-                            </div>
-                        </div>
-                    </div>
-=======
             <div className="col">
               <div className="mb-3 row">
                 <label
@@ -442,7 +202,6 @@ export const FormInfluencers = () => {
                     className="form-control"
                     id="password-influ"
                   />
->>>>>>> 1adb879d6fbac63365d1ded04d9345117e2d7898
                 </div>
               </div>
               <div className="mb-3 row">
@@ -455,17 +214,6 @@ export const FormInfluencers = () => {
                 <div className="col-sm-7">
                   <input type="text" className="form-control" id="nombre" />
                 </div>
-<<<<<<< HEAD
-                <div className="container-fluid row text-center mx-0 py-3">
-                    <div className="mb-3 col-8 mx-auto">
-                        <label for="bio" className="form-label">Cuéntanos un poco más de ti</label>
-                        <textarea 
-                         onChange={(e)=>{
-                            e.preventDefault();
-                            setCuentame(e.target.value)}}
-                        className="form-control" id="bio" rows="3"></textarea>
-                    </div>
-=======
               </div>
               <div className="mb-3 row d-flex">
                 <label
@@ -509,7 +257,6 @@ export const FormInfluencers = () => {
                     </option>
                     <option value="Región de Murcia">Región de Murcia</option>
                   </select>
->>>>>>> 1adb879d6fbac63365d1ded04d9345117e2d7898
                 </div>
               </div>
             </div>
@@ -528,19 +275,6 @@ export const FormInfluencers = () => {
                     id="rep-password-influ"
                   />
                 </div>
-<<<<<<< HEAD
-                <div className="button-container my-5 d-flex justify-content-center pb-5">
-                    <button type="submit" className="btn btn-danger btn-sm col-1 me-3" 
-                    onClick={(e) => { 
-                        
-                        actions.register_Influ(email, password, nombre, apellidos, sector, ciudad, atonomia, cuentame);
-                        delData() }}>Borrar</button>
-                    <button type="button" className="btn btn-success btn-sm col-1 ms-3" onClick={() => { addData() }}>Enviar</button>
-                </div>
-                </from>
-            </div>
-
-=======
               </div>
               <div className="mb-3 row">
                 <label
@@ -676,7 +410,6 @@ export const FormInfluencers = () => {
               ENVIAR
             </button>
           </div>
->>>>>>> 1adb879d6fbac63365d1ded04d9345117e2d7898
         </div>
       </div>
     </div>

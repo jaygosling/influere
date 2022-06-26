@@ -4,11 +4,23 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, Influencers, Empresas, Favoritos
 from api.utils import generate_sitemap, APIException
+<<<<<<< HEAD
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import datetime
+=======
+import instaloader
+>>>>>>> afc231e4b62d4d94b2ec9d7cbc75da4f15ec3e44
 
 api = Blueprint('api', __name__)
 
+@api.route('/instagram/<string:username>', methods=["GET"])
+def datos_instagram(username):
+    bot = instaloader.Instaloader()
+    profile = instaloader.Profile.from_username(bot.context, username)
+    result = {}
+    result["followers"] = profile.followers
+    result["profilepic"] = profile.profile_pic_url
+    return jsonify(result)
 
 @api.route('/influencers/<int:id>', methods=['GET'])
 def conseguir_influencers(id):
@@ -31,6 +43,11 @@ def modificar_influencers(id):
     influencer.autonomia = body["autonomia"]
     influencer.ciudad = body["ciudad"]
     influencer.bio = body["bio"]
+    influencer.precio_post = body["precio_post"]
+    influencer.precio_story = body["precio_story"]
+
+    influencer.precio_reel = body["precio_reel"]
+
     if "post1" in body:
         influencer.post1 = body["post1"]
     if "post2" in body:
@@ -44,7 +61,6 @@ def modificar_influencers(id):
     if "post6" in body:
         influencer.post6 = body["post6"]
     db.session.commit()
-
     return jsonify({"message":"Informacion actualizada"})
 
 @api.route('/empresas/<int:id>', methods=['GET'])
@@ -76,8 +92,7 @@ def modificar_empresas(id):
 def registro_empresas():
     
     body = request.get_json()
-    email_exists = Empresas.query.filter_by(email=body["email"])
-    email_exists = list(map(lambda x: x.serialize(), email_exists))
+    email_exists = Empresas.query.filter_by(email=body["email"]).first()
 
     if email_exists:
         print("This user already exists")
@@ -97,13 +112,16 @@ def registro_empresas():
 def registro_influencers():
     
     body = request.get_json()
-    email_exists = Influencers.query.filter_by(email=body["email"])
-    email_exists = list(map(lambda x: x.serialize(), email_exists))
+    email_exists = Influencers.query.filter_by(email=body["email"]).first()
 
     if email_exists:
         return jsonify(({"error": "ya existe este usuario"})), 418
     else:
+<<<<<<< HEAD
         influencers = Influencers(email=body["email"], password=body["password"], apellidos=body["apellidos"], nombre=body["nombre"], ig_user=body["ig_user"], categoria=body["categoria"], autonomia = body["autonomia"], ciudad = body["ciudad"], bio = body["bio"],post1=body["post1"], is_active=True)
+=======
+        influencers = Influencers(email=body["email"], password=body["password"], apellidos=body["apellidos"], nombre=body["nombre"], ig_user=body["ig_user"], categoria=body["categoria"], autonomia = body["autonomia"], ciudad = body["ciudad"], bio = body["bio"],post1=body["post1"], precio_post=body["precio_post"], precio_reel=body["precio_reel"], precio_story=body["precio_story"])
+>>>>>>> afc231e4b62d4d94b2ec9d7cbc75da4f15ec3e44
         if "post2" in body:
             influencers.post2 = body["post2"]
         if "post3" in body:

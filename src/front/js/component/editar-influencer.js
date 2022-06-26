@@ -1,119 +1,49 @@
 import { string } from "prop-types";
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, useContext} from "react";
 import { useParams } from "react-router-dom";
-
+import { Context } from "../store/appContext";
 
 export const EditarInfluencer = () => {
+    const {actions, store} = useContext(Context)
+
     const parametro = useParams()
     var allData = {}
     var finalData = {}
     const [igLinks, addLinks] = useState([]);
-    var getInfo = {}
     useEffect(() => {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-
-        fetch(`https://3001-jaygosling-influere-s5lmjehtutj.ws-eu47.gitpod.io/api/influencers/${parametro.id}`)
-            .then(function (response) {
-                return response.json()
-            })
-            .then(function (result) {
-
-                document.getElementById('email').value = result["email"];
-                document.getElementById('password').value = "";
-                document.getElementById('rep-password').value = "";
-                document.getElementById('apellidos').value = result["apellidos"];
-                document.getElementById('nombre').value = result["nombre"];
-                document.getElementById('autonomia').value = result["autonomia"];
-                document.getElementById('categoria').value = result["categoria"];
-                document.getElementById('ig-user').value = result["ig_user"];
-                document.getElementById('ciudad').value = result["ciudad"];
-                document.getElementById('bio').value = result["bio"];
-                document.getElementById('precio-reel').value = result["precio_reel"];
-                document.getElementById('precio-story').value = result["precio_story"];
-                document.getElementById('precio-post').value = result["precio_post"];
-
-                var links = []
-                if (result["post1"]) { links.push(result["post1"]) }
-                if (result["post2"]) { links.push(result["post2"]) }
-                if (result["post3"]) { links.push(result["post3"]) }
-                if (result["post4"]) { links.push(result["post4"]) }
-                if (result["post5"]) { links.push(result["post5"]) }
-                if (result["post6"]) { links.push(result["post6"]) }
-                addLinks(links)
-
-
-                return console.log(result)
-            })
-            .catch(error => console.log('error', error));
-
-
-
-
+        actions.conseguirInfluencer(parametro.id)
+        
 
     }, [])
+    useEffect(()=>{
+        document.getElementById('email-influ').value = store.datosInfluencer.email
+        document.getElementById('apellidos').value = store.datosInfluencer.apellidos
+        document.getElementById('nombre').value = store.datosInfluencer.nombre
+        document.getElementById('autonomia').value = store.datosInfluencer.autonomia
+        document.getElementById('categoria').value = store.datosInfluencer.categoria
+        document.getElementById('ig-user').value = store.datosInfluencer.ig_user
+        document.getElementById('ciudad').value = store.datosInfluencer.ciudad
+        document.getElementById('bio').value = store.datosInfluencer.bio
+        document.getElementById('precio-reel').value = store.datosInfluencer.precio_reel
+        document.getElementById('precio-story').value = store.datosInfluencer.precio_story
+        document.getElementById('precio-post').value = store.datosInfluencer.precio_post
 
-    function updateData() {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+        var links = []
+        if (store.datosInfluencer.post1) { links.push(store.datosInfluencer.post1) }
+        if (store.datosInfluencer.post2) { links.push(store.datosInfluencer.post2) }
+        if (store.datosInfluencer.post3) { links.push(store.datosInfluencer.post3) }
+        if (store.datosInfluencer.post4) { links.push(store.datosInfluencer.post4) }
+        if (store.datosInfluencer.post5) { links.push(store.datosInfluencer.post5) }
+        if (store.datosInfluencer.post6) { links.push(store.datosInfluencer.post6) }
 
-        var raw = JSON.stringify(finalData);
-
-        var requestOptions = {
-            method: 'PUT',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch(`https://3001-jaygosling-influere-s5lmjehtutj.ws-eu47.gitpod.io/api/influencers/${parametro.id}`, requestOptions)
-        .then(function (response) {
-            if (response.ok == true) {
-                alert("Usuario actualizado con éxito")
-            } else {
-
-                alert("Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros.")
-            }
-            return response.text()
-        })
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-    }
-
-    function sendData() {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify(finalData);
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch("https://3001-jaygosling-influere-s5lmjehtutj.ws-eu47.gitpod.io/api/registro-influencers", requestOptions)
-            .then(function (response) {
-                if (response.ok == true) {
-                    alert("Usuario creado con éxito")
-                } else {
-
-                    alert("Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros.")
-                }
-                return response.text()
-            })
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-
-
-    }
+        addLinks(links)
+    },[store.datosInfluencer])
+    
     function addData() {
-        if (document.getElementById('password').value == document.getElementById('rep-password').value) {
+        if (document.getElementById('password-influ').value == document.getElementById('rep-password-influ').value) {
 
-            allData.email = document.getElementById('email').value;
-            allData.password = document.getElementById('password').value;
+            allData.email = document.getElementById('email-influ').value;
+            allData.password = document.getElementById('password-influ').value;
             allData.apellidos = document.getElementById('apellidos').value;
             allData.nombre = document.getElementById('nombre').value;
             allData.autonomia = document.getElementById('autonomia').value;
@@ -147,31 +77,13 @@ export const EditarInfluencer = () => {
                 allData.precio_story) {
                 finalData = allData
                 console.log(finalData)
-                updateData()
+                actions.actualizarInfluencer(parametro.id, finalData)
             } else {
                 alert("Todos los campos son obligatorios")
             }
         } else {
             alert("Las contraseñas no coinciden")
         }
-    }
-
-
-    function delData() {
-        document.getElementById('email').value = "";
-        document.getElementById('password').value = "";
-        document.getElementById('rep-password').value = "";
-        document.getElementById('apellidos').value = "";
-        document.getElementById('nombre').value = "";
-        document.getElementById('autonomia').value = "";
-        document.getElementById('categoria').value = "";
-        document.getElementById('ig-user').value = "";
-        document.getElementById('ciudad').value = "";
-        document.getElementById('bio').value = "";
-        document.getElementById('precio-story').value = "";
-        document.getElementById('precio-reel').value = "";
-        document.getElementById('precio-post').value = "";
-
     }
 
 
@@ -192,9 +104,9 @@ export const EditarInfluencer = () => {
                 <div className="container row d-flex justify-content-center text-end mx-auto mb-3">
                     <div className="col">
                         <div className="mb-3 row">
-                            <label for="email" className="col-sm-3 col-form-label">Email</label>
+                            <label for="email-influ" className="col-sm-3 col-form-label">Email</label>
                             <div className="col-sm-9">
-                                <input type="text" className="form-control" id="email" />
+                                <input type="text" className="form-control" id="email-influ" />
                             </div>
                         </div>
                         <div className="mb-3 row">
@@ -229,9 +141,9 @@ export const EditarInfluencer = () => {
                     </div>
                     <div className="col">
                         <div className="mb-3 row">
-                            <label for="password" className="col-sm-5 col-form-label">Contraseña</label>
+                            <label for="password-influ" className="col-sm-5 col-form-label">Contraseña</label>
                             <div className="col-sm-7">
-                                <input type="password" className="form-control" id="password" />
+                                <input type="password" className="form-control" id="password-influ" />
                             </div>
                         </div>
                         <div className="mb-3 row">
@@ -269,9 +181,9 @@ export const EditarInfluencer = () => {
                     </div>
                     <div className="col">
                         <div className="mb-3 row">
-                            <label for="rep-password" className="col-sm-6 col-form-label">Repite contraseña</label>
+                            <label for="rep-password-influ" className="col-sm-6 col-form-label">Repite contraseña</label>
                             <div className="col-sm-6">
-                                <input type="password" className="form-control" id="rep-password" />
+                                <input type="password" className="form-control" id="rep-password-influ" />
                             </div>
                         </div>
                         <div className="mb-3 row">
@@ -349,7 +261,7 @@ export const EditarInfluencer = () => {
                     </div>
                 </div>
                 <div className="button-container my-5 d-flex justify-content-center pb-5">
-                    <button type="button" className="btn btn-danger btn-sm col-1 me-3" onClick={() => { delData() }}>Borrar</button>
+                    <button type="button" className="btn btn-danger btn-sm col-1 me-3" onClick={() => { actions.delDataInfluencers() }}>Borrar</button>
                     <button type="button" className="btn btn-success btn-sm col-1 ms-3" onClick={() => { addData() }}>Enviar</button>
                 </div>
             </div>
