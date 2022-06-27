@@ -25,16 +25,16 @@ export const Navbar = () => {
             </span>
           </Link>
           <Link to="/formulario-empresas" style={{ textDecoration: "none" }}>
-            <span className="navbar-item mx-3 text-black">
+            <span className="navbar-item mx-2 text-black">
               Regístrate como Empresa
             </span>
           </Link>
           <Link to="/formulario-influencers" style={{ textDecoration: "none" }}>
-            <span className="navbar-item mx-3 text-black">
+            <span className="navbar-item mx-2 text-black">
               Regístrate como Influencer
             </span>
           </Link>
-          <div className="dropdown">
+          <div className="navbar-item mx-2 dropdown">
             <button
               type="button"
               className="btn btn-primary dropdown-toggle"
@@ -49,8 +49,8 @@ export const Navbar = () => {
               </i>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a className="dropdown-item" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#empresa" href="#">Empresa</a></li>
-              <li><a className="dropdown-item" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#influencer" href="#">Influencer</a></li>
+              <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#empresa" href="#">Empresa</a></li>
+              <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#influencer" href="#">Influencer</a></li>
             </ul>
             <Modal user="empresa"/>
             <Modal user="influencer"/>

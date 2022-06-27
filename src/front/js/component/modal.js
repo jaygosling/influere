@@ -40,6 +40,7 @@ export const Modal = ({user}) => {
       <div className="modal-dialog">
         <div className="modal-content" id="modal-login">
           <div className="modal-header bg bg-primary text-white">
+            <h3>Iniciar Sesión</h3>
             <button
               type="button"
               className="btn-close"

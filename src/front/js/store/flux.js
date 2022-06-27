@@ -5,6 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			message: null,
 			favInf: [],
 			posts: [],
+			influencers: [],
 			datosEmpresa: {},
 			datosInfluencer: {},
 			demo: [
@@ -306,7 +307,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("Error al iniciar sesion")
 				}
 			},
-
+			getInfluencers: async() => {
+				await fetch(process.env.BACKEND_URL + "/api/influencers")
+  				.then(response => response.json())
+  				.then(data => {console.log(data)
+				setStore({influencers:data})})
+  				.catch(error => console.log('error', error));
+			},
 			getMessage: () => {
 				// fetching data from the backend
 				fetch(process.env.BACKEND_URL + "/api/hello")
