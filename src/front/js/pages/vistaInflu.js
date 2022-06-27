@@ -119,7 +119,8 @@ export const VistaInflu = () => {
               paddingLeft: "15px",
               textAlign: "right",
             }}>
-            <h1 className="tituloabout" style={{color: "#ffc107"}}>DATOS SOBRE MI </h1>
+            <h1 className="tituloabout" style={{color: "#ffc107"}}>DATOS DEL INFLUENCER
+             </h1>
             <span
               action="/influencers"
               method="GET"

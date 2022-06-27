@@ -1,14 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect} from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import { CardsInflu } from "../component/cardsInfluencers";
 import { Headervistaempresa } from "../component/headervistaempresa";
+import { useParams } from "react-router-dom";
+
 
 export const VistaEmp = () => {
+  const { store, actions } = useContext(Context);
+  const parametro  = useParams();
+
+  useEffect(()=>{
+    actions.conseguirEmpresa(parametro.id);
+  }, []);
+
   return (
     <div>
       <Headervistaempresa />
+
       <div className="container">
         {/* ------------------------ */}
         <br></br>
@@ -38,8 +48,7 @@ export const VistaEmp = () => {
                   Editar Perfil
                 </a>
               </li>
-              {/* <li><a class="dropdown-item" href="/">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li> */}
+              
               <li>
                 <hr class="dropdown-divider" />
               </li>
@@ -58,20 +67,20 @@ export const VistaEmp = () => {
               className="col-md-7"
               style={{ paddingLeft: "15px", textAlign: "right" }}
             >
+              <h1 className="tituloabout" style={{color: "#ffc107"}}>DATOS DE EMPRESA
+             </h1>
               <h1 className="title1" style={{ color: "#302880" }}>
-                Nombre de la Empresa
+              Nombre: {`${store.datosEmpresa.nombre}`}
               </h1>
-              <h4 className="title1 ">Sector al que pertenece</h4>
-              <h6 className="title1 ">Eslogan</h6>
-              <h5 className="title1 ">Provincia (Ciudad)</h5>
+              <h4 className="title1 ">Sector: {`${store.datosEmpresa.categoria}`}</h4>
+              <h5 className="title1 ">Autonomía (Ciudad): {`${store.datosEmpresa.autonomia} ${store.datosEmpresa.ciudad}`}</h5>
               <br></br>
               <br></br>
               <h6
                 className="title1 "
                 style={{ opacity: "40%", maxWidth: "100%" }}
               >
-                Breve descripción sobre la empresa, escrito por ella misma,
-                puede introducir actitudes, aptitudes y logros.
+                {`${store.datosEmpresa.bio}`}
               </h6>
             </div>
             <div
