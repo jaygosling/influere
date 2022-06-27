@@ -135,8 +135,8 @@ export const VistaInflu = () => {
               Usuario: {`${store.datosInfluencer.ig_user}`}
             </h4>
             <h6 className="title1 " style={{ opacity: "80%" }}>
-              Provincia (ciudad): {`${store.datosInfluencer.autonomia} ${store.datosInfluencer.ciudad}`} 
-              {/* {provincia} {ciudad} */}
+              Provincia (ciudad): {`${store.datosInfluencer.autonomia} (${store.datosInfluencer.ciudad})`} 
+              
             </h6>
             <br></br>
             <br></br>

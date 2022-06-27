@@ -70,10 +70,11 @@ export const VistaEmp = () => {
               <h1 className="tituloabout" style={{color: "#ffc107"}}>DATOS DE EMPRESA
              </h1>
               <h1 className="title1" style={{ color: "#302880" }}>
-              Nombre: {`${store.datosEmpresa.nombre}`}
+              Nombre de contacto: {`${store.datosEmpresa.nombre}`}
               </h1>
-              <h4 className="title1 ">Sector: {`${store.datosEmpresa.categoria}`}</h4>
-              <h5 className="title1 ">Autonomía (Ciudad): {`${store.datosEmpresa.autonomia} ${store.datosEmpresa.ciudad}`}</h5>
+              <h4 className="title1 ">Razón Social: {`${store.datosEmpresa.razon}`}</h4>
+              <h4 className="title1 ">Sector: {`${store.datosEmpresa.sector}`}</h4>
+              <h5 className="title1 ">Autonomía (Ciudad): {`${store.datosEmpresa.autonomia} (${store.datosEmpresa.ciudad})`}</h5>
               <br></br>
               <br></br>
               <h6

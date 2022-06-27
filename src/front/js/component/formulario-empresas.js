@@ -8,7 +8,7 @@ var finalData = {};
 export const FormEmpresas = () => {
   const { actions } = useContext(Context)
   function addData() {
-  
+
     if (
       document.getElementById("password-empresa").value ==
       document.getElementById("rep-password-empresa").value
@@ -44,12 +44,12 @@ export const FormEmpresas = () => {
     }
   }
 
- return ( <div>
+  return (<div>
     <Headerformularioempresa />
 
     <div className="container-fluid m-0 p-0">
       <div className="container-fluid pt-5">
-        <p className="h1 text-center my-5 tituloabout">RELLENA TUS DATOS</p>
+        <p className="h1 text-center my-5 tituloabout" style={{ color: "#ffc107" }}>RELLENA TUS DATOS</p>
         <div className="container row d-flex justify-content-center text-end mx-auto mb-3">
           <div className="col">
             <div className="mb-3 row">
@@ -197,35 +197,55 @@ export const FormEmpresas = () => {
             </div>
           </div>
         </div>
-        <div className="container-fluid row text-center mx-0 py-3">
-          <div className="mb-3 col-8 mx-auto">
-            <label for="bio" className="form-label camposform">
-              Cuéntanos un poco más de ti
-            </label>
-            <textarea className="form-control" id="bio" rows="3"></textarea>
+        {/* --------------SUBIR IMAGEN O ARCHIVO: -------------------- */}
+
+        <div class="container" style={{}}>
+          <div class="form-group col-xs-12 col-sm-6 col-md-4">
+            <label for="banner">Añadir Imagen:</label>
+            <div class="input-group">
+              <label class="input-group-btn">
+                <span class="btn btn-light btn-file">
+                <input accept=".jpg,.png,.jpeg,.gif" class="hidden" name="banner" type="file" id="banner"/>
+                </span>
+              </label>
+              {/* <input class="form-control" id="banner_captura" readonly="readonly" name="banner_captura" type="text" value=""/> */}
+            </div>
           </div>
         </div>
-        <div className="button-container my-5 d-flex justify-content-center pb-5">
-          <button
-            type="button"
-            className="btn btn-danger rounded-pill btn-sm col-1 me-3"
-            onClick={() => {
-              actions.delData();
-            }}
-          >
-            BORRAR
-          </button>
-          <button
-            type="button"
-            className="btn btn-primary rounded-pill btn-sm col-1 ms-3"
-            onClick={() => {
-              addData();
-            }}
-          >
-            ENVIAR
-          </button>
+
+
+
+          {/* ------------------------------ */}
+          <div className="container-fluid row text-center mx-0 py-3">
+            <div className="mb-3 col-8 mx-auto">
+              <label for="bio" className="form-label camposform">
+                Cuéntanos un poco más de ti
+              </label>
+              <textarea className="form-control" id="bio" rows="3"></textarea>
+            </div>
+          </div>
+          <div className="button-container my-5 d-flex justify-content-center pb-5">
+            <button
+              type="button"
+              className="btn btn-danger rounded-pill btn-sm col-1 me-3"
+              onClick={() => {
+                actions.delData();
+              }}
+            >
+              BORRAR
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary rounded-pill btn-sm col-1 ms-3"
+              onClick={() => {
+                addData();
+              }}
+            >
+              ENVIAR
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-)}
+    )
+}
