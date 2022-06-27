@@ -17,6 +17,8 @@ def datos_instagram(username):
     result = {}
     result["followers"] = profile.followers
     result["profilepic"] = profile.profile_pic_url
+    result["seguidos"] = profile.followees
+    result["publicaciones"] = profile.mediacount
     return jsonify(result)
 
 @api.route('/influencers/<int:id>', methods=['GET'])
