@@ -29,12 +29,21 @@ def conseguir_influencers(id):
 
 @api.route('/influencers', methods=['GET'])
 def all_influencers():
+         
     allinfluencer = Influencers.query.all()
     if allinfluencer:
         allinfluencer = list(map(lambda x: x.serialize(), allinfluencer))
         return jsonify(allinfluencer)
     else:
         return jsonify({"mensaje":"no se encontraron influencers"})
+        """ def add_datos(influencer):
+        print("influencer: " )
+        print(influencer)
+        datos = datos_instagram("daninzrth")
+        print("datos: " )
+        print(datos)
+        influencer["followers"] = datos.followers
+        influencer["profilepic"] = datos.profile_pic_url    """
 
 @api.route('/influencers/<int:id>', methods=['PUT'])
 def modificar_influencers(id):
