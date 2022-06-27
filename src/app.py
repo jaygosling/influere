@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from api.utils import APIException, generate_sitemap
-from api.models import db, Influencers
+from api.models import db, Influencers, Empresas
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
@@ -77,14 +77,32 @@ def iniciar_sesion():
             return jsonify({"error": "Clave Incorrecta"}), 400
     else:
         return jsonify({"error": "user no existe"}), 400
+
+@app.route('/loginempresa', methods=['POST'])
+def iniciar_sesionEmpresa():
+    request_body = request.get_json()
+    user = Empresas.query.filter_by(email=request_body['email']).first()
+    if user:
+        if user.password == request_body['password']:
+            tiempo = datetime.timedelta(minutes=60)
+            access_token = create_access_token(identity = request_body['email'], expires_delta= tiempo)
+            return jsonify({
+                "mensaje": "inicio de sesion correcto",
+                "duracion": tiempo.total_seconds(),
+                "access_token": access_token,
+                "error": None
+            })
+        else:
+            return jsonify({"error": "Clave Incorrecta"}), 400
+    else:
+        return jsonify({"error": "user no existe"}), 400
     
-    a
 
 @app.route('/privada', methods=['GET'])
 @jwt_required()
 def privada():
     identidad : get_jwt_identity()
-    return "permiso a espacio privado concedido"
+    return jsonify({"mensaje":"permiso a espacio privado concedido", "permiso": True})
 
 # any other endpoint will try to serve it like a static file
 @app.route('/<path:path>', methods=['GET'])

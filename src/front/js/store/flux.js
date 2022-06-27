@@ -3,8 +3,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: null,
 			message: null,
+			permiso: false,
 			favInf: [],
 			posts: [],
+			influencers: [],
 			datosEmpresa: {},
 			datosInfluencer: {},
 			demo: [
@@ -66,11 +68,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 
 					.catch(error => console.log('error', error));
-
-
-
-
-
 
 
 			},
@@ -239,6 +236,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
+			privado: () => {
+				var myHeaders = new Headers();
+				myHeaders.append("Authorization", `Bearer ${sessionStorage.getItem('token')}`);
+				
+				var requestOptions = {
+ 					method: 'GET',
+  					headers: myHeaders,
+  					redirect: 'follow'
+				};
+
+				fetch("https://3001-jaygosling-influere-gyow40i3nvc.ws-eu47.gitpod.io/privada", requestOptions)
+  				.then(response => response.jeson())
+  				.then(result => {console.log(result)
+				setStore({permiso: result.permiso})})
+ 				.catch(error => console.log('error', error));
+			},
 
 			login: async (email, password) => {
 				var myHeaders = new Headers();
@@ -260,13 +273,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const resp = await fetch(
 						process.env.BACKEND_URL + "/login", requestOptions)
 					if (resp.status != 200) {
-						alert("There has been some error");
+						alert("Correo o contraseña erroneo!");
 						return false;
 					}
 
 					const data = await resp.json();
 					console.log("this come form the backend", data);
 					sessionStorage.setItem("token", data.access_token);
+					sessionStorage.setItem("user", "influencer");
 					setStore({ token: data.access_token });
 					return true;
 				}
@@ -275,6 +289,48 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			loginempresa: async (email, password) => {
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+
+				var raw = JSON.stringify({
+					"email": email,
+					"password": password,
+				});
+
+				var requestOptions = {
+					method: 'POST',
+					headers: myHeaders,
+					body: raw,
+					redirect: 'follow'
+				};
+
+				try {
+					const resp = await fetch(
+						process.env.BACKEND_URL + "/loginempresa", requestOptions)
+					if (resp.status != 200) {
+						alert("Correo o contraseña erroneo!");
+						return false;
+					}
+
+					const data = await resp.json();
+					console.log("this come form the backend", data);
+					sessionStorage.setItem("token", data.access_token);
+					sessionStorage.setItem("user", "empresa");
+					setStore({ token: data.access_token });
+					return true;
+				}
+				catch (error) {
+					console.error("Error al iniciar sesion")
+				}
+			},
+			getInfluencers: async() => {
+				await fetch(process.env.BACKEND_URL + "/api/influencers")
+  				.then(response => response.json())
+  				.then(data => {console.log(data)
+				setStore({influencers:data})})
+  				.catch(error => console.log('error', error));
+			},
 			getMessage: () => {
 				// fetching data from the backend
 				fetch(process.env.BACKEND_URL + "/api/hello")

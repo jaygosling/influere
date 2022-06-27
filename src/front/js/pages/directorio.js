@@ -7,24 +7,21 @@ import { Context } from "../store/appContext";
 import { Headerdirectorio } from "../component/headerdirectorio";
 
 export const Directorio = () => {
+  const { store, actions } = useContext(Context);
   return (
+
     <div style={{ backgroundColor: "#f5f5f5" }}>
       <Headerdirectorio />
       <div className="container">
         <Search />
         <div className="row my-5">
-          <div className="col-3">
-            <CardsInflu />
-          </div>
-          <div className="col-3">
-            <CardsInflu />
-          </div>
-          <div className="col-3">
-            <CardsInflu />
-          </div>
-          <div className="col-3">
-            <CardsInflu />
-          </div>
+          {
+			    store.influencers?.map((obj,i) => {
+				    
+				    return <div className="col-3">
+              <CardsInflu nombre={obj.name} username={obj.ig_user} sector={obj.categoria} i={i} seguidores="12" imagen="#"/>
+              </div>
+			    })}
         </div>
       </div>
       <Calltoaction />
