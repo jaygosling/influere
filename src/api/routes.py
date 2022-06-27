@@ -14,7 +14,16 @@ def conseguir_influencers(id):
     if influencer:
         return influencer.serialize()
     else:
-        return jsonify({"mensaje":"usuario no existente"})
+        return jsonify({"mensaje":"influencer no existente"})
+
+@api.route('/influencers', methods=['GET'])
+def all_influencers():
+    allinfluencer = Influencers.query.all()
+    if allinfluencer:
+        allinfluencer = list(map(lambda x: x.serialize(), allinfluencer))
+        return jsonify(allinfluencer)
+    else:
+        return jsonify({"mensaje":"no se encontraron influencers"})
 
 @api.route('/influencers/<int:id>', methods=['PUT'])
 def modificar_influencers(id):
@@ -97,11 +106,17 @@ def registro_influencers():
     body = request.get_json()
     email_exists = Influencers.query.filter_by(email=body["email"])
     email_exists = list(map(lambda x: x.serialize(), email_exists))
-
+    print(body)
     if email_exists:
-        print("This user already exists")
+        return ("This user already exists")
     else:
-        influencers = Influencers(email=body["email"], password=body["password"], apellidos=body["apellidos"], nombre=body["nombre"], ig_user=body["ig_user"], categoria=body["categoria"], autonomia = body["autonomia"], ciudad = body["ciudad"], bio = body["bio"],post1=body["post1"])
+
+        influencers = Influencers(email=body["email"], 
+        password=body["password"], apellidos=body["apellidos"], 
+        nombre=body["nombre"], ig_user=body["ig_user"], 
+        categoria=body["categoria"], autonomia = body["autonomia"], 
+        ciudad = body["ciudad"], bio = body["bio"],post1=body["post1"])
+
         if "post2" in body:
             influencers.post2 = body["post2"]
         if "post3" in body:

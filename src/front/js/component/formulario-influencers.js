@@ -19,10 +19,7 @@ export const FormInfluencers = () => {
       redirect: "follow",
     };
 
-    fetch(
-      "https://3001-jaygosling-influere-s5lmjehtutj.ws-eu47.gitpod.io/api/registro-influencers",
-      requestOptions
-    )
+    fetch(process.env.BACKEND_URL + "/api/registro-influencers", requestOptions)
       .then(function (response) {
         if (response.ok == true) {
           alert("Usuario creado con éxito");

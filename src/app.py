@@ -61,7 +61,7 @@ def sitemap():
 
 @app.route('/login', methods=['POST'])
 def iniciar_sesion():
-    request_body = request.get_json()    
+    request_body = request.get_json()
     user = Influencers.query.filter_by(email=request_body['email']).first()
     if user:
         if user.password == request_body['password']:
@@ -78,7 +78,6 @@ def iniciar_sesion():
     else:
         return jsonify({"error": "user no existe"}), 400
     
-    a
 
 @app.route('/privada', methods=['GET'])
 @jwt_required()
