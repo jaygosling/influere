@@ -3,6 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: null,
 			message: null,
+			permiso: false,
 			favInf: [],
 			posts: [],
 			influencers: [],
@@ -234,6 +235,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
+			},
+			privado: () => {
+				var myHeaders = new Headers();
+				myHeaders.append("Authorization", `Bearer ${sessionStorage.getItem('token')}`);
+				
+				var requestOptions = {
+ 					method: 'GET',
+  					headers: myHeaders,
+  					redirect: 'follow'
+				};
+
+				fetch("https://3001-jaygosling-influere-gyow40i3nvc.ws-eu47.gitpod.io/privada", requestOptions)
+  				.then(response => response.jeson())
+  				.then(result => {console.log(result)
+				setStore({permiso: result.permiso})})
+ 				.catch(error => console.log('error', error));
 			},
 
 			login: async (email, password) => {

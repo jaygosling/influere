@@ -102,7 +102,7 @@ def iniciar_sesionEmpresa():
 @jwt_required()
 def privada():
     identidad : get_jwt_identity()
-    return "permiso a espacio privado concedido"
+    return jsonify({"mensaje":"permiso a espacio privado concedido", "permiso": True})
 
 # any other endpoint will try to serve it like a static file
 @app.route('/<path:path>', methods=['GET'])
