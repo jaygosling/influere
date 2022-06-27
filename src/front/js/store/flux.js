@@ -42,12 +42,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 				setStore({ favInf: newArray })
 			},
-			conseguirInfluencer: (id) => {
+			conseguirInfluencer: async (id) => {
 				var myHeaders = new Headers();
 				myHeaders.append("Content-Type", "application/json");
 				const store = getStore()
 
-				fetch(`${process.env.BACKEND_URL}/api/influencers/${id}`)
+				await fetch(`${process.env.BACKEND_URL}/api/influencers/${id}`)
 					.then(function (response) {
 						return response.json()
 					})
@@ -136,6 +136,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				document.getElementById("autonomia").value = "";
 				document.getElementById("ciudad").value = "";
 				document.getElementById("bio").value = "";
+
 			},
 
 			delDataInfluencers: () => {

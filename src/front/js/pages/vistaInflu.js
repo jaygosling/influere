@@ -89,7 +89,7 @@ export const VistaInflu = () => {
           </button>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href={"/formulario-influencers"}>
+              <a class="dropdown-item" href={`/editar-influencer/${parametro.id}`}>
                 Editar Perfil
               </a>
             </li>
@@ -155,9 +155,7 @@ export const VistaInflu = () => {
             }}
           >
             <img
-              src={
-                "https://static2.mujerhoy.com/www/multimedia/201904/29/media/cortadas/marta-lozano-clave-para-combatir-todos-signos-envejecimiento-k4s-U8072873282cMF-624x468@MujerHoy.jpg"
-              }
+              src={`${store.datosInfluencer?.profilepic}`}
               style={{
                 maxWidth: "500px",
                 opacity: "100%",

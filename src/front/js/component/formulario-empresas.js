@@ -199,16 +199,17 @@ export const FormEmpresas = () => {
         </div>
         {/* --------------SUBIR IMAGEN O ARCHIVO: -------------------- */}
 
-        <div class="container" style={{}}>
-          <div class="form-group col-xs-12 col-sm-6 col-md-4">
-            <label for="banner">Añadir Imagen:</label>
-            <div class="input-group">
-              <label class="input-group-btn">
-                <span class="btn btn-light btn-file">
-                <input accept=".jpg,.png,.jpeg,.gif" class="hidden" name="banner" type="file" id="banner"/>
+        <div className="container" style={{display:"flex", justifyContent:"center", alignContent:"center"}}>
+          <div className="form-group col-xs-12 col-sm-6 col-md-4">
+            
+            <div className="input-group">
+              <label for="banner">Añadir Imagen:</label>
+              <label className="input-group-btn">
+                <span className="btn btn-light btn-file">
+                <input accept=".jpg,.png,.jpeg,.gif" className="hidden" name="banner" type="file" id="banner"/>
                 </span>
               </label>
-              {/* <input class="form-control" id="banner_captura" readonly="readonly" name="banner_captura" type="text" value=""/> */}
+              {/* <input className="form-control" id="banner_captura" readonly="readonly" name="banner_captura" type="text" value=""/> */}
             </div>
           </div>
         </div>

@@ -83,7 +83,7 @@ export const VistaInfluPb = () => {
             <h6 className="title1 " style={{ opacity: "80%" }}>
               Provincia (ciudad):{" "}
               {`${store.datosInfluencer.autonomia} ${store.datosInfluencer.ciudad}`}
-              {/* {provincia} {ciudad} */}
+              
             </h6>
             <br></br>
             <br></br>

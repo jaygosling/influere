@@ -2,6 +2,7 @@ import { string } from "prop-types";
 import React, { Component, useState, useEffect, useContext} from "react";
 import { useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { Link, useHistory } from "react-router-dom";
 
 export const EditarInfluencer = () => {
     const {actions, store} = useContext(Context)
@@ -10,6 +11,7 @@ export const EditarInfluencer = () => {
     var allData = {}
     var finalData = {}
     const [igLinks, addLinks] = useState([]);
+    const history = useHistory();
     useEffect(() => {
         actions.conseguirInfluencer(parametro.id)
         
