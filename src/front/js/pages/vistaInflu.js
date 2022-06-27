@@ -2,16 +2,17 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { IframeInstagram } from "../component/iFrameInsta";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Headervistainflu } from "../component/headervistainflu";
 
 export const VistaInflu = () => {
   const { store, actions } = useContext(Context);
   const [url, setUrl] = useState("");
+  const parametro  = useParams();
   
   //  useEffect para que me consiga un actions cuando se renderice el componente y traer la informacion al perfil: 
   useEffect(()=>{
-    actions.conseguirInfluencer();
+    actions.conseguirInfluencer(parametro.id);
   }, []);
  
    
@@ -127,13 +128,13 @@ export const VistaInflu = () => {
             ><strong> Nombre: {`${store.datosInfluencer.nombre}`}</strong>
              
             </span>
-            <h2 className="title1 ">Sector: {`${store.datosInfluencer.sector}`}
+            <h2 className="title1 ">Sector: {`${store.datosInfluencer.categoria}`}
             </h2>
             <h4 className="title1 " style={{ opacity: "80%" }}>
-              Usuario: {`${store.datosInfluencer.bio}`}
+              Usuario: {`${store.datosInfluencer.ig_user}`}
             </h4>
             <h6 className="title1 " style={{ opacity: "80%" }}>
-              Provincia (ciudad): {`${store.datosInfluencer.provincia} ${store.datosInfluencer.ciudad}`} 
+              Provincia (ciudad): {`${store.datosInfluencer.autonomia} ${store.datosInfluencer.ciudad}`} 
               {/* {provincia} {ciudad} */}
             </h6>
             <br></br>
@@ -142,8 +143,7 @@ export const VistaInflu = () => {
               className="title1 "
               style={{ opacity: "40%", maxWidth: "100%", marginLeft:"50%" }}
             > {`${store.datosInfluencer.bio}`}
-              Breve descripción sobre el influencer, escrito por él mismo, puede
-              introducir actitudes, aptitudes y logros, etc etc.
+             
             </h5>
           </div>
           <div
@@ -176,9 +176,9 @@ export const VistaInflu = () => {
           <table class="table">
             <thead>
               <tr style={{ textAlign: "center" }}>
-                <th scope="col">1,221</th>
-                <th scope="col">1,7M</th>
-                <th scope="col">1,082</th>
+                <th scope="col">{`${store.datosInfluencer.publicaciones}`}</th>
+                <th scope="col">{`${store.datosInfluencer.followers}`}</th>
+                <th scope="col">{`${store.datosInfluencer.seguidos}`}</th>
               </tr>
             </thead>
             <tbody>

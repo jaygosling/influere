@@ -121,11 +121,7 @@ def registro_influencers():
     email_exists = Influencers.query.filter_by(email=body["email"]).first()
 
     if email_exists:
-<<<<<<< HEAD
-        return jsonify(({"error": "ya existe este usuario"})), 418
-=======
         return ("This user already exists")
->>>>>>> b92d637d801a3f74dc3790103987d28b09c57744
     else:
         influencers = Influencers(email=body["email"], password=body["password"], apellidos=body["apellidos"], nombre=body["nombre"], ig_user=body["ig_user"], categoria=body["categoria"], autonomia = body["autonomia"], ciudad = body["ciudad"], bio = body["bio"],post1=body["post1"], precio_post=body["precio_post"], precio_reel=body["precio_reel"], precio_story=body["precio_story"])
         if "post2" in body:

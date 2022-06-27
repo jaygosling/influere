@@ -97,10 +97,6 @@ def iniciar_sesionEmpresa():
     else:
         return jsonify({"error": "user no existe"}), 400
     
-<<<<<<< HEAD
-    
-=======
->>>>>>> b92d637d801a3f74dc3790103987d28b09c57744
 
 @app.route('/privada', methods=['GET'])
 @jwt_required()
