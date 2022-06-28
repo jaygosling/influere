@@ -197,7 +197,7 @@ export const FormEmpresas = () => {
             </div>
           </div>
         </div>
-        {/* --------------SUBIR IMAGEN O ARCHIVO: -------------------- */}
+        {/* --------------------------------SUBIR IMAGEN O ARCHIVO: ------------------------------------------- */}
 
         <div className="container" style={{display:"flex", justifyContent:"center", alignContent:"center"}}>
           <div className="form-group col-xs-12 col-sm-6 col-md-4">
@@ -209,14 +209,14 @@ export const FormEmpresas = () => {
                 <input accept=".jpg,.png,.jpeg,.gif" className="hidden" name="banner" type="file" id="banner"/>
                 </span>
               </label>
-              {/* <input className="form-control" id="banner_captura" readonly="readonly" name="banner_captura" type="text" value=""/> */}
             </div>
           </div>
         </div>
+        <br></br>
 
 
 
-          {/* ------------------------------ */}
+          {/* -------------------------------------------------------------------------------------- */}
           <div className="container-fluid row text-center mx-0 py-3">
             <div className="mb-3 col-8 mx-auto">
               <label for="bio" className="form-label camposform">

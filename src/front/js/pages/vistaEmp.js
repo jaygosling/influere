@@ -44,7 +44,7 @@ export const VistaEmp = () => {
             </button>
             <ul class="dropdown-menu">
               <li>
-                <a class="dropdown-item" href={"/formulario-empresas"}>
+                <a class="dropdown-item" href={`/editar-empresa/${parametro.id}`}>
                   Editar Perfil
                 </a>
               </li>
@@ -70,9 +70,9 @@ export const VistaEmp = () => {
               <h1 className="tituloabout" style={{color: "#ffc107"}}>DATOS DE EMPRESA
              </h1>
               <h1 className="title1" style={{ color: "#302880" }}>
-              Nombre de contacto: {`${store.datosEmpresa.nombre}`}
+              Nombre: {`${store.datosEmpresa.nombre} ${store.datosEmpresa.apellidos}`}
               </h1>
-              <h4 className="title1 ">Razón Social: {`${store.datosEmpresa.razon}`}</h4>
+              <h4 className="title1 ">Razón Social: {`${store.datosEmpresa.razon_social}`}</h4>
               <h4 className="title1 ">Sector: {`${store.datosEmpresa.sector}`}</h4>
               <h5 className="title1 ">Autonomía (Ciudad): {`${store.datosEmpresa.autonomia} (${store.datosEmpresa.ciudad})`}</h5>
               <br></br>
@@ -108,10 +108,12 @@ export const VistaEmp = () => {
           <br></br>
           <br></br>
           {/* ------------------------ */}
-
-          <h1 className="tituloabout" style={{ textAlign: "center" }}>
+          <div className=" container-fluid">
+          <h1 className="tituloabout" style={{ textAlign: "center", color: "#ffc107"}}>
             INFLUENCERS FAVORITOS{" "}
           </h1>
+          </div>
+         
 
           {/* ------------------------ */}
           <br></br>
@@ -119,9 +121,9 @@ export const VistaEmp = () => {
           {/* ------------------------ */}
           <div className="row container">
             <div className="row ">
-              {/* {store.favInf?.map((e, i) => {
+              {/* {store.favInf?.map((e, id) => {
                         return (
-                            <div key={i} className="col-4">
+                            <div key={id} className="col-4">
                                 <CardsInflu name={e}
                                 />
                             </div>

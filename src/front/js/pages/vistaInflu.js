@@ -126,7 +126,7 @@ export const VistaInflu = () => {
               method="GET"
               className="title1"
               style={{ color: "#363263" }}
-            ><strong> Nombre: {`${store.datosInfluencer.nombre}`}</strong>
+            ><strong> Nombre: {`${store.datosInfluencer.nombre} ${store.datosInfluencer.apellidos}`}</strong>
              
             </span>
             <h2 className="title1 ">Sector: {`${store.datosInfluencer.categoria}`}
