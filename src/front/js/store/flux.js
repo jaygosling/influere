@@ -298,6 +298,33 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error("Error al iniciar sesion");
         }
       },
+      buscar: (categoria, ubicacion, seguidores, precioPubli) => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+          categoria: categoria,
+          ubicacion: ubicacion,
+          seguidores: seguidores,
+          precioPubli: precioPubli
+        });
+
+        var requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow",
+        };
+
+        fetch(process.env.BACKEND_URL + "/api/influencers/filter",
+        requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            setStore({ influencers: data });
+          })
+          .catch((error) => console.log("error", error));
+      },
 
       loginempresa: async (email, password) => {
         var myHeaders = new Headers();
@@ -335,13 +362,13 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error("Error al iniciar sesion");
         }
       },
-      /* getInfluencers: async () => {
+      getInfluencers: async () => {
         await fetch(process.env.BACKEND_URL + "/api/influencers")
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
 
-            for (let i = 0; i < data.length; i++) {
+            /* for (let i = 0; i < data.length; i++) {
               //fetch(`${process.env.BACKEND_URL}/api/instagram/${data[i].ig_user}`)
               fetch(`${process.env.BACKEND_URL}/api/instagram/daninzrth`)
                 .then(function (result) {
@@ -350,11 +377,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                 })
                 .catch((error) => console.log("error", error));
             }
-            console.log("data", data);
+            console.log("data", data); */
             setStore({ influencers: data });
           })
           .catch((error) => console.log("error", error));
-      }, */
+      },
 
       getMessage: () => {
         // fetching data from the backend

@@ -6,6 +6,7 @@ export const CardsInflu = ({
   username,
   seguidores,
   sector,
+  ubicacion
 }) => {
   return (
     <div className="card " style={{ width: "18rem" }}>
@@ -17,6 +18,7 @@ export const CardsInflu = ({
             <li>{username}</li>
             <li>{seguidores}</li>
             <li>{sector}</li>
+            <li>{ubicacion}</li>
           </ul>
           <button href="#" class="btn btn-primary rounded-pill">
             VER MÁS
