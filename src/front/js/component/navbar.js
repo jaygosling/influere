@@ -33,7 +33,7 @@ export const Navbar = () => {
               Regístrate como Influencer
             </span>
           </Link>
-          <div className="navbar-item mx-2 dropdown">
+          <span className="navbar-item mx-2 dropdown">
             <button
               type="button"
               className="btn btn-primary dropdown-toggle"
@@ -53,7 +53,7 @@ export const Navbar = () => {
             </ul>
             <Modal user="empresa"/>
             <Modal user="influencer"/>
-          </div>
+          </span>
         </div>
       </div>
     </nav>
