@@ -59,10 +59,10 @@ const Layout = () => {
             <Route exact path="/single/:theid">
               <Single />
             </Route>
-            <Route exact path="/vistaInflu">
+            <Route exact path="/vistaInflu/:id">
               <VistaInflu />
             </Route>
-            <Route exact path="/vistaInfluPb/">
+            <Route exact path="/vistaInfluPb/:id">
               <VistaInfluPb />
             </Route>
             <Route exact path="/enviarEmail/">

@@ -19,7 +19,7 @@ export const Directorio = () => {
 			    store.influencers?.map((obj,i) => {
 				    
 				    return <div className="col-3">
-              <CardsInflu nombre={obj.name} username={obj.ig_user} sector={obj.categoria} i={i} seguidores="12" imagen="#"/>
+              <CardsInflu nombre={obj.name} username={obj.ig_user} sector={obj.categoria} seguidores={obj.followers} i={i} imagen="#" ubicacion={obj.ciudad}/>
               </div>
 			    })}
         </div>

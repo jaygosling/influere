@@ -10,10 +10,7 @@ export const Modal = ({user}) => {
   const token = sessionStorage.getItem("token");
   const userType = sessionStorage.getItem("user");
   const history = useHistory();
-  console.log("Token", store.token);
-  console.log("user", user);
   const handleClick = () => {
-    console.log("userclick", user);
     if (user == "influencer") {
       actions.login(email, password);
     } else if (user == "empresa") {
