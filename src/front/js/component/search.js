@@ -1,6 +1,29 @@
-import React from "react";
+import React, {useState, useContext} from "react";
+import { Context } from "../store/appContext";
 
 export const Search = () => {
+  const [categoria, setCategoria] = useState("");
+  const [ubicacion, setUbicacion] = useState("");
+  const [seguidores, setSeguidores] = useState("");
+  const [precioPubli, setPrecioPubli] = useState("");
+  const { store, actions } = useContext(Context);
+
+  function handleChangeCategoria(event){
+    setCategoria(event.target.value)
+  }
+  function handleChangeUbicacion(event){
+    setUbicacion(event.target.value)
+  }
+  function handleChangeSeguidores(event){
+    setSeguidores(event.target.value)
+  }
+  function handleChangePrecioPubli(event){
+    setPrecioPubli(event.target.value)
+  }
+
+  function handleClick (){
+    actions.buscar(categoria, ubicacion, seguidores, precioPubli);
+  }
   return (
     <div
       className="mask d-flex align-items-center my-5"
@@ -32,246 +55,131 @@ export const Search = () => {
                 <div className="row">
                   <div className="col-md-2 mb-2 ms-5">
                     <div class="dropdown">
-                      <button
+                      <select
                         class="btn btn-secondary dropdown-toggle"
-                        type="button"
                         id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
+                        value={categoria}
+                        onChange={handleChangeCategoria}
+                        defaultValue=""
                       >
-                        Sectores
-                      </button>
-                      <ul
-                        class="dropdown-menu"
-                        aria-labelledby="dropdownMenuButton1"
-                      >
-                        <li>
-                          <a class="dropdown-item" href="#">
-                            Moda
-                          </a>
-                        </li>
-                        <li>
-                          <a class="dropdown-item" href="#">
-                            Mamá y Premamá
-                          </a>
-                        </li>
-                        <li>
-                          <a class="dropdown-item" href="#">
-                            Fitness y Salud
-                          </a>
-                        </li>
-                        <li>
-                          <a class="dropdown-item" href="#">
-                            Automoción
-                          </a>
-                        </li>
-                      </ul>
+                        <option value="">Categoria</option>
+                      <option value="Moda y belleza">Moda y belleza</option>
+                      <option value="Maquillaje y cosméticos">
+                        Maquillaje y cosméticos
+                      </option>
+                      <option value="Tecnología">Tecnología</option>
+                      <option value="Fitness y gym">Fitness y gym</option>
+                      <option value="Comida y recetas">Comida y recetas</option>
+                      <option value="Mamá y premamá">Mamá y premamá</option>
+                      <option value="Vegano y vegetariano">
+                        Vegano y vegetariano
+                      </option>
+                      <option value="Deportes">Deportes</option>
+                      <option value="Emprendimiento">Emprendimiento</option>
+                      <option value="Viajes">Viajes</option>
+                      <option value="Coches y motos">Coches y motos</option>
+                      <option value="Reality y televisión">
+                        Reality y televisión
+                      </option>
+                      <option value="Actores y cantantes">
+                        Actores y cantantes
+                      </option>
+                      <option value="Mascotas">Mascotas</option>
+                      <option value="Family friendly">Family friendly</option>
+                      <option value="Otro">Otro</option>
+                        </select>
                     </div>
                   </div>
                   <div className="col-md-2 mb-2">
                     <div className="dropdown">
-                      <button
+                      <select
                         class="btn btn-secondary dropdown-toggle"
-                        type="button"
                         id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
+                        value={seguidores}
+                        onChange={handleChangeSeguidores}
+                        defaultValue=""
                       >
-                        {" "}
-                        Seguidores{" "}
-                      </button>
-                      <ul
-                        className="dropdown-menu"
-                        aria-labelledby="dropdownMenuLink1"
-                      >
-                        <li>
-                          <a className="dropdown-item" href="#">
+                          <option value="">
+                            Seguidores
+                          </option>
+                          <option value="1">
                             Menos de 100.000
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Hasta 500.000
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
+                          </option>
+                          <option value="2">
+                            Entre 100.000 y 500.000
+                          </option>
+                          <option value="3">
                             Entre 500.000 y 1 millón
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Mas de 1 millón
-                          </a>
-                        </li>
-                      </ul>
+                          </option>
+                          <option value="4">
+                            Más de 1 millón
+                          </option>
+                      </select>
                     </div>
                   </div>
                   <div className="col-md-3 mb-2">
                     <div className="dropdown">
-                      <button
+                    <select
                         class="btn btn-secondary dropdown-toggle"
-                        type="button"
                         id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
+                        value={precioPubli}
+                        onChange={handleChangePrecioPubli}
+                        defaultValue=""
                       >
-                        {" "}
-                        Precio por Publicación{" "}
-                      </button>
-                      <ul
-                        className="dropdown-menu"
-                        aria-labelledby="dropdownMenuLink1"
-                      >
-                        <li>
-                          <a className="dropdown-item" href="#">
+                          <option value="">
+                            Precio por Publicación
+                          </option>
+                          <option value="1">
                             0€ - 100€
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
+                          </option>
+                          <option value="2">
                             100€ - 300€
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
+                          </option>
+                          <option value="3">
                             300€ - 500€
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
+                          </option>
+                          <option value="4">
                             + 500€
-                          </a>
-                        </li>
-                      </ul>
+                          </option>
+                      </select>
                     </div>
                   </div>
                   <div className="col-md-2 mb-2">
                     <div className="dropdown">
-                      <button
+                      <select
                         class="btn btn-secondary dropdown-toggle"
-                        type="button"
                         id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
+                        value={ubicacion}
+                        onChange={handleChangeUbicacion}
+                        defaultValue=""
                       >
-                        {" "}
-                        Ubicación{" "}
-                      </button>
-                      <ul
-                        className="dropdown-menu"
-                        aria-labelledby="dropdownMenuLink2"
-                      >
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Andalucía
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Aragón
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Asturias
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Islas Baleares
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Canarias
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Cantabria
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Castilla y León
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Castilla-La Mancha
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Cataluña
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Comunidad Valenciana
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Extremadura
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Galicia
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Comunidad de Madrid
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Región de Murcia
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Comunidad de Navarra
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            País Vasco
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            La Rioja
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Ciudad Autónoma de Ceuta
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Ciudad Autónoma de Melilla
-                          </a>
-                        </li>
-                      </ul>
+                        <option value="">Ubicación</option>
+                        <option value="Andalucía">Andalucía</option>
+                        <option value="Aragón">Aragón</option>
+                        <option value="Canarias">Canarias</option>
+                        <option value="Cantabria">Cantabria</option>
+                        <option value="Castilla y León">Castilla y León</option>
+                        <option value="Castilla-La Mancha">Castilla-La Mancha</option>
+                        <option value="Cataluña">Cataluña</option>
+                        <option value="Ceuta">Ceuta</option>
+                        <option value="Comunidad de Madrid">Comunidad de Madrid</option>
+                        <option value="Comunidad Valenciana">Comunidad Valenciana </option>
+                        <option value="Extremadura">Extremadura</option>
+                        <option value="Galicia">Galicia</option>
+                        <option value="Islas Baleares">Islas Baleares</option>
+                        <option value="La Rioja">La Rioja</option>
+                        <option value="Melilla">Melilla</option>
+                        <option value="Navarra">Navarra</option>
+                        <option value="País Vasco">País Vasco</option>
+                        <option value="Principado de Asturias">Principado de Asturias</option>
+                        <option value="Región de Murcia">Región de Murcia</option>
+                      </select>
                     </div>
                   </div>
                   <div className="col-md-2 pe-1 ms-5">
-                    <button
-                      type="button"
-                      className="btn btn-secondary text-white"
-                      data-mdb-ripple-color="dark"
-                    >
-                      {" "}
-                      Reiniciar{" "}
-                    </button>
-                    <button type="button" className="btn btn-secondary fw-bold">
-                      {" "}
-                      Buscar{" "}
+                    
+                    <button type="button" className="btn btn-secondary fw-bold" onClick={handleClick}>
+                      Buscar
                     </button>
                   </div>
                 </div>

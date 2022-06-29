@@ -4,7 +4,6 @@ import "../../styles/home.css";
 import { Modal } from "./modal";
 
 export const Navbar = () => {
-  console.log("natvsr", "gdfgdfhgdfhdfh");
 
   return (
     <nav className="navbar navbar-light bg-white">

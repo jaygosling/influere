@@ -13,7 +13,7 @@ export const EditarInfluencer = () => {
     const [igLinks, addLinks] = useState([]);
     const history = useHistory();
     useEffect(() => {
-        actions.conseguirInfluencer(parametro.id)
+        actions.conseguirInfluencer(parametro.ig_user)
         
 
     }, [])

@@ -7,6 +7,10 @@ from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import datetime
 import instaloader
+<<<<<<< HEAD
+=======
+
+>>>>>>> a6868da8aae0d0eba8151a37933441d5b593fe24
 
 api = Blueprint('api', __name__)
 
@@ -38,14 +42,50 @@ def all_influencers():
         return jsonify(allinfluencer)
     else:
         return jsonify({"mensaje":"no se encontraron influencers"})
-        """ def add_datos(influencer):
-        print("influencer: " )
-        print(influencer)
-        datos = datos_instagram("daninzrth")
-        print("datos: " )
-        print(datos)
-        influencer["followers"] = datos.followers
-        influencer["profilepic"] = datos.profile_pic_url    """
+
+@api.route('/influencers/filter', methods=['POST'])
+def influencers_filter():
+    print("aqui")
+    request_body = request.get_json()
+    categoria = request_body['categoria']
+    seguidores = request_body['seguidores']
+    ubicacion = request_body['ubicacion']
+    precioPubli = request_body['precioPubli']
+    print(ubicacion)
+    filters = []
+    if (categoria != ""):
+        filters.append(getattr(Influencers, 'categoria') == categoria)
+    """ if (seguidores != ""):
+        if (seguidores == "1"):
+            filters.append(seguidores < 100000)
+        if (seguidores == "2"):
+            filters.append(seguidores >= 100000)
+            filters.append(seguidores < 500000)
+        if (seguidores == "3"):
+            filters.append(seguidores >= 500000)
+            filters.append(seguidores < 1000000)
+        if (seguidores == "4"):
+            filters.append(seguidores >= 1000000) """
+    if (ubicacion != ""):
+        filters.append(getattr(Influencers, 'autonomia') == ubicacion)
+    if (precioPubli != ""):
+        if (precioPubli == "1"):
+            filters.append(getattr(Influencers, 'precio_post') < 100)
+        if (precioPubli == "2"):
+            filters.append(getattr(Influencers, 'precio_post') >= 100)
+            filters.append(getattr(Influencers, 'precio_post') < 300)
+        if (precioPubli == "3"):
+            filters.append(getattr(Influencers, 'precio_post') >= 300)
+            filters.append(getattr(Influencers, 'precio_post') < 500)
+        if (precioPubli == "4"):
+            filters.append(getattr(Influencers, 'precio_post') >= 500)
+
+    allinfluencer = Influencers.query.filter(*filters)
+    if allinfluencer:
+        allinfluencer = list(map(lambda x: x.serialize(), allinfluencer))
+        return jsonify(allinfluencer)
+    else:
+        return jsonify({"mensaje":"no se encontraron influencers"})
 
 @api.route('/influencers/<int:id>', methods=['PUT'])
 def modificar_influencers(id):

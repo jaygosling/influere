@@ -1,4 +1,3 @@
-
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -10,6 +9,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			influencers: [],
 			datosEmpresa: {},
 			datosInfluencer: {},
+			profileData: {},
 			demo: [
 				{
 					title: "FIRST",
@@ -24,7 +24,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			]
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
+			// Use getActions to call a function within a function
 			agregar: (url) => {
 				const store = getStore();
 				setStore({ posts: [...store.posts, url] });
@@ -42,12 +42,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 				setStore({ favInf: newArray })
 			},
-			conseguirInfluencer: async (id) => {
+			conseguirInfluencer: (ig_user) => {
 				var myHeaders = new Headers();
 				myHeaders.append("Content-Type", "application/json");
 				const store = getStore()
 
-				await fetch(`${process.env.BACKEND_URL}/api/influencers/${id}`)
+				fetch(`${process.env.BACKEND_URL}/api/influencers/${ig_user}`)
 					.then(function (response) {
 						return response.json()
 					})
@@ -99,7 +99,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(result => console.log(result))
 					.catch(error => console.log('error', error));
 			},
-			actualizarInfluencer: (id, datos) => {
+			actualizarInfluencer: (ig_user, datos) => {
 				var myHeaders = new Headers();
 				myHeaders.append("Content-Type", "application/json");
 
@@ -112,7 +112,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					redirect: 'follow'
 				};
 
-				fetch(`${process.env.BACKEND_URL}/api/influencers/${id}`, requestOptions)
+				fetch(`${process.env.BACKEND_URL}/api/influencers/${ig_user}`, requestOptions)
 					.then(function (response) {
 						if (response.ok == true) {
 							alert("Usuario actualizado con éxito")
@@ -204,6 +204,41 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then((result) => console.log(result))
 					.catch((error) => console.log("error", error));
 			},
+			conseguirFotoPerfil: (user) => {
+				const store = getStore()
+				var myHeaders = new Headers();
+				var profilePicUrl = ""
+				myHeaders.append("Content-Type", "application/json");
+				fetch(`${process.env.BACKEND_URL}/api/instagram/${user}`)
+							.then(function (response) {
+								return response.json()
+							})
+							.then(function (result) {
+								profilePicUrl = result.profilepic
+								store.profileData.followers = result.followers
+								return console.log(result)
+							})
+				var raw = JSON.stringify({
+					"file": `${profilePicUrl}`,
+					"upload_preset": "influere_uns",
+					"public_id": `${user}`
+				});
+
+				var requestOptions = {
+					method: 'POST',
+					headers: myHeaders,
+					body: raw,
+					redirect: 'follow'
+				};
+
+				fetch("https://api.cloudinary.com/v1_1/influere/image/upload", requestOptions)
+					.then(response => response.text())
+					.then(result => {
+						
+						store.profileData.picUrl = result.url
+						console.log(result)})
+					.catch(error => console.log('error', error));
+			},
 			registrarInfluencer: (datosInfluencer) => {
 				var myHeaders = new Headers();
 				myHeaders.append("Content-Type", "application/json");
@@ -241,18 +276,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 			privado: () => {
 				var myHeaders = new Headers();
 				myHeaders.append("Authorization", `Bearer ${sessionStorage.getItem('token')}`);
-				
+
 				var requestOptions = {
- 					method: 'GET',
-  					headers: myHeaders,
-  					redirect: 'follow'
+					method: 'GET',
+					headers: myHeaders,
+					redirect: 'follow'
 				};
 
 				fetch("https://3001-jaygosling-influere-gyow40i3nvc.ws-eu47.gitpod.io/privada", requestOptions)
-  				.then(response => response.jeson())
-  				.then(result => {console.log(result)
-				setStore({permiso: result.permiso})})
- 				.catch(error => console.log('error', error));
+					.then(response => response.jeson())
+					.then(result => {
+						console.log(result)
+						setStore({ permiso: result.permiso })
+					})
+					.catch(error => console.log('error', error));
 			},
 
 			login: async (email, password) => {
@@ -326,12 +363,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("Error al iniciar sesion")
 				}
 			},
-			getInfluencers: async() => {
+			getInfluencers: async () => {
 				await fetch(process.env.BACKEND_URL + "/api/influencers")
-  				.then(response => response.json())
-  				.then(data => {console.log(data)
-				setStore({influencers:data})})
-  				.catch(error => console.log('error', error));
+					.then(response => response.json())
+					.then(data => {
+						console.log(data)
+						setStore({ influencers: data })
+					})
+					.catch(error => console.log('error', error));
 			},
 			getMessage: () => {
 				// fetching data from the backend
