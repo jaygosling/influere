@@ -94,6 +94,7 @@ export const Modal = ({user}) => {
                   className="btn btn-primary"
                   onClick={handleClick}
                   data-bs-dismiss="modal"
+                  
                 >
                   Iniciar Sesión
                 </button>

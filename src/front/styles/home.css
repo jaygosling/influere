@@ -27,6 +27,11 @@ body {
   border-radius: 15px;
 }
 
+/* #containerSectores img{
+  overflow: hidden;
+  box-shadow: 6px;
+} */
+
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap");
 
 .tituloabout {

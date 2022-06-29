@@ -93,8 +93,7 @@ export const VistaInflu = () => {
                 Editar Perfil
               </a>
             </li>
-            {/* <li><a class="dropdown-item" href="/">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li> */}
+           
             <li>
               <hr class="dropdown-divider" />
             </li>
@@ -129,15 +128,19 @@ export const VistaInflu = () => {
             ><strong> Nombre: {`${store.datosInfluencer.nombre} ${store.datosInfluencer.apellidos}`}</strong>
              
             </span>
-            <h2 className="title1 ">Sector: {`${store.datosInfluencer.categoria}`}
+            <h2 className="title1 " style={{ opacity: "80%" }}>Sector: {`${store.datosInfluencer.categoria}`}
             </h2>
             <h4 className="title1 " style={{ opacity: "80%" }}>
               Usuario: {`${store.datosInfluencer.ig_user}`}
             </h4>
-            <h6 className="title1 " style={{ opacity: "80%" }}>
-              Provincia (ciudad): {`${store.datosInfluencer.autonomia} (${store.datosInfluencer.ciudad})`} 
+            <h7 className="title1 " style={{ opacity: "80%" }}>
+              Email: {`${store.datosInfluencer.email}`}
+            </h7>
+            <br></br>
+            <span className="title1 " style={{ opacity: "80%"}}>
+              Ubicación: {`${store.datosInfluencer.autonomia} (${store.datosInfluencer.ciudad})`} 
               
-            </h6>
+            </span>
             <br></br>
             <br></br>
             <h5
