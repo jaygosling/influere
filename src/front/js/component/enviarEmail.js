@@ -1,5 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, useContext, useEffect} from "react";
 import emailjs from "emailjs-com";
+import { Context } from "../store/appContext";
+import { useParams } from "react-router-dom";
 
 export default class EnviarEmail extends Component {
     render() {
@@ -18,6 +20,13 @@ export default class EnviarEmail extends Component {
                     console.log(res);
                 });
         }
+
+        const parametro = useParams();
+        const {store, actions} = useContext(Context);
+        useEffect(()=>{
+            actions.conseguirInfluencer(parametro.id);
+        }, []);
+
         return (
             <div>
                 <div
