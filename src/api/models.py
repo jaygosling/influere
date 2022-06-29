@@ -23,8 +23,7 @@ class Influencers(db.Model):
     precio_reel = db.Column(db.Integer, unique=False, nullable=True)
     precio_story = db.Column(db.Integer, unique=False, nullable=True)
     profilepic = db.Column(db.String(360), unique=False, nullable=True)
-    followers = db.Column(db.Integer, unique=False, nullable=True)
-
+    seguidores = db.Column(db.Integer, unique=False, nullable=True)
 
 
     def __repr__(self):
@@ -50,6 +49,7 @@ class Influencers(db.Model):
             "precio_post": self.precio_post,
             "precio_reel": self.precio_reel,
             "precio_story": self.precio_story,
+            "seguidores": self.seguidores
 
             # do not serialize the password, its a security breach
         }

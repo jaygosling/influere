@@ -73,7 +73,10 @@
 		]
 	},
 	"dependencies": {
+<<<<<<< HEAD
+=======
 		"axios": "^0.27.2",
+>>>>>>> 72f6743f5b3ace9ab5526679e9e10bbde1f451f7
 		"cloudinary": "^1.30.0",
 		"cloudinary-react": "^1.8.0",
 		"cookie-session": "^2.0.0",

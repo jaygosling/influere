@@ -53,7 +53,7 @@ export const Search = () => {
                 <h6 className="busqueda">BÚSQUEDA AVANZADA</h6>
 
                 <div className="row">
-                  <div className="col-md-2 mb-2 ms-5">
+                  <div className="col-md-3 mb-3 ms-5">
                     <div class="dropdown">
                       <select
                         class="btn btn-secondary dropdown-toggle"
@@ -90,7 +90,7 @@ export const Search = () => {
                         </select>
                     </div>
                   </div>
-                  <div className="col-md-2 mb-2">
+                  <div className="col-md-3 mb-3">
                     <div className="dropdown">
                       <select
                         class="btn btn-secondary dropdown-toggle"
@@ -176,7 +176,7 @@ export const Search = () => {
                       </select>
                     </div>
                   </div>
-                  <div className="col-md-2 pe-1 ms-5">
+                  <div className="col-md-1 pe-1 ms-5">
                     
                     <button type="button" className="btn btn-secondary fw-bold" onClick={handleClick}>
                       Buscar
