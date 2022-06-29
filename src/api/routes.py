@@ -52,17 +52,17 @@ def influencers_filter():
     filters = []
     if (categoria != ""):
         filters.append(getattr(Influencers, 'categoria') == categoria)
-    """ if (seguidores != ""):
+    if (seguidores != ""):
         if (seguidores == "1"):
-            filters.append(seguidores < 100000)
+            filters.append(getattr(Influencers, 'seguidores') < 100000)
         if (seguidores == "2"):
-            filters.append(seguidores >= 100000)
-            filters.append(seguidores < 500000)
+            filters.append(getattr(Influencers, 'seguidores') >= 100000)
+            filters.append(getattr(Influencers, 'seguidores') < 500000)
         if (seguidores == "3"):
-            filters.append(seguidores >= 500000)
-            filters.append(seguidores < 1000000)
+            filters.append(getattr(Influencers, 'seguidores') >= 500000)
+            filters.append(getattr(Influencers, 'seguidores') < 1000000)
         if (seguidores == "4"):
-            filters.append(seguidores >= 1000000) """
+            filters.append(seguidores >= 1000000)
     if (ubicacion != ""):
         filters.append(getattr(Influencers, 'autonomia') == ubicacion)
     if (precioPubli != ""):
@@ -99,8 +99,9 @@ def modificar_influencers(id):
     influencer.bio = body["bio"]
     influencer.precio_post = body["precio_post"]
     influencer.precio_story = body["precio_story"]
-
-    influencer.precio_reel = body["precio_reel"]
+    
+    if "seguidores" in body:
+        influencer.seguidores = body["seguidores"]
 
     if "post1" in body:
         influencer.post1 = body["post1"]
@@ -171,7 +172,7 @@ def registro_influencers():
     if email_exists:
         return ("This user already exists")
     else:
-        influencers = Influencers(email=body["email"], password=body["password"], apellidos=body["apellidos"], nombre=body["nombre"], ig_user=body["ig_user"], categoria=body["categoria"], autonomia = body["autonomia"], ciudad = body["ciudad"], bio = body["bio"],post1=body["post1"], precio_post=body["precio_post"], precio_reel=body["precio_reel"], precio_story=body["precio_story"])
+        influencers = Influencers(email=body["email"], password=body["password"], apellidos=body["apellidos"], nombre=body["nombre"], ig_user=body["ig_user"], categoria=body["categoria"], autonomia = body["autonomia"], ciudad = body["ciudad"], bio = body["bio"],post1=body["post1"], precio_post=body["precio_post"], precio_reel=body["precio_reel"], precio_story=body["precio_story"], seguidores=body["seguidores"])
         if "post2" in body:
             influencers.post2 = body["post2"]
         if "post3" in body:

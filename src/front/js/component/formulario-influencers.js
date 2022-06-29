@@ -71,10 +71,11 @@ export const FormInfluencers = () => {
         allData.post1 &&
         allData.precio_post &&
         allData.precio_reel &&
-        allData.precio_story
+        allData.precio_story 
       ) {
+        addFollowers();
         finalData = allData;
-        console.log(finalData);
+        console.log("finalData", allData);
         sendData();
       } else {
         alert("Todos los campos son obligatorios");
@@ -82,6 +83,15 @@ export const FormInfluencers = () => {
     } else {
       alert("Las contraseñas no coinciden");
     }
+  }
+
+  function addFollowers() {
+    fetch(
+      process.env.BACKEND_URL + "/api/instagram/" + allData.ig_user
+    )
+      .then(response => response.json())
+      .then(result => allData.seguidores = result.followers)
+      .catch((error) => console.log("addFollowers error ", error));
   }
 
   function delData() {

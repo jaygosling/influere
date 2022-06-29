@@ -59,7 +59,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({
                   datosInfluencer: { ...store.datosInfluencer, ...result },
                 });
-
+                actualizarInfluencer(id, datosInfluencer);
                 return console.log(result);
               })
 
@@ -203,7 +203,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((result) => console.log(result))
           .catch((error) => console.log("error", error));
       },
-      registrarInfluencer: (datosInfluencer) => {
+      /* registrarInfluencer: (datosInfluencer) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -232,7 +232,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then((result) => console.log(result))
           .catch((error) => console.log("error", error));
-      },
+      }, */
 
       exampleFunction: () => {
         getActions().changeColor(0, "green");
