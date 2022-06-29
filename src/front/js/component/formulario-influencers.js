@@ -1,38 +1,25 @@
 import React, { Component, useState, useEffect } from "react";
 import { Headerformularioinfluencer } from "./headerformularioinfluencer";
+import { Context } from "../store/appContext";
+import Axios from "axios";
 
 export const FormInfluencers = () => {
+  var picUrl = ""
+  const [instaPic, setInstaPic] = useState("")
+  var instaUser = ""
+  function uploadPicture() {
+    const formData = new FormData()
+    formData.append("file", instaPic)
+    formData.append("upload_preset", "influere_uns")
+    formData.append("public_id", instaUser)
+    console.log(formData)
+    Axios.post("https://api.cloudinary.com/v1_1/influere/image/upload", formData).then((response) => { picUrl = response.data.url })
+    console.log(picUrl)
+  }
   var allData = {};
   var finalData = {};
   const [igLinks, addLinks] = useState([]);
-
-  function sendData() {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    var raw = JSON.stringify(finalData);
-
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    fetch(process.env.BACKEND_URL + "/api/registro-influencers", requestOptions)
-      .then(function (response) {
-        if (response.ok == true) {
-          alert("Usuario creado con éxito");
-        } else {
-          alert(
-            "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
-          );
-        }
-        return response.text();
-      })
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
-  }
+  const { actions, store } = useContext(Context)
   function addData() {
     console.log(document.getElementById("password-influ").value);
     if (
@@ -58,6 +45,11 @@ export const FormInfluencers = () => {
       allData.post5 = igLinks[4];
       allData.post6 = igLinks[5];
 
+      actions.conseguirFotoPerfil(allData.ig_user)
+      allData.profilepic = picUrl
+      allData.followers = store.profileData?.followers
+
+
       if (
         allData.email &&
         allData.password &&
@@ -71,10 +63,11 @@ export const FormInfluencers = () => {
         allData.post1 &&
         allData.precio_post &&
         allData.precio_reel &&
-        allData.precio_story
+        allData.precio_story 
       ) {
+        addFollowers();
         finalData = allData;
-        console.log(finalData);
+        console.log("finalData", allData);
         sendData();
       } else {
         alert("Todos los campos son obligatorios");
@@ -84,20 +77,13 @@ export const FormInfluencers = () => {
     }
   }
 
-  function delData() {
-    document.getElementById("email-influ").value = "";
-    document.getElementById("password-influ").value = "";
-    document.getElementById("rep-password-influ").value = "";
-    document.getElementById("apellidos").value = "";
-    document.getElementById("nombre").value = "";
-    document.getElementById("autonomia").value = "";
-    document.getElementById("categoria").value = "";
-    document.getElementById("ig-user").value = "";
-    document.getElementById("ciudad").value = "";
-    document.getElementById("bio").value = "";
-    document.getElementById("precio-story").value = "";
-    document.getElementById("precio-reel").value = "";
-    document.getElementById("precio-post").value = "";
+  function addFollowers() {
+    fetch(
+      process.env.BACKEND_URL + "/api/instagram/" + allData.ig_user
+    )
+      .then(response => response.json())
+      .then(result => allData.seguidores = result.followers)
+      .catch((error) => console.log("addFollowers error ", error));
   }
 
   function plusButton() {
@@ -112,6 +98,7 @@ export const FormInfluencers = () => {
   return (
     <div>
       <Headerformularioinfluencer />
+
       <div className="container-fluid m-0 p-0">
         <div className="container-fluid pt-5">
           <p className="h1 text-center my-5 tituloabout">RELLENA TUS DATOS</p>
@@ -297,6 +284,17 @@ export const FormInfluencers = () => {
               </div>
             </div>
           </div>
+          <div className="container">
+            <p className="camposform text-center">Sube tu foto de perfil:</p>
+            <div class="input-group">
+              <input type="file" class="form-control" onChange={(e) => {
+                setInstaPic(e.target.files[0]);
+                instaUser = document.getElementById("ig-user").value
+              }} id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" />
+              <button class="btn btn-outline-secondary" onClick={uploadPicture()} type="button" id="inputGroupFileAddon04">Subir</button>
+            </div>
+
+          </div>
           <div className="container row d-flex justify-content-center mx-auto my-5 py-3">
             <div className="col-8">
               <p className="text-center camposform">
@@ -402,6 +400,9 @@ export const FormInfluencers = () => {
               className="btn btn-primary rounded-pill btn-sm col-1 ms-3"
               onClick={() => {
                 addData();
+                //var theUser = document.getElementById("ig-user").value
+                //uploadPicture("unl", instaPic)
+
               }}
             >
               ENVIAR

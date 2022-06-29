@@ -34,6 +34,7 @@ export const Navbar = () => {
               Regístrate como Influencer
             </span>
           </Link>
+
           {/* -------------------------------REGISTRO DESPLEGABLE--------------------------------------------- */}
           {/* <div class="dropdown">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -55,6 +56,7 @@ export const Navbar = () => {
           </div> */}
           {/* ------------------------------------------------------------------------------------------------ */}
           <div className="navbar-item mx-2 dropdown">
+
             <button
               type="button"
               className="btn btn-primary dropdown-toggle"
@@ -79,6 +81,7 @@ export const Navbar = () => {
             <Modal user="empresa" />
             <Modal user="influencer" />
           </div>
+
         </div>
       </div>
     </nav>
