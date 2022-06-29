@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useContext } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Headerformularioinfluencer } from "./headerformularioinfluencer";
 import { Context } from "../store/appContext";
 import Axios from "axios";
@@ -67,7 +67,7 @@ export const FormInfluencers = () => {
       ) {
         finalData = allData;
         console.log(finalData);
-        actions.registrarInfluencer(finalData);
+        sendData();
       } else {
         alert("Todos los campos son obligatorios");
       }
@@ -380,7 +380,7 @@ export const FormInfluencers = () => {
               type="button"
               className="btn btn-danger rounded-pill btn-sm col-1 me-3"
               onClick={() => {
-                actions.delDataInfluencers();
+                delData();
               }}
             >
               BORRAR

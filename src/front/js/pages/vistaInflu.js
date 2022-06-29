@@ -1,31 +1,28 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import { IframeInstagram } from "../component/iFrameInsta";
 import { useParams } from "react-router-dom";
 import { Headervistainflu } from "../component/headervistainflu";
 
-export const VistaInflu = ({
-  imagen,
-  nombre,
-  username,
-  seguidores,
-  provincia,
-  ciudad,
-  sector,
-}) => {
+export const VistaInflu = () => {
   const { store, actions } = useContext(Context);
   const [url, setUrl] = useState("");
-  // const parametro = useParams ();
-
+  const parametro  = useParams();
+  
+  //  useEffect para que me consiga un actions cuando se renderice el componente y traer la informacion al perfil: 
+  useEffect(()=>{
+    actions.conseguirInfluencer(parametro.id);
+  }, []);
+ 
+   
   return (
     <div>
       <Headervistainflu />
 
       {/* --------------------------------------------------- */}
       <div
-        className="row container"
+        className="container"
         style={{
           display: "flex",
           justifyContent: "right",
@@ -33,10 +30,10 @@ export const VistaInflu = ({
           marginTop: "10px",
         }}
       >
-        <div
+        <div className="row"
           class="btn-group"
-          style={{ height: "40px", width: "40px", marginRight: "100px" }}
-        >
+          style={{ height: "40px", width: "40px", marginRight: "100px"}}
+         >
           <button
             type="button"
             class="btn btn-warning dropdown-toggle"
@@ -115,48 +112,45 @@ export const VistaInflu = ({
       <br></br>
       {/* ------------------------------------------------- */}
       <div className="container" style={{ maxWidth: "100%" }}>
-        <div className="row container">
+        <div className="row ">
           <div
             className="col-md-6"
             style={{
               paddingLeft: "15px",
               textAlign: "right",
-              margin: "5% auto 5% auto",
-            }}
-          >
-            <h1 className="tituloabout">DATOS SOBRE MI </h1>
+            }}>
+            <h1 className="tituloabout" style={{color: "#ffc107"}}>DATOS SOBRE MI </h1>
             <span
               action="/influencers"
               method="GET"
               className="title1"
-              style={{ color: "#302880" }}
-            >
-              Nombre: {nombre}
-              {/* {store.people[parametro.i]?.height +" "+"cm"} */}
+              style={{ color: "#363263" }}
+            ><strong> Nombre: {`${store.datosInfluencer.nombre}`}</strong>
+             
             </span>
-            <h2 className="title1 ">Sector: {sector}</h2>
-            <h4 className="title1 " style={{ opacity: "100%" }}>
-              Usuario: {username}
+            <h2 className="title1 ">Sector: {`${store.datosInfluencer.categoria}`}
+            </h2>
+            <h4 className="title1 " style={{ opacity: "80%" }}>
+              Usuario: {`${store.datosInfluencer.ig_user}`}
             </h4>
-            <h6 className="title1 " style={{ opacity: "100%" }}>
-              Provincia (ciudad): {provincia} {ciudad}
+            <h6 className="title1 " style={{ opacity: "80%" }}>
+              Provincia (ciudad): {`${store.datosInfluencer.autonomia} ${store.datosInfluencer.ciudad}`} 
+              {/* {provincia} {ciudad} */}
             </h6>
             <br></br>
             <br></br>
             <h5
               className="title1 "
-              style={{ opacity: "40%", maxWidth: "100%" }}
-            >
-              Breve descripción sobre el influencer, escrito por él mismo, puede
-              introducir actitudes, aptitudes y logros, etc etc.
+              style={{ opacity: "40%", maxWidth: "100%", marginLeft:"50%" }}
+            > {`${store.datosInfluencer.bio}`}
+             
             </h5>
           </div>
           <div
             className="col-md-6 rounded-circle "
             style={{
               display: "flex",
-              justifyContent: "center",
-              alignContent: "center",
+              placeContent:"left"
             }}
           >
             <img
@@ -167,6 +161,10 @@ export const VistaInflu = ({
                 maxWidth: "500px",
                 opacity: "100%",
                 transform: "revert",
+                marginLeft:"5%",
+                borderRadius:"15px"
+
+                
               }}
             />
           </div>
@@ -178,9 +176,9 @@ export const VistaInflu = ({
           <table class="table">
             <thead>
               <tr style={{ textAlign: "center" }}>
-                <th scope="col">1,221</th>
-                <th scope="col">1,7M</th>
-                <th scope="col">1,082</th>
+                <th scope="col">{`${store.datosInfluencer.publicaciones}`}</th>
+                <th scope="col">{`${store.datosInfluencer.followers}`}</th>
+                <th scope="col">{`${store.datosInfluencer.seguidos}`}</th>
               </tr>
             </thead>
             <tbody>
@@ -194,7 +192,7 @@ export const VistaInflu = ({
         </div>
         <br></br>
 
-        <h1 className="tituloabout" style={{ textAlign: "center" }}>
+        <h1 className="tituloabout" style={{ textAlign: "center", color:"#ffc107"}}>
           MIS ÚLTIMAS PUBLICACIONES{" "}
         </h1>
         {/* ---------------AGREGAR UN POST NUEVO-------------------------------------------------------------------------- */}
