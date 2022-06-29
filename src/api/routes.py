@@ -22,9 +22,9 @@ def datos_instagram(username):
     result["publicaciones"] = profile.mediacount
     return jsonify(result)
 
-@api.route('/influencers/<int:id>', methods=['GET'])
-def conseguir_influencers(id):
-    influencer = Influencers.query.get(id)
+@api.route('/influencers/<string:ig_user>', methods=['GET'])
+def conseguir_influencers(ig_user):
+    influencer = Influencers.query.filter_by(ig_user=ig_user).first()
     if influencer:
         return influencer.serialize()
     else:
@@ -84,9 +84,9 @@ def influencers_filter():
     else:
         return jsonify({"mensaje":"no se encontraron influencers"})
 
-@api.route('/influencers/<int:id>', methods=['PUT'])
-def modificar_influencers(id):
-    influencer = Influencers.query.get(id)
+@api.route('/influencers/<string:ig_user>', methods=['PUT'])
+def modificar_influencers(ig_user):
+    influencer = Influencers.query.filter_by(ig_user=ig_user).first()
     body = request.get_json()
     influencer.nombre = body["nombre"]
     influencer.email = body["email"]
@@ -167,12 +167,13 @@ def registro_empresas():
 def registro_influencers():
     
     body = request.get_json()
+    print(body)
     email_exists = Influencers.query.filter_by(email=body["email"]).first()
 
     if email_exists:
         return ("This user already exists")
     else:
-        influencers = Influencers(email=body["email"], password=body["password"], apellidos=body["apellidos"], nombre=body["nombre"], ig_user=body["ig_user"], categoria=body["categoria"], autonomia = body["autonomia"], ciudad = body["ciudad"], bio = body["bio"],post1=body["post1"], precio_post=body["precio_post"], precio_reel=body["precio_reel"], precio_story=body["precio_story"], seguidores=body["seguidores"])
+        influencers = Influencers(email=body["email"], password=body["password"], apellidos=body["apellidos"], nombre=body["nombre"], ig_user=body["ig_user"], categoria=body["categoria"], autonomia = body["autonomia"], ciudad = body["ciudad"], bio = body["bio"],post1=body["post1"], precio_post=body["precio_post"], precio_reel=body["precio_reel"], precio_story=body["precio_story"], seguidores=body["seguidores"], profilepic=body["profilepic"])
         if "post2" in body:
             influencers.post2 = body["post2"]
         if "post3" in body:
