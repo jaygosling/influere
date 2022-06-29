@@ -89,12 +89,11 @@ export const VistaInflu = () => {
           </button>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href={"/formulario-influencers"}>
+              <a class="dropdown-item" href={`/editar-influencer/${parametro.id}`}>
                 Editar Perfil
               </a>
             </li>
-            {/* <li><a class="dropdown-item" href="/">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li> */}
+           
             <li>
               <hr class="dropdown-divider" />
             </li>
@@ -119,24 +118,29 @@ export const VistaInflu = () => {
               paddingLeft: "15px",
               textAlign: "right",
             }}>
-            <h1 className="tituloabout" style={{color: "#ffc107"}}>DATOS SOBRE MI </h1>
+            <h1 className="tituloabout" style={{color: "#ffc107"}}>DATOS DEL INFLUENCER
+             </h1>
             <span
               action="/influencers"
               method="GET"
               className="title1"
               style={{ color: "#363263" }}
-            ><strong> Nombre: {`${store.datosInfluencer.nombre}`}</strong>
+            ><strong> Nombre: {`${store.datosInfluencer.nombre} ${store.datosInfluencer.apellidos}`}</strong>
              
             </span>
-            <h2 className="title1 ">Sector: {`${store.datosInfluencer.categoria}`}
+            <h2 className="title1 " style={{ opacity: "80%" }}>Sector: {`${store.datosInfluencer.categoria}`}
             </h2>
             <h4 className="title1 " style={{ opacity: "80%" }}>
               Usuario: {`${store.datosInfluencer.ig_user}`}
             </h4>
-            <h6 className="title1 " style={{ opacity: "80%" }}>
-              Provincia (ciudad): {`${store.datosInfluencer.autonomia} ${store.datosInfluencer.ciudad}`} 
-              {/* {provincia} {ciudad} */}
-            </h6>
+            <h7 className="title1 " style={{ opacity: "80%" }}>
+              Email: {`${store.datosInfluencer.email}`}
+            </h7>
+            <br></br>
+            <span className="title1 " style={{ opacity: "80%"}}>
+              Ubicación: {`${store.datosInfluencer.autonomia} (${store.datosInfluencer.ciudad})`} 
+              
+            </span>
             <br></br>
             <br></br>
             <h5
@@ -154,9 +158,7 @@ export const VistaInflu = () => {
             }}
           >
             <img
-              src={
-                "https://static2.mujerhoy.com/www/multimedia/201904/29/media/cortadas/marta-lozano-clave-para-combatir-todos-signos-envejecimiento-k4s-U8072873282cMF-624x468@MujerHoy.jpg"
-              }
+              src={`${store.datosInfluencer?.profilepic}`}
               style={{
                 maxWidth: "500px",
                 opacity: "100%",
