@@ -141,12 +141,7 @@ export const VistaInfluPb = () => {
         >
           ÚLTIMAS PUBLICACIONES
         </h1>
-        {/* ---------------AGREGAR UN POST NUEVO-------------------------------------------------------------------------- */}
-
-        {/* <div className="text-center mt-5 title1">
-          <h4 style={{ color: "#302880" }}>Agrega un nuevo post:</h4>
-          {/* <ContainerLista/> */}
-        {/* </div> */}
+        
         <br></br> 
         <br></br>
         <br></br>

@@ -30,15 +30,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ posts: [...store.posts, url] });
       },
 
-      addFavInf: (name) => {
-        setStore({ favInf: [...getStore().favInf, name] })
-      },
-      deleteFavInf: (name) => {
-        let newArray = getStore().favInf.filter((valor) => {
-          return valor != name;
-        });
-        setStore({ favInf: newArray })
-      },
+      // addFavInf: (name) => {
+      //   setStore({ favInf: [...getStore().favInf, name] })
+      // },
+      // deleteFavInf: (name) => {
+      //   let newArray = getStore().favInf.filter((valor) => {
+      //     return valor != name;
+      //   });
+      //   setStore({ favInf: newArray })
+      // },
       conseguirInfluencer: (ig_user) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");

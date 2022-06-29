@@ -13,6 +13,9 @@ export const VistaInflu = () => {
   //  useEffect para que me consiga un actions cuando se renderice el componente y traer la informacion al perfil: 
   useEffect(()=>{
     actions.conseguirInfluencer(parametro.id);
+    actions.agregar(url);
+    console.log(store.datosInfluencer.posts);
+    console.log(123);
   }, []);
  
    
@@ -45,7 +48,7 @@ export const VistaInflu = () => {
           </button>
           <ul class="dropdown-menu">
             <li type="button" style={{ float: "left" }}>
-              <a href={"https://www.instagram.com/"}>
+              <a href={`https://www.instagram.com/${store.datosInfluencer.ig_user}`}>
                 <img
                   src={
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png"
@@ -59,25 +62,7 @@ export const VistaInflu = () => {
                 />
               </a>
             </li>
-            <li type="button" style={{ float: "left" }}>
-              <a
-                class="dropdown-item"
-                href={
-                  "https://www.tiktok.com/login?redirect_url=https%3A%2F%2Fwww.tiktok.com%2Fupload%3Flang%3Des&lang=es"
-                }
-              >
-                <img
-                  src={
-                    "https://w7.pngwing.com/pngs/829/574/png-transparent-tiktok-hd-logo.png"
-                  }
-                  style={{
-                    maxWidth: "30px",
-                    maxHeight: "30px",
-                    marginTop: "2px",
-                  }}
-                />
-              </a>
-            </li>
+            
           </ul>
           <button
             type="button"
@@ -232,8 +217,33 @@ export const VistaInflu = () => {
         <br></br>
         <br></br>
         {/* --------------------ESPACIO DONDE SE AGREGARÁN LOS POST --------------------------------------------------------*/}
-
+        
+        <div className="row">
+          <IframeInstagram url={store.datosInfluencer.post1} style = {{height:"600px"}}/>
+          
+        </div>
+        <div className="row">
+          <IframeInstagram url={store.datosInfluencer.post2} style = {{height:"600px"}}/>
+          
+        </div>
+        <div className="row">
+          <IframeInstagram url={store.datosInfluencer.post3} style = {{height:"600px"}}/>
+          
+        </div>
+        <div className="row">
+          <IframeInstagram url={store.datosInfluencer.post4} style = {{height:"600px"}}/>
+          
+        </div>
+        <div className="row">
+          <IframeInstagram url={store.datosInfluencer.post5} style = {{height:"600px"}}/>
+          
+        </div>
+        <div className="row">
+          <IframeInstagram url={store.datosInfluencer.post6} style = {{height:"600px"}}/>
+          
+        </div>
         <div className="row ">
+        
           {store.posts?.map((e, i) => {
             return (
               <div key={i} className="col-4">
