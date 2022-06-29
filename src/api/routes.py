@@ -7,7 +7,10 @@ from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import datetime
 import instaloader
+<<<<<<< HEAD
+=======
 
+>>>>>>> a6868da8aae0d0eba8151a37933441d5b593fe24
 
 api = Blueprint('api', __name__)
 

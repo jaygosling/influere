@@ -16,14 +16,14 @@ export const Sectores = () => {
         <br></br>
         <br></br>
 
-        <div class="row">
+        <div class="row" id = "containerSectores">
           <div class="col">
             <div className="" style={{ width: 300 }}>
               <img
                 classname="card-img-top"
                 src="https://i.ibb.co/cv71NDF/Disen-o-sin-ti-tulo-2.png"
                 alt="Card image cap"
-                style={{ width: 300, height: 300, borderRadius:"50%"  }}
+                style={{ width: 300, height: 300, borderRadius:"50%", boxShadow: "50px rgba(0, 0, 0.5)"  }}
               />
             </div>
             <p className="sectores">Moda</p>

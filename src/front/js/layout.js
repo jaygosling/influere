@@ -68,7 +68,7 @@ const Layout = () => {
             <Route exact path="/enviarEmail/">
               <EnviarEmail />
             </Route>
-            <Route exact path="/vistaEmp">
+            <Route exact path="/vistaEmp/:id">
               <VistaEmp />
             </Route>
             <Route>
