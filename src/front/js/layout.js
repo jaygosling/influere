@@ -18,6 +18,7 @@ import { Directorio } from "./pages/directorio";
 import { EditarEmpresa } from "./component/editar-empresa";
 import { EditarInfluencer } from "./component/editar-influencer";
 import EnviarEmail from "./component/enviarEmail";
+import { CloudinaryTest } from "./component/cloudinary-test";
 
 //create your first component
 const Layout = () => {
@@ -34,6 +35,9 @@ const Layout = () => {
             <Route exact path="/">
               <Home />
             </Route>
+            <Route exact path="/cloudinary">
+              <CloudinaryTest />
+            </Route>
             <Route exact path="/formulario-influencers">
               <FormInfluencers />
             </Route>
@@ -43,7 +47,7 @@ const Layout = () => {
             <Route exact path="/editar-empresa/:id">
               <EditarEmpresa />
             </Route>
-            <Route exact path="/editar-influencer/:id">
+            <Route exact path="/editar-influencer/:ig_user">
               <EditarInfluencer />
             </Route>            
             <Route exact path="/demo">
