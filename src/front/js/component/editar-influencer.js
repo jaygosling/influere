@@ -11,7 +11,7 @@ export const EditarInfluencer = () => {
     var finalData = {}
     const [igLinks, addLinks] = useState([]);
     useEffect(() => {
-        actions.conseguirInfluencer(parametro.id)
+        actions.conseguirInfluencer(parametro.ig_user)
         
 
     }, [])
