@@ -7,10 +7,6 @@ from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import datetime
 import instaloader
-<<<<<<< HEAD
-=======
-
->>>>>>> a6868da8aae0d0eba8151a37933441d5b593fe24
 
 api = Blueprint('api', __name__)
 
@@ -170,11 +166,13 @@ def registro_empresas():
 def registro_influencers():
     
     body = request.get_json()
-    print(body)
     email_exists = Influencers.query.filter_by(email=body["email"]).first()
+    user_exists = Influencers.query.filter_by(ig_user=body["ig_user"]).first()
 
     if email_exists:
-        return ("This user already exists")
+        return ("Este email ya ha sido registrado")
+    elif user_exists:
+        return ("Este usuario de Instagram ya ha sido registrado")
     else:
         influencers = Influencers(email=body["email"], password=body["password"], apellidos=body["apellidos"], nombre=body["nombre"], ig_user=body["ig_user"], categoria=body["categoria"], autonomia = body["autonomia"], ciudad = body["ciudad"], bio = body["bio"],post1=body["post1"], precio_post=body["precio_post"], precio_reel=body["precio_reel"], precio_story=body["precio_story"], seguidores=body["seguidores"], profilepic=body["profilepic"])
         if "post2" in body:
