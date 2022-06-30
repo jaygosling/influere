@@ -39,6 +39,41 @@ const getState = ({ getStore, getActions, setStore }) => {
       //   });
       //   setStore({ favInf: newArray })
       // },
+
+
+      addFavInflu: (ig_user) => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        const store = getStore()
+
+        fetch(`${process.env.BACKEND_URL}/api/influencers/${ig_user}`)
+          .then(function (response) {
+            return response.json()
+          })
+          .then(function (result) {
+            setStore({ datosInfluencer: result });
+            fetch(
+              `${process.env.BACKEND_URL}/api/instagram/${store.datosInfluencer.ig_user}`
+            )
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (result) {
+                setStore({
+                  datosInfluencer: { ...store.datosInfluencer, ...result },
+                });
+                actualizarInfluencer(id, datosInfluencer);
+                return console.log(result);
+              })
+
+              .catch((error) => console.log("error", error));
+            return console.log(result);
+          })
+
+          .catch((error) => console.log("error", error));
+      },
+
+
       conseguirInfluencer: (ig_user) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -206,40 +241,41 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       conseguirFotoPerfil: (user) => {
-				const store = getStore()
-				var myHeaders = new Headers();
-				var profilePicUrl = ""
-				myHeaders.append("Content-Type", "application/json");
-				fetch(`${process.env.BACKEND_URL}/api/instagram/${user}`)
-							.then(function (response) {
-								return response.json()
-							})
-							.then(function (result) {
-								profilePicUrl = result.profilepic
-								store.profileData.followers = result.followers
-								return console.log(result)
-							})
-				var raw = JSON.stringify({
-					"file": `${profilePicUrl}`,
-					"upload_preset": "influere_uns",
-					"public_id": `${user}`
-				});
+        const store = getStore()
+        var myHeaders = new Headers();
+        var profilePicUrl = ""
+        myHeaders.append("Content-Type", "application/json");
+        fetch(`${process.env.BACKEND_URL}/api/instagram/${user}`)
+          .then(function (response) {
+            return response.json()
+          })
+          .then(function (result) {
+            profilePicUrl = result.profilepic
+            store.profileData.followers = result.followers
+            return console.log(result)
+          })
+        var raw = JSON.stringify({
+          "file": `${profilePicUrl}`,
+          "upload_preset": "influere_uns",
+          "public_id": `${user}`
+        });
 
-				var requestOptions = {
-					method: 'POST',
-					headers: myHeaders,
-					body: raw,
-					redirect: 'follow'
-				};
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
 
-				fetch("https://api.cloudinary.com/v1_1/influere/image/upload", requestOptions)
-					.then(response => response.text())
-					.then(result => {
-						
-						store.profileData.picUrl = result.url
-						console.log(result)})
-					.catch(error => console.log('error', error));
-			},
+        fetch("https://api.cloudinary.com/v1_1/influere/image/upload", requestOptions)
+          .then(response => response.text())
+          .then(result => {
+
+            store.profileData.picUrl = result.url
+            console.log(result)
+          })
+          .catch(error => console.log('error', error));
+      },
       registrarInfluencer: (datosInfluencer) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -354,7 +390,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
 
         fetch(process.env.BACKEND_URL + "/api/influencers/filter",
-        requestOptions)
+          requestOptions)
           .then((response) => response.json())
           .then((data) => {
             console.log(data);

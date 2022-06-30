@@ -29,6 +29,7 @@ def conseguir_influencers(ig_user):
     else:
         return jsonify({"mensaje":"influencer no existente"})
 
+
 @api.route('/influencers', methods=['GET'])
 def all_influencers():
          
