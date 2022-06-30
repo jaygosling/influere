@@ -114,6 +114,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (response) {
             if (response.ok == true) {
               alert("Usuario actualizado con éxito");
+              location.href= "/vistaemp/"+id
             } else {
               alert(
                 "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
@@ -124,7 +125,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((result) => console.log(result))
           .catch((error) => console.log("error", error));
       },
-      actualizarInfluencer: (id, datos) => {
+      actualizarInfluencer: (ig_user, datos) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -144,6 +145,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (response) {
             if (response.ok == true) {
               alert("Usuario actualizado con éxito");
+              location.href= "/vistainflu/"+ig_user
             } else {
               alert(
                 "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
@@ -220,6 +222,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (response) {
             if (response.ok == true) {
               alert("Usuario creado con éxito");
+              location.href = '/';
             } else {
               alert(
                 "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
