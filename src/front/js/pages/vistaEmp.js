@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 
 
 export const VistaEmp = () => {
+  sessionStorage.setItem("justLogin", false);
   const { store, actions } = useContext(Context);
   const parametro  = useParams();
 

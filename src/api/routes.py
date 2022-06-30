@@ -196,32 +196,4 @@ def registro_influencers():
 
     return jsonify(response_body), 200
 
-# -----------------LOGIN----------------------------------------------------
-@api.route('/login', methods =['POST'])
-def login():
-    body = request.get_json()
-    email_exists_Influ= Influencers.query.filter_by(email=body["email"], password=body['password']).first()
-    if  email_exists_Influ:
-        token = create_access_token(identity= body['email'])
-        return jsonify(({'access_token': token, 'mensaje': 'el inicio de sesión fue correcto'})), 200
-    else:
-        return jsonify(({'error': 'no existe usuario registrado con esos datos'})), 418
-        
-    email_exists_Emp = Empresas.query.filter_by(email=body["email"], password=body['password']).first()
-    if email_exists_Emp:
-        token = create_access_token(identity='login')
-        return jsonify(({'access_token': token, 'mensaje': 'el inicio de sesión fue correcto'})), 200
-    else: 
-        return jsonify(({'error': 'no existe ninguna empresa registrada con esos datos'})), 418
-
-
-@api.route('/vistaInflu', methods=['GET'])
-@jwt_required()
-def vistaInflu():
-
-    identidad = get_jwt_identity()
-
-    return jsonify({"mensaje": "tienes permiso para entrar", "permiso": True, "email": identidad})
-
-
 

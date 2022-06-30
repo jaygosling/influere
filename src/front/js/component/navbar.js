@@ -6,8 +6,12 @@ import { Modal } from "./modal";
 
 export const Navbar = () => {
   const {store, actions} = useContext(Context);
+  const token = sessionStorage.getItem("token");
+  const userig = sessionStorage.getItem("userig");
+  const userid = sessionStorage.getItem("userid");
+  const justLogin = sessionStorage.getItem("justLogin");
 
-  if (store.permiso){
+ if (justLogin && token && token != "" && token != undefined) {
   return (
     <nav className="navbar navbar-light bg-white">
       <div className="container-fluid mx-5">
@@ -27,7 +31,7 @@ export const Navbar = () => {
             </span>
           </Link>
           
-          <Link to={`/vistainflu/${store.user}`} style={{ textDecoration: "none" }}>
+          <Link to={/* userig? */ `/vistainflu/${userig}`/* : `/vistaemp/${userid}` */} style={{ textDecoration: "none" }}>
             <span class="navbar-item mx-2 text-black menu" href="#">
               Área Privada
             </span>
@@ -103,8 +107,8 @@ export const Navbar = () => {
               <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#empresa" href="#">Empresa</a></li>
               <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#influencer" href="#">Influencer</a></li>
             </ul>
-            <Modal user="empresa" />
-            <Modal user="influencer" />
+            <Modal sesion="empresa" />
+            <Modal sesion="influencer" />
           </span>
 
         </div>
