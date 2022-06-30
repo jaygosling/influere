@@ -22,7 +22,7 @@ export const Modal = ({user}) => {
     if (userType == "influencer") {
       history.push(`/vistaInflu/${store.user}`);
     } else if (userType == "empresa") {
-      history.push("/vistaEmp");
+      history.push(`/vistaEmp/${store.user}`);
     }
   }
 

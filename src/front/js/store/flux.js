@@ -331,6 +331,30 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log("error", error));
       },
+      privadoEmpresa: (id) => {
+        var myHeaders = new Headers();
+        myHeaders.append(
+          "Authorization",
+          `Bearer ${sessionStorage.getItem("token")}`
+        );
+
+        var requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow",
+        };
+
+        fetch(
+          `${process.env.BACKEND_URL}/vistaemp/${id}` ,
+          requestOptions
+        )
+          .then((response) => response.json())
+          .then((result) => {
+            console.log(result);
+            setStore({ permiso: result.permiso });
+          })
+          .catch((error) => console.log("error", error));
+      },
 
       login: async (email, password) => {
         var myHeaders = new Headers();
@@ -429,6 +453,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           sessionStorage.setItem("token", data.access_token);
           sessionStorage.setItem("user", "empresa");
           setStore({ token: data.access_token });
+          setStore({ user: data.id });
           return true;
         } catch (error) {
           console.error("Error al iniciar sesion");

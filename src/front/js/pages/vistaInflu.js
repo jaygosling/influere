@@ -75,7 +75,7 @@ export const VistaInflu = () => {
           </button>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href={`/editar-influencer/${parametro.ig_user}`}>
+              <a class="dropdown-item" href={`/editar-influencer/${parametro.id}`}>
                 Editar Perfil
               </a>
             </li>
