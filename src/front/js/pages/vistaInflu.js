@@ -12,10 +12,9 @@ export const VistaInflu = () => {
   
   //  useEffect para que me consiga un actions cuando se renderice el componente y traer la informacion al perfil: 
   useEffect(()=>{
-    actions.conseguirInfluencer(parametro.id);
+    actions.conseguirInfluencer(parametro.ig_user);
     actions.agregar(url);
-    console.log(store.datosInfluencer.posts);
-    console.log(123);
+    
   }, []);
  
    
@@ -74,7 +73,7 @@ export const VistaInflu = () => {
           </button>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href={`/editar-influencer/${parametro.id}`}>
+              <a class="dropdown-item" href={`/editar-influencer/${parametro.ig_user}`}>
                 Editar Perfil
               </a>
             </li>
@@ -143,7 +142,7 @@ export const VistaInflu = () => {
             }}
           >
             <img
-              src={`${store.datosInfluencer?.profilepic}`}
+              src={`${store.datosInfluencer.profilepic}`}
               style={{
                 maxWidth: "500px",
                 opacity: "100%",
@@ -184,11 +183,11 @@ export const VistaInflu = () => {
         </h1>
         {/* ---------------AGREGAR UN POST NUEVO-------------------------------------------------------------------------- */}
 
-        <div className="text-center mt-5 title1">
+        {/* <div className="text-center mt-5 title1">
           <h4 style={{ color: "#302880" }}>Agrega un nuevo post:</h4>
-          {/* <ContainerLista/> */}
+          */}
 
-          <form>
+          {/* <form>
             <div className="todo-list">
               <div className="file-input">
                 <input
@@ -211,39 +210,29 @@ export const VistaInflu = () => {
                 </button>
               </div>
             </div>
-          </form>
-        </div>
+          </form> */}
+        {/* </div> */}
         <br></br>
         <br></br>
         <br></br>
         {/* --------------------ESPACIO DONDE SE AGREGARÁN LOS POST --------------------------------------------------------*/}
         
         <div className="row">
-          <IframeInstagram url={store.datosInfluencer.post1} style = {{height:"600px"}}/>
-          
+          <div className="col-4">
+          <IframeInstagram url={store.datosInfluencer.post1} style = {{height:"600px", width:"300px"}}/>
+          <IframeInstagram url={store.datosInfluencer.post2} style = {{height:"600px", width:"300px"}}/>
+          <IframeInstagram url={store.datosInfluencer.post3} style = {{height:"600px", width:"300px"}}/>
+          </div>
+          <div className="col-4">
+            
+            <IframeInstagram url={store.datosInfluencer.post4} style={{ height: "600px", width: "300px" }} />
+            <IframeInstagram url={store.datosInfluencer.post5} style={{ height: "600px", width: "300px" }} />
+            <IframeInstagram url={store.datosInfluencer.post6} style={{ height: "600px", width: "300px" }} />
+          </div> 
         </div>
-        <div className="row">
-          <IframeInstagram url={store.datosInfluencer.post2} style = {{height:"600px"}}/>
-          
-        </div>
-        <div className="row">
-          <IframeInstagram url={store.datosInfluencer.post3} style = {{height:"600px"}}/>
-          
-        </div>
-        <div className="row">
-          <IframeInstagram url={store.datosInfluencer.post4} style = {{height:"600px"}}/>
-          
-        </div>
-        <div className="row">
-          <IframeInstagram url={store.datosInfluencer.post5} style = {{height:"600px"}}/>
-          
-        </div>
-        <div className="row">
-          <IframeInstagram url={store.datosInfluencer.post6} style = {{height:"600px"}}/>
-          
-        </div>
-        <div className="row ">
         
+        {/* <div>
+              
           {store.posts?.map((e, i) => {
             return (
               <div key={i} className="col-4">
@@ -251,7 +240,7 @@ export const VistaInflu = () => {
               </div>
             );
           })}
-        </div>
+        </div> */}
       </div>
     </div>
   );
