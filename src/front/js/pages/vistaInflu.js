@@ -7,13 +7,13 @@ import { Headervistainflu } from "../component/headervistainflu";
 
 export const VistaInflu = () => {
   const { store, actions } = useContext(Context);
-  const [url, setUrl] = useState("");
+  // const [url, setUrl] = useState("");
   const parametro  = useParams();
   
   //  useEffect para que me consiga un actions cuando se renderice el componente y traer la informacion al perfil: 
   useEffect(()=>{
-    actions.conseguirInfluencer(parametro.ig_user);
-    actions.agregar(url);
+    actions.conseguirInfluencer(parametro.id);
+    // actions.agregar(url);
     
   }, []);
  
@@ -219,18 +219,18 @@ export const VistaInflu = () => {
         
         <div className="row">
           <div className="col-4">
-          <IframeInstagram url={store.datosInfluencer.post1} style = {{height:"600px", width:"300px"}}/>
-          <IframeInstagram url={store.datosInfluencer.post2} style = {{height:"600px", width:"300px"}}/>
-          <IframeInstagram url={store.datosInfluencer.post3} style = {{height:"600px", width:"300px"}}/>
+          <IframeInstagram url={store.datosInfluencer.post1} style = {{height:"600px", width:"300px", borderRadius: " 5px solid lightgrey" }}/>
+          <IframeInstagram url={store.datosInfluencer.post2} style = {{height:"600px", width:"300px", borderRadius: " 5px solid lightgrey" }}/>
+          <IframeInstagram url={store.datosInfluencer.post3} style = {{height:"600px", width:"300px", borderRadius: " 5px solid lightgrey" }}/>
           </div>
           <div className="col-4">
             
-            <IframeInstagram url={store.datosInfluencer.post4} style={{ height: "600px", width: "300px" }} />
-            <IframeInstagram url={store.datosInfluencer.post5} style={{ height: "600px", width: "300px" }} />
-            <IframeInstagram url={store.datosInfluencer.post6} style={{ height: "600px", width: "300px" }} />
+            <IframeInstagram url={store.datosInfluencer.post4} style={{ height: "600px", width: "300px", borderRadius: " 5px solid lightgrey" }} />
+            <IframeInstagram url={store.datosInfluencer.post5} style={{ height: "600px", width: "300px", borderRadius: " 5px solid lightgrey"  }} />
+            <IframeInstagram url={store.datosInfluencer.post6} style={{ height: "600px", width: "300px", borderRadius: " 5px solid lightgrey"  }} />
           </div> 
         </div>
-        
+
         {/* <div>
               
           {store.posts?.map((e, i) => {
