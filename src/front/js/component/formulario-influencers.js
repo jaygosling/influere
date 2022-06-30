@@ -1,27 +1,20 @@
 import React, { Component, useState, useEffect, useContext } from "react";
 import { Headerformularioinfluencer } from "./headerformularioinfluencer";
 import { Context } from "../store/appContext";
-import Axios from "axios";
+import axios from "axios";
 
 export const FormInfluencers = () => {
   var picUrl = ""
   const [instaPic, setInstaPic] = useState("")
   var instaUser = ""
-  function uploadPicture() {
-    const formData = new FormData()
-    formData.append("file", instaPic)
-    formData.append("upload_preset", "influere_uns")
-    formData.append("public_id", instaUser)
-    console.log(formData)
-    Axios.post("https://api.cloudinary.com/v1_1/influere/image/upload", formData).then((response) => { picUrl = response.data.url })
-    console.log(picUrl)
-  }
+  /*   function uploadPicture() {
+
+    } */
   var allData = {};
   var finalData = {};
   const [igLinks, addLinks] = useState([]);
   const { actions, store } = useContext(Context)
   function addData() {
-    console.log(document.getElementById("password-influ").value);
     if (
       document.getElementById("password-influ").value ==
       document.getElementById("rep-password-influ").value
@@ -45,9 +38,9 @@ export const FormInfluencers = () => {
       allData.post5 = igLinks[4];
       allData.post6 = igLinks[5];
 
-      actions.conseguirFotoPerfil(allData.ig_user)
-      allData.profilepic = picUrl
-      allData.followers = store.profileData?.followers
+      /*       actions.conseguirFotoPerfil(allData.ig_user)
+            allData.profilepic = picUrl
+            allData.followers = store.profileData?.followers */
 
 
       if (
@@ -63,12 +56,11 @@ export const FormInfluencers = () => {
         allData.post1 &&
         allData.precio_post &&
         allData.precio_reel &&
-        allData.precio_story 
+        allData.precio_story
       ) {
-        addFollowers();
         finalData = allData;
-        console.log("finalData", allData);
-        sendData();
+        addFollowers();
+        setTimeout(() => { actions.registrarInfluencer(finalData) }, 5000);
       } else {
         alert("Todos los campos son obligatorios");
       }
@@ -82,7 +74,15 @@ export const FormInfluencers = () => {
       process.env.BACKEND_URL + "/api/instagram/" + allData.ig_user
     )
       .then(response => response.json())
-      .then(result => allData.seguidores = result.followers)
+      .then(result => {
+        finalData.seguidores = result.followers
+        const formData = new FormData()
+        formData.append("file", result.profilepic)
+        formData.append("upload_preset", "influere_uns")
+        formData.append("public_id", allData.ig_user)
+        axios.post("https://api.cloudinary.com/v1_1/influere/image/upload", formData).then((response) => { finalData.profilepic = response.data.url })
+        console.log(finalData)
+      })
       .catch((error) => console.log("addFollowers error ", error));
   }
 
@@ -284,17 +284,7 @@ export const FormInfluencers = () => {
               </div>
             </div>
           </div>
-          <div className="container">
-            <p className="camposform text-center">Sube tu foto de perfil:</p>
-            <div class="input-group">
-              <input type="file" class="form-control" onChange={(e) => {
-                setInstaPic(e.target.files[0]);
-                instaUser = document.getElementById("ig-user").value
-              }} id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" />
-              <button class="btn btn-outline-secondary" onClick={uploadPicture()} type="button" id="inputGroupFileAddon04">Subir</button>
-            </div>
 
-          </div>
           <div className="container row d-flex justify-content-center mx-auto my-5 py-3">
             <div className="col-8">
               <p className="text-center camposform">

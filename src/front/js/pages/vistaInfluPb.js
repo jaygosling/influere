@@ -34,7 +34,7 @@ export const VistaInfluPb = () => {
         {/* <button type="button" class="btn btn-light"><i class="fas fa-home"><a class="dropdown-item" href={"/vistaInflu"}></a></i></button> */}
         <button
           type="button"
-          className="btn btn-outline-primary"
+          className="btn btn-primary"
           style={{ marginRight: "5px", maxWidth: "200px" }}
         >
           <a href={"/enviarEmail"}>Enviar mensaje</a>
@@ -42,11 +42,11 @@ export const VistaInfluPb = () => {
 
         <button
           type="button"
-          className="btn btn-outline-primary"
+          className="btn btn-danger likeBtn"
           style={{ maxWidth: "40px" }}
-          // onClick={(name) => {
-          //   actions.addFavInf(name);
-          // }}
+          onClick={(name) => {
+            actions.addFavInf(name);
+          }}
         >
           <i class="far fa-heart"></i>
         </button>
@@ -72,7 +72,11 @@ export const VistaInfluPb = () => {
               className="title1"
               style={{ color: "#363263" }}
             >
-              <strong> Nombre: {`${store.datosInfluencer.nombre} ${store.datosInfluencer.apellidos}`}</strong>
+              <strong>
+                {" "}
+                Nombre:{" "}
+                {`${store.datosInfluencer.nombre} ${store.datosInfluencer.apellidos}`}
+              </strong>
             </span>
             <h2 className="title1 ">
               Sector: {`${store.datosInfluencer.categoria}`}
@@ -88,7 +92,7 @@ export const VistaInfluPb = () => {
             <br></br>
             <h5
               className="title1 "
-              style={{ opacity: "40%", maxWidth: "100%", marginLeft: "50%" }}
+              style={{ opacity: "40%", maxWidth: "100%", marginLeft: "30%" }}
             >
               {`${store.datosInfluencer.bio}`}
             </h5>
@@ -141,8 +145,8 @@ export const VistaInfluPb = () => {
         >
           ÚLTIMAS PUBLICACIONES
         </h1>
-        
-        <br></br> 
+      
+        <br></br>       
         <br></br>
         <br></br>
         {/* --------------------ESPACIO DONDE SE AGREGARÁN LOS POST --------------------------------------------------------*/}
@@ -174,7 +178,6 @@ export const VistaInfluPb = () => {
   );
 };
 
-
 //         {/* <button type="button" class="btn btn-light"><i class="fas fa-home"><a class="dropdown-item" href={"/vistaInflu"}></a></i></button> */}
 //         <button
 //           type="button"
@@ -197,4 +200,4 @@ export const VistaInfluPb = () => {
 //       </div>
 //     </div>
 //     {/* -------------------------------------- */}
-//     
+//

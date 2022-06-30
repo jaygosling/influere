@@ -343,3 +343,11 @@ img {
   font-size: 25px;
   font-family: "DM Sans", sans-serif;
 }
+
+.likeBtn {
+  float: right;
+}
+
+.href {
+  text-decoration: none;
+}

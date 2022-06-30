@@ -14,14 +14,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         {
           title: "FIRST",
           background: "white",
-          initial: "white"
+          initial: "white",
         },
         {
           title: "SECOND",
           background: "white",
-          initial: "white"
+          initial: "white",
         },
-      ]
+      ],
     },
     actions: {
       // Use getActions to call a function within a fuction
@@ -61,17 +61,18 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
 
           .catch((error) => console.log("error", error));
+
       },
 
 
       conseguirInfluencer: (ig_user) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        const store = getStore()
+        const store = getStore();
 
         fetch(`${process.env.BACKEND_URL}/api/influencers/${ig_user}`)
           .then(function (response) {
-            return response.json()
+            return response.json();
           })
           .then(function (result) {
             setStore({ datosInfluencer: result });
@@ -103,10 +104,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         var raw = JSON.stringify(datos);
 
         var requestOptions = {
-          method: 'PUT',
+          method: "PUT",
           headers: myHeaders,
           body: raw,
-          redirect: 'follow',
+          redirect: "follow",
         };
 
         fetch(`${process.env.BACKEND_URL}/api/empresas/${id}`, requestOptions)
@@ -266,6 +267,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch(error => console.log('error', error));
       },
+
       registrarInfluencer: (datosInfluencer) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -286,6 +288,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (response) {
             if (response.ok == true) {
               alert("Usuario creado con éxito");
+              location.href = '/';
             } else {
               alert(
                 "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
@@ -369,7 +372,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           categoria: categoria,
           ubicacion: ubicacion,
           seguidores: seguidores,
-          precioPubli: precioPubli
+          precioPubli: precioPubli,
         });
 
         var requestOptions = {
@@ -381,6 +384,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         fetch(process.env.BACKEND_URL + "/api/influencers/filter",
           requestOptions)
+
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
