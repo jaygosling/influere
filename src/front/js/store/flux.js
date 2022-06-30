@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       token: null,
       message: null,
       permiso: false,
+      user: '',
       favInflu: [],
       posts: [],
       influencers: [],
@@ -306,7 +307,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       exampleFunction: () => {
         getActions().changeColor(0, "green");
       },
-      privado: () => {
+      privado: (ig_user) => {
         var myHeaders = new Headers();
         myHeaders.append(
           "Authorization",
@@ -320,10 +321,34 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
 
         fetch(
-          "https://3001-jaygosling-influere-gyow40i3nvc.ws-eu47.gitpod.io/privada",
+          `${process.env.BACKEND_URL}/vistainflu/${ig_user}` ,
           requestOptions
         )
-          .then((response) => response.jeson())
+          .then((response) => response.json())
+          .then((result) => {
+            console.log(result);
+            setStore({ permiso: result.permiso });
+          })
+          .catch((error) => console.log("error", error));
+      },
+      privadoEmpresa: (id) => {
+        var myHeaders = new Headers();
+        myHeaders.append(
+          "Authorization",
+          `Bearer ${sessionStorage.getItem("token")}`
+        );
+
+        var requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow",
+        };
+
+        fetch(
+          `${process.env.BACKEND_URL}/vistaemp/${id}` ,
+          requestOptions
+        )
+          .then((response) => response.json())
           .then((result) => {
             console.log(result);
             setStore({ permiso: result.permiso });
@@ -362,6 +387,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           sessionStorage.setItem("token", data.access_token);
           sessionStorage.setItem("user", "influencer");
           setStore({ token: data.access_token });
+          setStore({ user: data.user });
           return true;
         } catch (error) {
           console.error("Error al iniciar sesion");
@@ -427,6 +453,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           sessionStorage.setItem("token", data.access_token);
           sessionStorage.setItem("user", "empresa");
           setStore({ token: data.access_token });
+          setStore({ user: data.id });
           return true;
         } catch (error) {
           console.error("Error al iniciar sesion");

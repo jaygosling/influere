@@ -1,6 +1,5 @@
 import React, { useContext, useEffect} from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import { CardsInflu } from "../component/cardsInfluencers";
 import { Headervistaempresa } from "../component/headervistaempresa";
@@ -15,6 +14,11 @@ export const VistaEmp = () => {
     actions.conseguirEmpresa(parametro.id);
   }, []);
 
+  useEffect ( () => {
+    actions.privadoEmpresa(parametro.id);
+  }, []);
+  
+  if (store.permiso){
   return (
     <div>
       <Headervistaempresa />
@@ -148,5 +152,7 @@ export const VistaEmp = () => {
         <br></br>
       </div>
     </div>
-  );
+  );} else {return (
+    <h1>404 la pagina no existe</h1>
+  );}
 };

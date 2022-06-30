@@ -71,6 +71,7 @@ def iniciar_sesion():
                 "mensaje": "inicio de sesion correcto",
                 "duracion": tiempo.total_seconds(),
                 "access_token": access_token,
+                "user": user.ig_user,
                 "error": None
             })
         else:
@@ -90,6 +91,7 @@ def iniciar_sesionEmpresa():
                 "mensaje": "inicio de sesion correcto",
                 "duracion": tiempo.total_seconds(),
                 "access_token": access_token,
+                "id": user.id,
                 "error": None
             })
         else:
@@ -98,9 +100,15 @@ def iniciar_sesionEmpresa():
         return jsonify({"error": "user no existe"}), 400
     
 
-@app.route('/privada', methods=['GET'])
+@app.route('/vistainflu/<string:ig_user>', methods=['GET'])
 @jwt_required()
-def privada():
+def privada(ig_user):
+    identidad : get_jwt_identity()
+    return jsonify({"mensaje":"permiso a espacio privado concedido", "permiso": True})
+
+@app.route('/vistaemp/<int:id>', methods=['GET'])
+@jwt_required()
+def privadaEmpresa(id):
     identidad : get_jwt_identity()
     return jsonify({"mensaje":"permiso a espacio privado concedido", "permiso": True})
 
