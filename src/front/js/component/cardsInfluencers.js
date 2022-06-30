@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/home.css"
+import "../../styles/home.css";
 
 export const CardsInflu = ({
   imagen,
@@ -7,7 +7,7 @@ export const CardsInflu = ({
   username,
   seguidores,
   sector,
-  ubicacion
+  ubicacion,
 }) => {
   return (
     <div className="card " style={{ width: "20rem" }}>
@@ -15,14 +15,25 @@ export const CardsInflu = ({
         <img src={imagen} class="card-img-top" alt="..." />
         <div className="card-body">
           <h5 className="card-title">{nombre}</h5>
-          <ul className="card-text" style={{listStyle : "none"}}>
-            <li><b>Instagram:</b> {username}</li>
-            <li><b>Seguidores:</b> {seguidores}</li>
-            <li><b>Categoria:</b> {sector}</li>
-            <li><b>Ciudad:</b> {ubicacion}</li>
+          <ul className="card-text" style={{ listStyle: "none" }}>
+            <li>
+              <b>Instagram:</b> {username}
+            </li>
+            <li>
+              <b>Seguidores:</b> {seguidores}
+            </li>
+            <li>
+              <b>Categoria:</b> {sector}
+            </li>
+            <li>
+              <b>Ciudad:</b> {ubicacion}
+            </li>
           </ul>
           <button href="#" class="btn btn-primary rounded-pill">
             VER MÁS
+          </button>
+          <button type="button" className="btn btn-danger likeBtn">
+            &#9825;
           </button>
         </div>
       </span>

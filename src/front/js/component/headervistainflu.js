@@ -13,7 +13,7 @@ export const Headervistainflu = () => {
         width: "100%",
       }}
     >
-      <h1 className="mb-3 tituloabout3">VISTA PRIVADA DE PERFIL</h1>
+      <h1 className="mb-3 tituloabout3">VISTA DEL PERFIL</h1>
     </div>
   );
 };
