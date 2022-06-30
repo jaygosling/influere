@@ -30,7 +30,7 @@ export const CardsInflu = ({
               <b>Ciudad:</b> {ubicacion}
             </li>
           </ul>
-          <Link to={'/vistainflu/'+username}>
+          <Link to={'/vistainfluPb/'+username}>
           <button href="#" class="btn btn-primary rounded-pill">
             VER MÁS
           </button>
