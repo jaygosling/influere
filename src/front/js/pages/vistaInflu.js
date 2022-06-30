@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { Headervistainflu } from "../component/headervistainflu";
 
 export const VistaInflu = () => {
+  sessionStorage.setItem("justLogin", false);
   const { store, actions } = useContext(Context);
   // const [url, setUrl] = useState("");
   const parametro  = useParams();

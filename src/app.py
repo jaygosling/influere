@@ -71,9 +71,9 @@ def iniciar_sesion():
                 "mensaje": "inicio de sesion correcto",
                 "duracion": tiempo.total_seconds(),
                 "access_token": access_token,
-                "user": user.ig_user,
+                "userig": user.ig_user,
                 "error": None
-            })
+            }),200
         else:
             return jsonify({"error": "Clave Incorrecta"}), 400
     else:
@@ -91,7 +91,7 @@ def iniciar_sesionEmpresa():
                 "mensaje": "inicio de sesion correcto",
                 "duracion": tiempo.total_seconds(),
                 "access_token": access_token,
-                "id": user.id,
+                "userid": user.id,
                 "error": None
             })
         else:
