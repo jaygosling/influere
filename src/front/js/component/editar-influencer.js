@@ -79,7 +79,7 @@ export const EditarInfluencer = () => {
                 allData.precio_story) {
                 finalData = allData
                 console.log(finalData)
-                actions.actualizarInfluencer(parametro.id, finalData)
+                actions.actualizarInfluencer(parametro.ig_user, finalData)
             } else {
                 alert("Todos los campos son obligatorios")
             }
