@@ -1,5 +1,6 @@
 import React from "react";
 import "../../styles/home.css";
+import { Link } from "react-router-dom";
 
 export const CardsInflu = ({
   imagen,
@@ -29,9 +30,11 @@ export const CardsInflu = ({
               <b>Ciudad:</b> {ubicacion}
             </li>
           </ul>
+          <Link to={'/vistainflu/'+username}>
           <button href="#" class="btn btn-primary rounded-pill">
             VER MÁS
           </button>
+          </Link>
           <button type="button" className="btn btn-danger likeBtn">
             &#9825;
           </button>
