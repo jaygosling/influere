@@ -206,43 +206,42 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       conseguirFotoPerfil: (user) => {
-        const store = getStore();
+        const store = getStore()
         var myHeaders = new Headers();
-        var profilePicUrl = "";
+        var profilePicUrl = ""
         myHeaders.append("Content-Type", "application/json");
         fetch(`${process.env.BACKEND_URL}/api/instagram/${user}`)
           .then(function (response) {
-            return response.json();
+            return response.json()
           })
           .then(function (result) {
-            profilePicUrl = result.profilepic;
-            store.profileData.followers = result.followers;
-            return console.log(result);
-          });
+            profilePicUrl = result.profilepic
+            store.profileData.followers = result.followers
+            return console.log(result)
+          })
         var raw = JSON.stringify({
-          file: `${profilePicUrl}`,
-          upload_preset: "influere_uns",
-          public_id: `${user}`,
+          "file": `${profilePicUrl}`,
+          "upload_preset": "influere_uns",
+          "public_id": `${user}`
         });
 
         var requestOptions = {
-          method: "POST",
+          method: 'POST',
           headers: myHeaders,
           body: raw,
-          redirect: "follow",
+          redirect: 'follow'
         };
 
-        fetch(
-          "https://api.cloudinary.com/v1_1/influere/image/upload",
-          requestOptions
-        )
-          .then((response) => response.text())
-          .then((result) => {
-            store.profileData.picUrl = result.url;
-            console.log(result);
+        fetch("https://api.cloudinary.com/v1_1/influere/image/upload", requestOptions)
+          .then(response => response.text())
+          .then(result => {
+
+            store.profileData.picUrl = result.url
+            console.log(result)
           })
-          .catch((error) => console.log("error", error));
+          .catch(error => console.log('error', error));
       },
+      
       registrarInfluencer: (datosInfluencer) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -263,6 +262,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (response) {
             if (response.ok == true) {
               alert("Usuario creado con éxito");
+              location.href = '/';
             } else {
               alert(
                 "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
@@ -356,10 +356,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: "follow",
         };
 
-        fetch(
-          process.env.BACKEND_URL + "/api/influencers/filter",
-          requestOptions
-        )
+        fetch(process.env.BACKEND_URL + "/api/influencers/filter",
+          requestOptions)
+
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
