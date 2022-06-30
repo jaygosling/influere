@@ -55,11 +55,11 @@ export const Navbar = () => {
             </ul>
           </div> */}
           {/* ------------------------------------------------------------------------------------------------ */}
-          <div className="navbar-item mx-2 dropdown">
+          <span className="navbar-item mx-2 dropdown">
 
             <button
               type="button"
-              className="btn btn-primary dropdown-toggle"
+              className="btn btn-primary dropdown-toggle navbar-item mx-2"
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
               aria-expanded="false"
@@ -80,7 +80,7 @@ export const Navbar = () => {
             </ul>
             <Modal user="empresa" />
             <Modal user="influencer" />
-          </div>
+          </span>
 
         </div>
       </div>
