@@ -11,6 +11,15 @@ export const Navbar = () => {
   const userid = sessionStorage.getItem("userid");
   const justLogin = sessionStorage.getItem("justLogin");
 
+  const link = () => {
+    if (userig) {
+      return `vistainflu/${userig}`
+    } else if (userid) {
+      return `vistaemp/${userid}`
+    }
+    }
+  
+
  if (justLogin && token && token != "" && token != undefined) {
   return (
     <nav className="navbar navbar-light bg-white">
@@ -31,7 +40,7 @@ export const Navbar = () => {
             </span>
           </Link>
           
-          <Link to={/* userig? */ `/vistainflu/${userig}`/* : `/vistaemp/${userid}` */} style={{ textDecoration: "none" }}>
+          <Link to={/* userig?  `/vistainflu/${userig}` : `/vistaemp/${userid}` */ link} style={{ textDecoration: "none" }}>
             <span class="navbar-item mx-2 text-black menu" href="#">
               Área Privada
             </span>
