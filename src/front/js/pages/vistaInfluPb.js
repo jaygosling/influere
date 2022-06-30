@@ -145,18 +145,26 @@ export const VistaInfluPb = () => {
         >
           ÚLTIMAS PUBLICACIONES
         </h1>
-        {/* ---------------AGREGAR UN POST NUEVO-------------------------------------------------------------------------- */}
-
-        {/* <div className="text-center mt-5 title1">
-          <h4 style={{ color: "#302880" }}>Agrega un nuevo post:</h4>
-          {/* <ContainerLista/> */}
-        {/* </div> */}
-        <br></br>
+      
+        <br></br>       
         <br></br>
         <br></br>
         {/* --------------------ESPACIO DONDE SE AGREGARÁN LOS POST --------------------------------------------------------*/}
+        <div className="row">
+          <div className="col-4">
+          <IframeInstagram url={store.datosInfluencer.post1} style = {{height:"600px", width:"300px"}}/>
+          <IframeInstagram url={store.datosInfluencer.post2} style = {{height:"600px", width:"300px"}}/>
+          <IframeInstagram url={store.datosInfluencer.post3} style = {{height:"600px", width:"300px"}}/>
+          </div>
+          <div className="col-4">
+            
+            <IframeInstagram url={store.datosInfluencer.post4} style={{ height: "600px", width: "300px" }} />
+            <IframeInstagram url={store.datosInfluencer.post5} style={{ height: "600px", width: "300px" }} />
+            <IframeInstagram url={store.datosInfluencer.post6} style={{ height: "600px", width: "300px" }} />
+          </div> 
+        </div>
 
-        <div className="row ">
+        {/* <div className="row ">
           {store.posts?.map((e, i) => {
             return (
               <div key={i} className="col-4">
@@ -164,7 +172,7 @@ export const VistaInfluPb = () => {
               </div>
             );
           })}
-        </div>
+        </div> */}
       </div>
     </div>
   );

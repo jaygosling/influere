@@ -4,7 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       token: null,
       message: null,
       permiso: false,
-      favInf: [],
+      favInflu: [],
       posts: [],
       influencers: [],
       datosEmpresa: {},
@@ -30,15 +30,41 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ posts: [...store.posts, url] });
       },
 
-      addFavInf: (name) => {
-        setStore({ favInf: [...getStore().favInf, name] });
+      
+      addFavInflu: (ig_user) => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        const store = getStore()
+
+        fetch(`${process.env.BACKEND_URL}/api/influencers/${ig_user}`)
+          .then(function (response) {
+            return response.json()
+          })
+          .then(function (result) {
+            setStore({ datosInfluencer: result });
+            fetch(
+              `${process.env.BACKEND_URL}/api/instagram/${store.datosInfluencer.ig_user}`
+            )
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (result) {
+                setStore({
+                  datosInfluencer: { ...store.datosInfluencer, ...result },
+                });
+                actualizarInfluencer(id, datosInfluencer);
+                return console.log(result);
+              })
+
+              .catch((error) => console.log("error", error));
+            return console.log(result);
+          })
+
+          .catch((error) => console.log("error", error));
+
       },
-      deleteFavInf: (name) => {
-        let newArray = getStore().favInf.filter((valor) => {
-          return valor != name;
-        });
-        setStore({ favInf: newArray });
-      },
+
+
       conseguirInfluencer: (ig_user) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -241,7 +267,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch(error => console.log('error', error));
       },
-      
+
       registrarInfluencer: (datosInfluencer) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");

@@ -7,12 +7,14 @@ import { Headervistainflu } from "../component/headervistainflu";
 
 export const VistaInflu = () => {
   const { store, actions } = useContext(Context);
-  const [url, setUrl] = useState("");
+  // const [url, setUrl] = useState("");
   const parametro  = useParams();
   
   //  useEffect para que me consiga un actions cuando se renderice el componente y traer la informacion al perfil: 
   useEffect(()=>{
     actions.conseguirInfluencer(parametro.id);
+    // actions.agregar(url);
+    
   }, []);
  
    
@@ -45,7 +47,7 @@ export const VistaInflu = () => {
           </button>
           <ul class="dropdown-menu">
             <li type="button" style={{ float: "left" }}>
-              <a href={"https://www.instagram.com/"}>
+              <a href={`https://www.instagram.com/${store.datosInfluencer.ig_user}`}>
                 <img
                   src={
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png"
@@ -59,25 +61,7 @@ export const VistaInflu = () => {
                 />
               </a>
             </li>
-            <li type="button" style={{ float: "left" }}>
-              <a
-                class="dropdown-item"
-                href={
-                  "https://www.tiktok.com/login?redirect_url=https%3A%2F%2Fwww.tiktok.com%2Fupload%3Flang%3Des&lang=es"
-                }
-              >
-                <img
-                  src={
-                    "https://w7.pngwing.com/pngs/829/574/png-transparent-tiktok-hd-logo.png"
-                  }
-                  style={{
-                    maxWidth: "30px",
-                    maxHeight: "30px",
-                    marginTop: "2px",
-                  }}
-                />
-              </a>
-            </li>
+            
           </ul>
           <button
             type="button"
@@ -89,7 +73,7 @@ export const VistaInflu = () => {
           </button>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href={`/editar-influencer/${parametro.id}`}>
+              <a class="dropdown-item" href={`/editar-influencer/${parametro.ig_user}`}>
                 Editar Perfil
               </a>
             </li>
@@ -158,7 +142,7 @@ export const VistaInflu = () => {
             }}
           >
             <img
-              src={`${store.datosInfluencer?.profilepic}`}
+              src={`${store.datosInfluencer.profilepic}`}
               style={{
                 maxWidth: "500px",
                 opacity: "100%",
@@ -199,11 +183,11 @@ export const VistaInflu = () => {
         </h1>
         {/* ---------------AGREGAR UN POST NUEVO-------------------------------------------------------------------------- */}
 
-        <div className="text-center mt-5 title1">
+        {/* <div className="text-center mt-5 title1">
           <h4 style={{ color: "#302880" }}>Agrega un nuevo post:</h4>
-          {/* <ContainerLista/> */}
+          */}
 
-          <form>
+          {/* <form>
             <div className="todo-list">
               <div className="file-input">
                 <input
@@ -226,14 +210,29 @@ export const VistaInflu = () => {
                 </button>
               </div>
             </div>
-          </form>
-        </div>
+          </form> */}
+        {/* </div> */}
         <br></br>
         <br></br>
         <br></br>
         {/* --------------------ESPACIO DONDE SE AGREGARÁN LOS POST --------------------------------------------------------*/}
+        
+        <div className="row">
+          <div className="col-4">
+          <IframeInstagram url={store.datosInfluencer.post1} style = {{height:"600px", width:"300px", borderRadius: " 5px solid lightgrey" }}/>
+          <IframeInstagram url={store.datosInfluencer.post2} style = {{height:"600px", width:"300px", borderRadius: " 5px solid lightgrey" }}/>
+          <IframeInstagram url={store.datosInfluencer.post3} style = {{height:"600px", width:"300px", borderRadius: " 5px solid lightgrey" }}/>
+          </div>
+          <div className="col-4">
+            
+            <IframeInstagram url={store.datosInfluencer.post4} style={{ height: "600px", width: "300px", borderRadius: " 5px solid lightgrey" }} />
+            <IframeInstagram url={store.datosInfluencer.post5} style={{ height: "600px", width: "300px", borderRadius: " 5px solid lightgrey"  }} />
+            <IframeInstagram url={store.datosInfluencer.post6} style={{ height: "600px", width: "300px", borderRadius: " 5px solid lightgrey"  }} />
+          </div> 
+        </div>
 
-        <div className="row ">
+        {/* <div>
+              
           {store.posts?.map((e, i) => {
             return (
               <div key={i} className="col-4">
@@ -241,7 +240,7 @@ export const VistaInflu = () => {
               </div>
             );
           })}
-        </div>
+        </div> */}
       </div>
     </div>
   );
