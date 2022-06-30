@@ -14,15 +14,17 @@ export const VistaInflu = () => {
   useEffect(()=>{
     actions.conseguirInfluencer(parametro.id);
     // actions.agregar(url);
-    
   }, []);
- 
-   
+ useEffect ( () => {
+  actions.privado(parametro.id);
+ }, []);
+  if (store.permiso){
   return (
     <div>
       <Headervistainflu />
 
       {/* --------------------------------------------------- */}
+      
       <div
         className="container"
         style={{
@@ -244,4 +246,10 @@ export const VistaInflu = () => {
       </div>
     </div>
   );
+      }
+      else {
+        return (
+          <h1>404 la pagina no existe</h1>
+        );
+      }
 };
