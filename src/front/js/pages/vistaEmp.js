@@ -124,10 +124,11 @@ export const VistaEmp = () => {
           {/* ------------------------ */}
           <div className="row container">
             <div className="row ">
-              {/* {store.favInf?.map((e, id) => {
+
+              {/* {store.favInflu?.map((ig_user, id) => {
                         return (
                             <div key={id} className="col-4">
-                                <CardsInflu name={e}
+                                <CardsInflu name={ig_user}
                                 />
                             </div>
                         );

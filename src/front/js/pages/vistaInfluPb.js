@@ -11,10 +11,27 @@ export const VistaInfluPb = () => {
   const { store, actions } = useContext(Context);
   const [url, setUrl] = useState("");
   const parametro = useParams();
+  // const {favorites, setFavorites} = useState([]);
 
   useEffect(() => {
     actions.conseguirInfluencer(parametro.id);
+
   }, []);
+  // useEffect(() => {
+  //   setFavorites(data);
+
+  // }, [data]);
+  // useEffect(() => {
+  //   console.log(favorites);
+  //   console.log(data);
+  // }, [favorites]);
+
+  // function handleFavorites(ig_user) {
+  //   const newFavorites = favorites.map((item) => {
+  //     return item.ig_user ===ig_user? {...item, favorite: !item.favorite}:item;
+  //   });
+  //   setFavorites(newFavorites);
+  // };
 
   return (
     <div>
@@ -44,8 +61,8 @@ export const VistaInfluPb = () => {
           type="button"
           className="btn btn-danger likeBtn"
           style={{ maxWidth: "40px" }}
-          onClick={(name) => {
-            actions.addFavInf(name);
+          onClick={(ig_user) => {
+            actions.addFavInflu(ig_user);
           }}
         >
           <i class="far fa-heart"></i>
@@ -145,23 +162,39 @@ export const VistaInfluPb = () => {
         >
           ÚLTIMAS PUBLICACIONES
         </h1>
-      
-        <br></br>       
+
+        <br></br>
         <br></br>
         <br></br>
         {/* --------------------ESPACIO DONDE SE AGREGARÁN LOS POST --------------------------------------------------------*/}
-        <div className="row">
-          <div className="col-4">
-          <IframeInstagram url={store.datosInfluencer.post1} style = {{height:"600px", width:"300px"}}/>
-          <IframeInstagram url={store.datosInfluencer.post2} style = {{height:"600px", width:"300px"}}/>
-          <IframeInstagram url={store.datosInfluencer.post3} style = {{height:"600px", width:"300px"}}/>
+        <div className="row" style={{marginBottom:"60px"}}>
+          <div className="col-4" style={{display:" flex", justifyContent:"center", alignContent:"center"}} >
+            <IframeInstagram url={store.datosInfluencer.post1} style={{ height: "600px", width: "300px" }} />
           </div>
-          <div className="col-4">
-            
+          <div className="col-4" style={{display:" flex", justifyContent:"center", alignContent:"center"}}>
+            <IframeInstagram url={store.datosInfluencer.post2} style={{ height: "600px", width: "300px" }} />
+
+          </div>
+
+          <div className="col-4" style={{display:" flex", justifyContent:"center", alignContent:"center"}}>
+            <IframeInstagram url={store.datosInfluencer.post3} style={{ height: "600px", width: "300px" }} />
+
+          </div>
+        </div>
+        <div className="row" >
+          <div className="col-4" style={{display:" flex", justifyContent:"center", alignContent:"center"}}>
             <IframeInstagram url={store.datosInfluencer.post4} style={{ height: "600px", width: "300px" }} />
-            <IframeInstagram url={store.datosInfluencer.post5} style={{ height: "600px", width: "300px" }} />
+
+          </div>
+          <div className="col-4" style={{display:" flex", justifyContent:"center", alignContent:"center"}}>
+            <IframeInstagram url={store.datosInfluencer.post5} style={{ height: "600px", width: "300px"}} />
+
+          </div>
+
+          <div className="col-4" style={{display:" flex", justifyContent:"center", alignContent:"center"}}>
             <IframeInstagram url={store.datosInfluencer.post6} style={{ height: "600px", width: "300px" }} />
-          </div> 
+
+          </div>
         </div>
 
         {/* <div className="row ">

@@ -31,38 +31,41 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       
-      addFavInflu: (ig_user) => {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        const store = getStore()
+      // addFavInflu: (id) => { this.favInflu.push(id)
 
-        fetch(`${process.env.BACKEND_URL}/api/influencers/${ig_user}`)
-          .then(function (response) {
-            return response.json()
-          })
-          .then(function (result) {
-            setStore({ datosInfluencer: result });
-            fetch(
-              `${process.env.BACKEND_URL}/api/instagram/${store.datosInfluencer.ig_user}`
-            )
-              .then(function (response) {
-                return response.json();
-              })
-              .then(function (result) {
-                setStore({
-                  datosInfluencer: { ...store.datosInfluencer, ...result },
-                });
-                actualizarInfluencer(id, datosInfluencer);
-                return console.log(result);
-              })
+        // var myHeaders = new Headers();
+        // myHeaders.append("Content-Type", "application/json");
+        // const store = getStore()
 
-              .catch((error) => console.log("error", error));
-            return console.log(result);
-          })
+        // fetch(`${process.env.BACKEND_URL}/api/favInflu/${ig_user}`)
+        //   .then(function (response) {
+        //     return response.json()
+        //   })
+        //   .then(function (result) {
+        //     setStore({ datosInfluencer: result });
+        //     fetch(
+        //       `${process.env.BACKEND_URL}/api/instagram/${store.datosInfluencer.ig_user}`
+        //     )
+        //       .then(function (response) {
+        //         return response.json();
+        //       })
+        //       .then(function (result) {
+        //         setStore({
+        //           datosInfluencer: { ...store.datosInfluencer, ...result },
+        //         });
+        //         actualizarInfluencer(id, datosInfluencer);
+        //         return console.log(result);
+        //       })
 
-          .catch((error) => console.log("error", error));
+        //       .catch((error) => console.log("error", error));
+        //     return console.log(result);
+        //   })
 
-      },
+        //   .catch((error) => console.log("error", error));
+
+
+      // },
+      // removeFavInflu(id){this.favInflu = this.favInflu.filter(p)}
 
 
       conseguirInfluencer: (ig_user) => {
