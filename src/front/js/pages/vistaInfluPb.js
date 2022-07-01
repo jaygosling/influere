@@ -11,27 +11,13 @@ export const VistaInfluPb = () => {
   const { store, actions } = useContext(Context);
   const [url, setUrl] = useState("");
   const parametro = useParams();
-  // const {favorites, setFavorites} = useState([]);
+  const userid = sessionStorage.getItem("userid");
 
   useEffect(() => {
     actions.conseguirInfluencer(parametro.id);
 
   }, []);
-  // useEffect(() => {
-  //   setFavorites(data);
-
-  // }, [data]);
-  // useEffect(() => {
-  //   console.log(favorites);
-  //   console.log(data);
-  // }, [favorites]);
-
-  // function handleFavorites(ig_user) {
-  //   const newFavorites = favorites.map((item) => {
-  //     return item.ig_user ===ig_user? {...item, favorite: !item.favorite}:item;
-  //   });
-  //   setFavorites(newFavorites);
-  // };
+  
 
   return (
     <div>
@@ -63,6 +49,7 @@ export const VistaInfluPb = () => {
           style={{ maxWidth: "40px" }}
           onClick={(ig_user) => {
             actions.addFavInflu(ig_user);
+
           }}
         >
           <i class="far fa-heart"></i>

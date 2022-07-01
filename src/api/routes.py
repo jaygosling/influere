@@ -30,6 +30,8 @@ def conseguir_influencers(ig_user):
         return jsonify({"mensaje":"influencer no existente"})
 
 
+
+
 @api.route('/influencers', methods=['GET'])
 def all_influencers():
          
@@ -195,5 +197,33 @@ def registro_influencers():
     }
 
     return jsonify(response_body), 200
+
+@api.route('/favoritos', methods=['POST'])
+def addFavInfluencers():
+    
+    body = request.get_json()
+    fav = Favoritos(empresa_id = body["empresa_id"], influencer_id = body["influencer_id"])
+    
+    db.session.add(fav)
+    db.session.commit()
+    
+    print("POST recibido")
+    response_body = {
+        "message": "Agregado a favoritos"
+    }
+
+    return jsonify(response_body), 200
+
+@api.route('/favoritos', methods = ['GET'])
+def conseguirFav(): 
+        fav = Favoritos.query.get(id)
+        if fav:
+            return fav.serialize()
+        else:
+            return jsonify({"mensaje":"usuario no existente"})
+
+
+
+
 
 

@@ -11,6 +11,7 @@ export const VistaEmp = () => {
   const { store, actions } = useContext(Context);
   const parametro  = useParams();
 
+
   useEffect(()=>{
     actions.conseguirEmpresa(parametro.id);
   }, []);
@@ -129,24 +130,16 @@ export const VistaEmp = () => {
           {/* ------------------------ */}
           <div className="row container">
             <div className="row ">
-
-              {/* {store.favInflu?.map((ig_user, id) => {
+              
+              {/* {store.favInflu?.map((obj, id) => {
                         return (
                             <div key={id} className="col-4">
-                                <CardsInflu name={ig_user}
+                                <CardsInflu nombre={obj.name} username={obj.ig_user} sector={obj.categoria} seguidores={obj.seguidores} i={i} imagen={obj.profilepic} ubicacion={obj.ciudad}/>
                                 />
                             </div>
                         );
                     })} */}
-              <di className="col-md-4">
-                <CardsInflu />
-              </di>
-              <di className="col-md-4">
-                <CardsInflu />
-              </di>
-              <di className="col-md-4">
-                <CardsInflu />
-              </di>
+              
             </div>
           </div>
         </div>
