@@ -40,23 +40,22 @@ const getState = ({ getStore, getActions, setStore }) => {
         myHeaders.append("Content-Type", "application/json");
         const store = getStore()
 
-        fetch(`${process.env.BACKEND_URL}/api/favInflu/${ig_user}`)
+        fetch(`${process.env.BACKEND_URL}/favoritos/`)
           .then(function (response) {
             return response.json()
           })
           .then(function (result) {
-            setStore({ datosInfluencer: result });
+            setStore({ favInflu: result });
             fetch(
-              `${process.env.BACKEND_URL}/api/instagram/${store.datosInfluencer.ig_user}`
-            )
+              `${process.env.BACKEND_URL}/favoritos/`)
               .then(function (response) {
                 return response.json();
               })
               .then(function (result) {
                 setStore({
-                  datosInfluencer: { ...store.datosInfluencer, ...result },
+                  favInflu: { ...store.favInflu, ...result },
                 });
-                actualizarInfluencer(id, datosInfluencer);
+                actualizarInfluencer(id, favInflu);
                 return console.log(result);
               })
 
@@ -68,7 +67,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       },
 
-      removeFavInflu(id){this.favInflu = this.favInflu.filter(p)},
+      // removeFavInflu(id){this.favInflu = this.favInflu.filter(p)},
 
 
       conseguirInfluencer: (ig_user) => {
