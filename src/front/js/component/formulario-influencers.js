@@ -283,6 +283,26 @@ export const FormInfluencers = () => {
               </div>
             </div>
           </div>
+          {/* --------------------------------SUBIR IMAGEN O ARCHIVO: ------------------------------------------- */}
+
+        <div className="container" style={{display:"flex", justifyContent:"center", alignContent:"center"}}>
+          <div className="form-group col-xs-12 col-sm-6 col-md-4">
+            
+            <div className="input-group">
+              <label for="banner">Añadir Imagen:</label>
+              <label className="input-group-btn">
+                <span className="btn btn-light btn-file">
+                <input accept=".jpg,.png,.jpeg,.gif" className="hidden" name="banner" type="file" id="banner"/>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <br></br>
+
+
+
+          {/* -------------------------------------------------------------------------------------- */}
 
           <div className="container row d-flex justify-content-center mx-auto my-5 py-3">
             <div className="col-8">

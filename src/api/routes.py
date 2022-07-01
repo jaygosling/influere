@@ -203,7 +203,7 @@ def addFavInfluencers():
     
     body = request.get_json()
     fav = Favoritos(empresa_id = body["empresa_id"], influencer_id = body["influencer_id"])
-    
+    # influen = Influencers.query.filter_by(email=body["email"]).first()
     db.session.add(fav)
     db.session.commit()
     

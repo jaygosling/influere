@@ -32,38 +32,29 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ posts: [...store.posts, url] });
       },
 
-      
-      addFavInflu: (ig_user) => { 
+
+      addFavInflu: (ig_user) => {
         // this.favInflu.push(id)
 
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        const store = getStore()
 
-        fetch(`${process.env.BACKEND_URL}/favoritos/`)
-          .then(function (response) {
-            return response.json()
-          })
-          .then(function (result) {
-            setStore({ favInflu: result });
-            fetch(
-              `${process.env.BACKEND_URL}/favoritos/`)
-              .then(function (response) {
-                return response.json();
-              })
-              .then(function (result) {
-                setStore({
-                  favInflu: { ...store.favInflu, ...result },
-                });
-                actualizarInfluencer(id, favInflu);
-                return console.log(result);
-              })
+        var raw = JSON.stringify({
+          "influencer_id": "...",
+          "empresa_id": "..."
+        });
 
-              .catch((error) => console.log("error", error));
-            return console.log(result);
-          })
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
 
-          .catch((error) => console.log("error", error));
+        fetch("https://3001-jaygosling-influere-t1oivnd9ra8.ws-eu47.gitpod.io/api/favoritos", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
 
       },
 
@@ -119,7 +110,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (response) {
             if (response.ok == true) {
               alert("Usuario actualizado con éxito");
-              location.href= "/vistaemp/"+id
+              location.href = "/vistaemp/" + id
             } else {
               alert(
                 "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
@@ -150,7 +141,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (response) {
             if (response.ok == true) {
               alert("Usuario actualizado con éxito");
-              location.href= "/vistainflu/"+ig_user
+              location.href = "/vistainflu/" + ig_user
             } else {
               alert(
                 "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
@@ -325,7 +316,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
 
         fetch(
-          `${process.env.BACKEND_URL}/vistainflu/${ig_user}` ,
+          `${process.env.BACKEND_URL}/vistainflu/${ig_user}`,
           requestOptions
         )
           .then((response) => response.json())
@@ -349,7 +340,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
 
         fetch(
-          `${process.env.BACKEND_URL}/vistaemp/${id}` ,
+          `${process.env.BACKEND_URL}/vistaemp/${id}`,
           requestOptions
         )
           .then((response) => response.json())
@@ -377,25 +368,25 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
 
         fetch(
-            process.env.BACKEND_URL + "/login",
-            requestOptions
-          )
+          process.env.BACKEND_URL + "/login",
+          requestOptions
+        )
           .then((response) => response.json())
           .then((data) => {
-          if (data.error != null) {
-            alert("Correo o contraseña erroneo!");
-            return false;
-          }
+            if (data.error != null) {
+              alert("Correo o contraseña erroneo!");
+              return false;
+            }
 
-          console.log("this come form the backend", data);
-          sessionStorage.setItem("token", data.access_token);
-          sessionStorage.setItem("userType", "influencer");
-          sessionStorage.setItem("userig", data.userig);
-          setStore({ token: data.access_token });
-          setStore({ userig: data.userig });  
-          return true;
-        })
-        .catch((error) => console.log("Error al iniciar sesion", error));
+            console.log("this come form the backend", data);
+            sessionStorage.setItem("token", data.access_token);
+            sessionStorage.setItem("userType", "influencer");
+            sessionStorage.setItem("userig", data.userig);
+            setStore({ token: data.access_token });
+            setStore({ userig: data.userig });
+            return true;
+          })
+          .catch((error) => console.log("Error al iniciar sesion", error));
       },
       buscar: (categoria, ubicacion, seguidores, precioPubli) => {
         var myHeaders = new Headers();
@@ -426,7 +417,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("error", error));
       },
 
-      loginempresa:  (email, password) => {
+      loginempresa: (email, password) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -443,23 +434,23 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
 
         fetch(
-            process.env.BACKEND_URL + "/loginempresa",
-            requestOptions
-          )
+          process.env.BACKEND_URL + "/loginempresa",
+          requestOptions
+        )
           .then((response) => response.json())
           .then((data) => {
-          if (data.error != null) {
-            alert("Correo o contraseña erroneo!");
-            return false;
-          }
-          console.log("this come form the backend", data);
-          sessionStorage.setItem("token", data.access_token);
-          sessionStorage.setItem("userType", "empresa");
-          sessionStorage.setItem("userid", data.userid);
-          setStore({ token: data.access_token });
-          setStore({ userid: data.id });
-          return true;
-      })
+            if (data.error != null) {
+              alert("Correo o contraseña erroneo!");
+              return false;
+            }
+            console.log("this come form the backend", data);
+            sessionStorage.setItem("token", data.access_token);
+            sessionStorage.setItem("userType", "empresa");
+            sessionStorage.setItem("userid", data.userid);
+            setStore({ token: data.access_token });
+            setStore({ userid: data.id });
+            return true;
+          })
           .catch((error) => console.log("Error al iniciar sesion", error));
       },
       getInfluencers: async () => {
