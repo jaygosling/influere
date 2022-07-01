@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect} from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import "../../styles/home.css";
 import { Modal } from "./modal";
 
@@ -9,7 +9,17 @@ export const Navbar = () => {
   const token = sessionStorage.getItem("token");
   const userig = sessionStorage.getItem("userig");
   const userid = sessionStorage.getItem("userid");
+  const historyHome = useHistory();
   const justLogin = sessionStorage.getItem("justLogin");
+
+  const cerrarSesion = () => {
+    sessionStorage.removeItem("token")
+    sessionStorage.removeItem("userig")
+    sessionStorage.removeItem("justLogin") 
+    sessionStorage.removeItem("userType") 
+    sessionStorage.removeItem("userid") 
+    historyHome.push('/')
+  }
 
   const link = () => {
     if (userig) {
@@ -46,11 +56,11 @@ export const Navbar = () => {
             </span>
           </Link>
           <span className="navbar-item mx-2 dropdown">
-
             <button
               type="button"
               className="btn btn-primary navbar-item mx-2"
               style={{ marginLeft: "15px" }}
+              onClick={cerrarSesion}
             >
               <i className="far fa-user-circle" id="icono">
                 {" "}
