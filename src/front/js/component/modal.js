@@ -3,33 +3,37 @@ import { Link, useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
-export const Modal = ({user}) => {
+export const Modal = ({sesion}) => {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const token = sessionStorage.getItem("token");
-  const userType = sessionStorage.getItem("user");
+  const userType = sessionStorage.getItem("userType");
+  const userig = sessionStorage.getItem("userig");
+  const userid = sessionStorage.getItem("userid");
   const history = useHistory();
   const handleClick = () => {
-    if (user == "influencer") {
+    if (sesion == "influencer") {
       actions.login(email, password);
-    } else if (user == "empresa") {
+    } else if (sesion == "empresa") {
       actions.loginempresa(email, password);
     }
   };
 
-  if (store.token && store.token != "" && store.token != undefined) {
+  if (token && token != "" && token != undefined) {
     if (userType == "influencer") {
-      history.push("/vistaInflu");
+      sessionStorage.setItem("justLogin", true);
+      history.push(`/vistaInflu/${userig}`);
     } else if (userType == "empresa") {
-      history.push("/vistaEmp");
+      sessionStorage.setItem("justLogin", true);
+      history.push(`/vistaEmp/${userid}`);
     }
   }
 
   return (
     <div
       className="modal fade"
-      id={user}
+      id={sesion}
       tabIndex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"

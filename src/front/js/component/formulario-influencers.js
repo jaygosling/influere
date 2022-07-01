@@ -79,7 +79,6 @@ export const FormInfluencers = () => {
         const formData = new FormData()
         formData.append("file", result.profilepic)
         formData.append("upload_preset", "influere_uns")
-        formData.append("public_id", allData.ig_user)
         axios.post("https://api.cloudinary.com/v1_1/influere/image/upload", formData).then((response) => { finalData.profilepic = response.data.url })
         console.log(finalData)
       })
