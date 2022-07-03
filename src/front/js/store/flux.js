@@ -34,14 +34,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
       addFavInflu: (ig_user) => {
-        // this.favInflu.push(id)
 
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
           "influencer_id": "...",
-          "empresa_id": "..."
+          "empresa_id": " ..."
         });
 
         var requestOptions = {
@@ -58,7 +57,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       },
 
-      // removeFavInflu(id){this.favInflu = this.favInflu.filter(p)},
 
 
       conseguirInfluencer: (ig_user) => {
