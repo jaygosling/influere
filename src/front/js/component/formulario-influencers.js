@@ -283,7 +283,6 @@ export const FormInfluencers = () => {
               </div>
             </div>
           </div>
-
           <div className="container row d-flex justify-content-center mx-auto my-5 py-3">
             <div className="col-8">
               <p className="text-center camposform">

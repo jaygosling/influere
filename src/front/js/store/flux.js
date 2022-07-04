@@ -37,38 +37,42 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
 
-      addFavInflu: (ig_user) => {
+      addFavInflu: (id) => {
+        const store = getStore();
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        const store = getStore()
 
-        fetch(`${process.env.BACKEND_URL}/api/influencers/${ig_user}`)
-          .then(function (response) {
-            return response.json()
-          })
-          .then(function (result) {
-            setStore({ datosInfluencer: result });
-            fetch(
-              `${process.env.BACKEND_URL}/api/instagram/${store.datosInfluencer.ig_user}`
-            )
-              .then(function (response) {
-                return response.json();
-              })
-              .then(function (result) {
-                setStore({
-                  datosInfluencer: { ...store.datosInfluencer, ...result },
-                });
-                actualizarInfluencer(id, datosInfluencer);
-                return console.log(result);
-              })
+        // var raw = JSON.stringify({
+        //   "influencer_id": id,
+        //   "empresa_id": store.userid
+        // });
 
-              .catch((error) => console.log("error", error));
-            return console.log(result);
-          })
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          // body: raw,
+          redirect: 'follow'
+        };
 
-          .catch((error) => console.log("error", error));
+        fetch(process.env.BACKEND_URL + "/api/favoritos", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
 
       },
+      conseguirFav: (id)=>{
+        var requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
+        
+        fetch("https://3001-jaygosling-influere-l3f4va1stxm.ws-eu51.gitpod.io/api/favoritos/"+ id, requestOptions)
+          .then(response => response.json())
+          .then(result => setStore({favInflu:result.datos}))
+          .catch(error => console.log('error', error));
+
+      },
+
 
 
       conseguirInfluencer: (ig_user) => {
