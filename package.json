@@ -87,6 +87,7 @@
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-instagram-embed": "^3.0.0",
+    "react-number-format": "^4.9.3",
     "react-polyfills": "0.0.1",
     "react-router-dom": "^5.2.0"
   }
