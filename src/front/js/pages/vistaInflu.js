@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { Headervistainflu } from "../component/headervistainflu";
 
 export const VistaInflu = () => {
+  sessionStorage.setItem("justLogin", false);
   const { store, actions } = useContext(Context);
   // const [url, setUrl] = useState("");
   const parametro  = useParams();
@@ -14,15 +15,17 @@ export const VistaInflu = () => {
   useEffect(()=>{
     actions.conseguirInfluencer(parametro.id);
     // actions.agregar(url);
-    
   }, []);
- 
-   
+ useEffect ( () => {
+  actions.privado(parametro.id);
+ }, []);
+  if (store.permiso){
   return (
     <div>
       <Headervistainflu />
 
       {/* --------------------------------------------------- */}
+      
       <div
         className="container"
         style={{
@@ -73,7 +76,7 @@ export const VistaInflu = () => {
           </button>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href={`/editar-influencer/${parametro.ig_user}`}>
+              <a class="dropdown-item" href={`/editar-influencer/${parametro.id}`}>
                 Editar Perfil
               </a>
             </li>
@@ -244,4 +247,10 @@ export const VistaInflu = () => {
       </div>
     </div>
   );
+      }
+      else {
+        return (
+          <h1>404 la pagina no existe</h1>
+        );
+      }
 };

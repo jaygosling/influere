@@ -49,7 +49,8 @@ class Influencers(db.Model):
             "precio_post": self.precio_post,
             "precio_reel": self.precio_reel,
             "precio_story": self.precio_story,
-            "seguidores": self.seguidores
+            "seguidores": self.seguidores,
+            "profilepic": self.profilepic
 
             # do not serialize the password, its a security breach
         }

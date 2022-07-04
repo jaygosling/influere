@@ -73,7 +73,9 @@
     ]
   },
   "dependencies": {
+    "async_hooks": "^1.0.0",
     "axios": "^0.27.2",
+    "buffer": "^6.0.3",
     "cloudinary": "^1.30.0",
     "cloudinary-react": "^1.8.0",
     "cookie-session": "^2.0.0",

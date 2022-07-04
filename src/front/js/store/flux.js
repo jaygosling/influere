@@ -4,6 +4,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       token: null,
       message: null,
       permiso: false,
+      userig: '',
+      userid: '',
       favInflu: [],
       posts: [],
       influencers: [],
@@ -306,7 +308,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       exampleFunction: () => {
         getActions().changeColor(0, "green");
       },
-      privado: () => {
+      privado: (ig_user) => {
         var myHeaders = new Headers();
         myHeaders.append(
           "Authorization",
@@ -320,10 +322,34 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
 
         fetch(
-          "https://3001-jaygosling-influere-gyow40i3nvc.ws-eu47.gitpod.io/privada",
+          `${process.env.BACKEND_URL}/vistainflu/${ig_user}` ,
           requestOptions
         )
-          .then((response) => response.jeson())
+          .then((response) => response.json())
+          .then((result) => {
+            console.log(result);
+            setStore({ permiso: result.permiso });
+          })
+          .catch((error) => console.log("error", error));
+      },
+      privadoEmpresa: (id) => {
+        var myHeaders = new Headers();
+        myHeaders.append(
+          "Authorization",
+          `Bearer ${sessionStorage.getItem("token")}`
+        );
+
+        var requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow",
+        };
+
+        fetch(
+          `${process.env.BACKEND_URL}/vistaemp/${id}` ,
+          requestOptions
+        )
+          .then((response) => response.json())
           .then((result) => {
             console.log(result);
             setStore({ permiso: result.permiso });
@@ -331,7 +357,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("error", error));
       },
 
-      login: async (email, password) => {
+      login: (email, password) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -347,25 +373,26 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: "follow",
         };
 
-        try {
-          const resp = await fetch(
+        fetch(
             process.env.BACKEND_URL + "/login",
             requestOptions
-          );
-          if (resp.status != 200) {
+          )
+          .then((response) => response.json())
+          .then((data) => {
+          if (data.error != null) {
             alert("Correo o contraseña erroneo!");
             return false;
           }
 
-          const data = await resp.json();
           console.log("this come form the backend", data);
           sessionStorage.setItem("token", data.access_token);
-          sessionStorage.setItem("user", "influencer");
+          sessionStorage.setItem("userType", "influencer");
+          sessionStorage.setItem("userig", data.userig);
           setStore({ token: data.access_token });
+          setStore({ userig: data.userig });  
           return true;
-        } catch (error) {
-          console.error("Error al iniciar sesion");
-        }
+        })
+        .catch((error) => console.log("Error al iniciar sesion", error));
       },
       buscar: (categoria, ubicacion, seguidores, precioPubli) => {
         var myHeaders = new Headers();
@@ -396,7 +423,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("error", error));
       },
 
-      loginempresa: async (email, password) => {
+      loginempresa:  (email, password) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -412,42 +439,31 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: "follow",
         };
 
-        try {
-          const resp = await fetch(
+        fetch(
             process.env.BACKEND_URL + "/loginempresa",
             requestOptions
-          );
-          if (resp.status != 200) {
+          )
+          .then((response) => response.json())
+          .then((data) => {
+          if (data.error != null) {
             alert("Correo o contraseña erroneo!");
             return false;
           }
-
-          const data = await resp.json();
           console.log("this come form the backend", data);
           sessionStorage.setItem("token", data.access_token);
-          sessionStorage.setItem("user", "empresa");
+          sessionStorage.setItem("userType", "empresa");
+          sessionStorage.setItem("userid", data.userid);
           setStore({ token: data.access_token });
+          setStore({ userid: data.id });
           return true;
-        } catch (error) {
-          console.error("Error al iniciar sesion");
-        }
+      })
+          .catch((error) => console.log("Error al iniciar sesion", error));
       },
       getInfluencers: async () => {
         await fetch(process.env.BACKEND_URL + "/api/influencers")
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
-
-            /* for (let i = 0; i < data.length; i++) {
-              //fetch(`${process.env.BACKEND_URL}/api/instagram/${data[i].ig_user}`)
-              fetch(`${process.env.BACKEND_URL}/api/instagram/daninzrth`)
-                .then(function (result) {
-                  data[i]["followers"] = result.followers;
-                  data[i]["profilepic"] = result.profilepic;
-                })
-                .catch((error) => console.log("error", error));
-            }
-            console.log("data", data); */
             setStore({ influencers: data });
           })
           .catch((error) => console.log("error", error));
