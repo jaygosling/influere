@@ -80,9 +80,9 @@ export const VistaEmp = () => {
               <h4 className="title1 " style={{ opacity: "80%" }}>Razón Social: {`${store.datosEmpresa.razon_social}`}</h4>
               <h4 className="title1 " style={{ opacity: "80%" }}>Sector: {`${store.datosEmpresa.sector}`}</h4>
               <h5 className="title1 " style={{ opacity: "80%" }}>Ubicación: {`${store.datosEmpresa.autonomia} (${store.datosEmpresa.ciudad})`}</h5>
-              <h7 className="title1 " style={{ opacity: "80%" }}>
+              <h6 className="title1 " style={{ opacity: "80%" }}>
               Email: {`${store.datosInfluencer.email}`}
-              </h7>
+              </h6>
               <br></br>
               <br></br>
               <h6

@@ -120,9 +120,9 @@ export const VistaInflu = () => {
             <h4 className="title1 " style={{ opacity: "80%" }}>
               Usuario: {`${store.datosInfluencer.ig_user}`}
             </h4>
-            <h7 className="title1 " style={{ opacity: "80%" }}>
+            <h6 className="title1 " style={{ opacity: "80%" }}>
               Email: {`${store.datosInfluencer.email}`}
-            </h7>
+            </h6>
             <br></br>
             <span className="title1 " style={{ opacity: "80%"}}>
               Ubicación: {`${store.datosInfluencer.autonomia} (${store.datosInfluencer.ciudad})`} 
