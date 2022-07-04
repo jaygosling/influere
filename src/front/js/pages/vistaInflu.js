@@ -51,7 +51,7 @@ export const VistaInflu = () => {
           </button>
           <ul class="dropdown-menu">
             <li type="button" style={{ float: "left" }}>
-              <a href={`https://www.instagram.com/${store.datosInfluencer.ig_user}`}>
+              <a href={`https://www.instagram.com/${store.datosInfluencer.ig_user}`} target="_blank">
                 <img
                   src={
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png"

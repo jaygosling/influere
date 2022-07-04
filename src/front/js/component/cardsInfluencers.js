@@ -21,9 +21,9 @@ export const CardsInflu = ({
         <Card.Img variant="top" src={imagen} width="320" />
         <Card.Body>
           <Card.Title>
-            <h5>
-              <b>{username}</b>
-            </h5>
+            <h4 className="titulocards">
+              <b>@{username}</b>
+            </h4>
           </Card.Title>
           <ListGroup variant="flush">
             <ListGroup.Item>
