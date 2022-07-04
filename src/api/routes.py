@@ -62,7 +62,7 @@ def influencers_filter():
             filters.append(getattr(Influencers, 'seguidores') >= 500000)
             filters.append(getattr(Influencers, 'seguidores') < 1000000)
         if (seguidores == "4"):
-            filters.append(seguidores >= 1000000)
+            filters.append(getattr(Influencers, 'seguidores')>= 1000000)
     if (ubicacion != ""):
         filters.append(getattr(Influencers, 'autonomia') == ubicacion)
     if (precioPubli != ""):

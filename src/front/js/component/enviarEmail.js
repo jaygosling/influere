@@ -21,11 +21,11 @@ export default class EnviarEmail extends Component {
                 });
         }
 
-        const parametro = useParams();
+        /* const parametro = useParams();
         const {store, actions} = useContext(Context);
         useEffect(()=>{
             actions.conseguirInfluencer(parametro.id);
-        }, []);
+        }, []); */
 
         return (
             <div>
