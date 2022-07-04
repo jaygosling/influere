@@ -23,8 +23,9 @@ export const Carruselinfluencers = () => {
         </Col>
       </Row>
       <Row>
-        <div className="d-flex justify-content-between overFlow">
+        <div className="overflow-auto row flex-row flex-nowrap mt-4 pb-4 pt-2 section">
           {store.influencers?.map((obj, i) => {
+            if (i<10) {
             return (
               <div className="col-3">
                 <CardsInflu
@@ -37,7 +38,7 @@ export const Carruselinfluencers = () => {
                   ubicacion={obj.ciudad}
                 />
               </div>
-            );
+            );}
           })}
         </div>
       </Row>
