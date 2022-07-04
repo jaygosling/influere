@@ -202,12 +202,13 @@ def registro_influencers():
 def addFavInfluencers():
     
     body = request.get_json()
-    fav_exists = Favoritos(empresa_id = body["empresa_id"], influencer_id = body["influencer_id"])
+    fav_exists = Favoritos.query.filter_by(empresa_id = body["empresa_id"], influencer_id = body["influencer_id"]).first()
+    # fav_exists = Favoritos(empresa_id = body["empresa_id"], influencer_id = body["influencer_id"])
     if fav_exists:
         return ("Este usuario ya fue agregado a favoritos")
     else:
-        fav_Influ = Influencers.query.filter_by(apellidos=body["apellidos"], nombre=body["nombre"], ig_user=body["ig_user"], categoria=body["categoria"], profilepic=body["profilepic"], 
-        seguidores=body["seguidores"]).first()
+        fav_Influ = Favoritos(empresa_id = body["empresa_id"], influencer_id = body["influencer_id"])
+
         db.session.add(fav_Influ)
         db.session.commit()
     

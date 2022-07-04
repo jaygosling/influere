@@ -15,9 +15,9 @@ export const VistaEmp = () => {
   useEffect(()=>{
     actions.conseguirEmpresa(parametro.id);
   }, []);
-  useEffect(()=>{
-    actions.addFavInflu(parametro.ig_user);
-  }, []);
+  // useEffect(()=>{
+  //   actions.addFavInflu(parametro.ig_user);
+  // }, []);
 
   useEffect ( () => {
     actions.privadoEmpresa(parametro.id);

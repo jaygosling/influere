@@ -21,13 +21,9 @@ export default class EnviarEmail extends Component {
                 });
         }
 
-        // const parametro = useParams();
-        // const {store, actions} = useContext(Context);
-        // useEffect(()=>{
-        //     actions.conseguirInfluencer(parametro.id);
-        // }, []);
-
-        return (
+       
+       
+       return (
             <div>
                 <div
                     className="emailPrueba"

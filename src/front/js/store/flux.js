@@ -33,14 +33,14 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
 
-      addFavInflu: (ig_user, name, apellidos, categoria, ) => {
-
+      addFavInflu: (id) => {
+        const store = getStore();
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-          "influencer_id": "...",
-          "empresa_id": " ..."
+          "influencer_id": id,
+          "empresa_id": store.userid
         });
 
         var requestOptions = {
@@ -50,7 +50,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: 'follow'
         };
 
-        fetch("https://3001-jaygosling-influere-t1oivnd9ra8.ws-eu47.gitpod.io/api/favoritos", requestOptions)
+        fetch(process.env.BACKEND_URL + "/api/favoritos", requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));

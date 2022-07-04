@@ -87,7 +87,7 @@ class Empresas(db.Model):
 class Favoritos(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     empresa_id = db.Column(db.Integer, db.ForeignKey('empresas.id'))
-    influencer_id = db.Column(db.Integer, db.ForeignKey('influencers.id'))
+    influencer_id = db.Column(db.String(50), db.ForeignKey('influencers.ig_user'))
     rel_influencer = db.relationship(Influencers)
     rel_empresa = db.relationship(Empresas)
 
