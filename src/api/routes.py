@@ -219,11 +219,18 @@ def addFavInfluencers():
 
     return jsonify(response_body), 200
 
-@api.route('/favoritos', methods = ['GET'])
-def conseguirFav(): 
-        fav = Favoritos.query.get(id)
-        if fav:
-            return fav.serialize()
+@api.route('/favoritos/<int:id>', methods = ['GET'])
+def conseguirFav(id): 
+        fav = Favoritos.query.filter_by(empresa_id=id).all()
+        fav = list(map(lambda x: x.serialize(),fav))
+       
+        datosInflu=[]
+        for i in fav:
+            influ =Influencers.query.filter_by(ig_user=i['influencer']).first()
+            # print(influ.)
+            datosInflu.append(influ.serialize())
+        if datosInflu:
+            return jsonify({"datos": datosInflu})
         else:
             return jsonify({"mensaje":"usuario no fue agregado a favorito"})
 

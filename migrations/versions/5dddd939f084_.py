@@ -1,14 +1,8 @@
 """empty message
 
-<<<<<<< HEAD:migrations/versions/41964a2bac18_.py
-Revision ID: 41964a2bac18
+Revision ID: 5dddd939f084
 Revises: 
-Create Date: 2022-07-04 14:18:02.256967
-=======
-Revision ID: 403b98ba64c2
-Revises: 
-Create Date: 2022-07-04 10:37:43.640467
->>>>>>> 4882d51de4b1bd43fc2ca6812944a3de66d99225:migrations/versions/403b98ba64c2_.py
+Create Date: 2022-07-04 16:59:42.429437
 
 """
 from alembic import op
@@ -16,11 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<< HEAD:migrations/versions/41964a2bac18_.py
-revision = '41964a2bac18'
-=======
-revision = '403b98ba64c2'
->>>>>>> 4882d51de4b1bd43fc2ca6812944a3de66d99225:migrations/versions/403b98ba64c2_.py
+revision = '5dddd939f084'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -71,9 +61,9 @@ def upgrade():
     op.create_table('favoritos',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('empresa_id', sa.Integer(), nullable=True),
-    sa.Column('influencer_id', sa.Integer(), nullable=True),
+    sa.Column('influencer_id', sa.String(length=50), nullable=True),
     sa.ForeignKeyConstraint(['empresa_id'], ['empresas.id'], ),
-    sa.ForeignKeyConstraint(['influencer_id'], ['influencers.id'], ),
+    sa.ForeignKeyConstraint(['influencer_id'], ['influencers.ig_user'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
