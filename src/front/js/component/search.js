@@ -32,22 +32,6 @@ export const Search = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-10 col-lg-8 col-xl-12 mx-auto rounded">
-            <div className="card mb-2 mb-5">
-              <div className="card-body p-2">
-                <div className="input-group input-group-lg">
-                  <input
-                    type="text"
-                    className="form-control form-control-lg rounded"
-                    placeholder="Busca a tu Influencer"
-                    aria-label="Type Keywords"
-                    aria-describedby="basic-addon2"
-                  />
-                  <span className="input-group-text border-0" id="basic-addon2">
-                    <i className="fas fa-search"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
             <div className="card bg-warning">
               <div className="card-body p-3">
                 <h6 className="busqueda">BÚSQUEDA AVANZADA</h6>
@@ -176,12 +160,13 @@ export const Search = () => {
                       </select>
                     </div>
                   </div>
-                  <div className="col-md-1 pe-1 ms-5">
-                    
+                </div>
+                <div className="row d-flex flex-row-reverse">
+                <div className="col-md-1 pe-1 ms-5">
                     <button type="button" className="btn btn-secondary fw-bold" onClick={handleClick}>
                       Buscar
                     </button>
-                  </div>
+                </div>
                 </div>
               </div>
             </div>

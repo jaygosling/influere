@@ -42,15 +42,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
-        // var raw = JSON.stringify({
-        //   "influencer_id": id,
-        //   "empresa_id": store.userid
-        // });
+         var raw = JSON.stringify({
+           "influencer_id": id,
+           "empresa_id": store.userid
+         });
 
         var requestOptions = {
           method: 'POST',
           headers: myHeaders,
-          // body: raw,
+          body: raw,
           redirect: 'follow'
         };
 
