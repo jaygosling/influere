@@ -6,11 +6,13 @@ import { IframeInstagram } from "../component/iFrameInsta";
 import { VistaInflu } from "./vistaInflu";
 import { useParams } from "react-router-dom";
 import { Headervistainflu } from "../component/headervistainflu";
+import NumberFormat from 'react-number-format';
 
 export const VistaInfluPb = () => {
   const { store, actions } = useContext(Context);
   const [url, setUrl] = useState("");
   const parametro = useParams();
+  const userType = sessionStorage.getItem("userType");
 
   useEffect(() => {
     actions.conseguirInfluencer(parametro.id);
@@ -32,6 +34,7 @@ export const VistaInfluPb = () => {
         }}
       >
         {/* <button type="button" class="btn btn-light"><i class="fas fa-home"><a class="dropdown-item" href={"/vistaInflu"}></a></i></button> */}
+        { userType == "empresa"?
         <button
           type="button"
           className="btn btn-primary"
@@ -39,7 +42,8 @@ export const VistaInfluPb = () => {
         >
           <a href={"/enviarEmail"}>Enviar mensaje</a>
         </button>
-
+        : ""}
+        { userType == "empresa"?
         <button
           type="button"
           className="btn btn-danger likeBtn"
@@ -50,6 +54,7 @@ export const VistaInfluPb = () => {
         >
           <i class="far fa-heart"></i>
         </button>
+        : ""}
       </div>
 
       <br></br>
@@ -124,7 +129,7 @@ export const VistaInfluPb = () => {
             <thead>
               <tr style={{ textAlign: "center" }}>
                 <th scope="col">{`${store.datosInfluencer.publicaciones}`}</th>
-                <th scope="col">{`${store.datosInfluencer.followers}`}</th>
+                <th scope="col"><NumberFormat value={`${store.datosInfluencer.followers}`} displayType={'text'} thousandSeparator={true}/></th>
                 <th scope="col">{`${store.datosInfluencer.seguidos}`}</th>
               </tr>
             </thead>

@@ -320,7 +320,7 @@ body {
 
 .card-body {
   font-family: "Poppins", sans-serif;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .busqueda {
@@ -349,4 +349,8 @@ body {
 
 .href {
   text-decoration: none;
+}
+
+.titulocards {
+  color: #302880;
 }
