@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Link } from "react-router-dom";
 import NumberFormat from "react-number-format";
@@ -13,6 +14,7 @@ export const CardsInflu = ({
   ubicacion,
 }) => {
   const userType = sessionStorage.getItem("userType");
+  const { store, actions } = useContext(Context); 
 
   return (
     <Col>
@@ -47,7 +49,11 @@ export const CardsInflu = ({
             </button>
           </Link>
           {userType == "empresa" ? (
-            <button type="button" className="btn btn-danger likeBtn">
+            <button type="button" className="btn btn-danger likeBtn"
+            onClick={() => {
+            
+              actions.addFavInflu(username);
+            }}>
               &#9825;
             </button>
           ) : (

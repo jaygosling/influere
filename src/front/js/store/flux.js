@@ -37,20 +37,20 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
 
-      addFavInflu: (id) => {
+      addFavInflu: (username) => {
         const store = getStore();
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
-        // var raw = JSON.stringify({
-        //   "influencer_id": id,
-        //   "empresa_id": store.userid
-        // });
+        var raw = JSON.stringify({
+          "influencer_id": username,
+          "empresa_id": sessionStorage.getItem('userid')
+        });
 
         var requestOptions = {
           method: 'POST',
           headers: myHeaders,
-          // body: raw,
+          body: raw,
           redirect: 'follow'
         };
 

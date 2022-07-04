@@ -227,7 +227,6 @@ def conseguirFav(id):
         datosInflu=[]
         for i in fav:
             influ =Influencers.query.filter_by(ig_user=i['influencer']).first()
-            # print(influ.)
             datosInflu.append(influ.serialize())
         if datosInflu:
             return jsonify({"datos": datosInflu})
