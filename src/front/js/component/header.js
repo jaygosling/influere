@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../../styles/home.css";
 
 export const Header = () => {
@@ -22,10 +23,16 @@ export const Header = () => {
         tu público objetivo.
       </h4>
       <br></br>
-
-      <a className="btn btn-danger rounded-pill btn-lg" href="" role="button">
-        REGÍSTRATE
+      <Link to="/formulario-influencers">
+      <a className="btn btn-danger rounded-pill btn-lg mx-2" href="" role="button">
+        INFLUENCER
       </a>
+      </Link>
+      <Link to="/formulario-empresa">
+      <a className="btn btn-danger rounded-pill btn-lg" href="" role="button">
+        EMPRESA
+      </a>
+      </Link>
     </div>
   );
 };

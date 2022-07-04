@@ -6,11 +6,11 @@ import { Modal } from "./modal";
 
 export const Navbar = () => {
   const {store, actions} = useContext(Context);
-  const token = sessionStorage.getItem("token");
-  const userig = sessionStorage.getItem("userig");
-  const userid = sessionStorage.getItem("userid");
+  var token = sessionStorage.getItem("token");
+  var userig = sessionStorage.getItem("userig");
+  var userid = sessionStorage.getItem("userid");
   const historyHome = useHistory();
-  const justLogin = sessionStorage.getItem("justLogin");
+  var justLogin = sessionStorage.getItem("justLogin");
 
   const cerrarSesion = () => {
     sessionStorage.removeItem("token")
@@ -18,7 +18,11 @@ export const Navbar = () => {
     sessionStorage.removeItem("justLogin") 
     sessionStorage.removeItem("userType") 
     sessionStorage.removeItem("userid") 
+    token = null
+    userig = null 
+    justLogin = false
     historyHome.push('/')
+    setTimeout(() => {window.location.reload()}, 400)
   }
 
   const link = () => {
@@ -27,9 +31,10 @@ export const Navbar = () => {
     } else if (userid) {
       return `vistaemp/${userid}`
     }
-    }
-  
+  }
 
+  console.log("XXX")
+  console.log("toekn xx" , token)
  if (justLogin && token && token != "" && token != undefined) {
   return (
     <nav className="navbar navbar-light bg-white">
@@ -63,7 +68,6 @@ export const Navbar = () => {
               onClick={cerrarSesion}
             >
               <i className="far fa-user-circle" id="icono">
-                {" "}
                 <span className="sesion">
                   Cerrar Sesión</span>
               </i>
@@ -117,7 +121,6 @@ export const Navbar = () => {
               style={{ marginLeft: "15px" }}
             >
               <i className="far fa-user-circle" id="icono">
-                {" "}
                 <span className="sesion">
                   Iniciar Sesión</span>
               </i>

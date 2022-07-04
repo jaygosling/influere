@@ -3,14 +3,17 @@ import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import { IframeInstagram } from "../component/iFrameInsta";
-import { useParams } from "react-router-dom";
+import { VistaInflu } from "./vistaInflu";
+import { Link, useParams } from "react-router-dom";
 import { Headervistainflu } from "../component/headervistainflu";
+import NumberFormat from 'react-number-format';
 
 export const VistaInfluPb = () => {
   const { store, actions } = useContext(Context);
   const [url, setUrl] = useState("");
   const parametro = useParams();
   const userid = sessionStorage.getItem("userid");
+  const userType = sessionStorage.getItem("userType");
 
   useEffect(() => {
     actions.conseguirInfluencer(parametro.id);
@@ -32,14 +35,45 @@ export const VistaInfluPb = () => {
         }}
       >
         {/* <button type="button" class="btn btn-light"><i class="fas fa-home"><a class="dropdown-item" href={"/vistaInflu"}></a></i></button> */}
+        { userType == "empresa"?
+        <Link to="/enviarEmail">
         <button
           type="button"
           className="btn btn-primary"
           style={{ marginRight: "5px", maxWidth: "200px" }}
         >
-          <a href={"/enviarEmail"}>Enviar mensaje</a>
+          <a>Enviar mensaje</a>
         </button>
-
+        </Link>
+        : ""}
+        <button
+            type="button"
+            class="btn btn-danger likeBtn dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style={{ marginRight: "5px", maxWidth: "50px" }}
+          >
+            <i class="fas fa-at"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li type="button" style={{ float: "left" }}>
+              <a href={`https://www.instagram.com/${store.datosInfluencer.ig_user}`} target="_blank">
+                <img
+                  src={
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png"
+                  }
+                  style={{
+                    maxWidth: "30px",
+                    maxHeight: "30px",
+                    marginTop: "5px",
+                    marginLeft: "10px",
+                  }}
+                />
+              </a>
+            </li>
+            
+          </ul>
+        { userType == "empresa"?
         <button
           type="button"
           className="btn btn-danger likeBtn"
@@ -50,6 +84,7 @@ export const VistaInfluPb = () => {
         >
           <i class="far fa-heart"></i>
         </button>
+        : ""}
       </div>
 
       <br></br>
@@ -124,7 +159,7 @@ export const VistaInfluPb = () => {
             <thead>
               <tr style={{ textAlign: "center" }}>
                 <th scope="col">{`${store.datosInfluencer.publicaciones}`}</th>
-                <th scope="col">{`${store.datosInfluencer.followers}`}</th>
+                <th scope="col"><NumberFormat value={`${store.datosInfluencer.followers}`} displayType={'text'} thousandSeparator={true}/></th>
                 <th scope="col">{`${store.datosInfluencer.seguidos}`}</th>
               </tr>
             </thead>

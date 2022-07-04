@@ -10,7 +10,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       posts: [],
       influencers: [],
       datosEmpresa: {},
-      datosInfluencer: {},
+      datosInfluencer: {
+        seguidos: "Cargando...",
+        followers: "Cargando...",
+        publicaciones: "Cargando...",
+      },
       profileData: {},
       demo: [
         {
@@ -69,7 +73,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             return response.json();
           })
           .then(function (result) {
-            setStore({ datosInfluencer: result });
+            setStore({ datosInfluencer: { ...store.datosInfluencer, ...result } });
             fetch(
               `${process.env.BACKEND_URL}/api/instagram/${store.datosInfluencer.ig_user}`
             )
@@ -77,10 +81,13 @@ const getState = ({ getStore, getActions, setStore }) => {
                 return response.json();
               })
               .then(function (result) {
+                let moreData = {}
+                moreData.seguidos = result["seguidos"]
+                moreData.publicaciones = result["publicaciones"]
+                moreData.followers = result["followers"]
                 setStore({
-                  datosInfluencer: { ...store.datosInfluencer, ...result },
+                  datosInfluencer: { ...store.datosInfluencer, ...moreData },
                 });
-                actualizarInfluencer(id, datosInfluencer);
                 return console.log(result);
               })
 
@@ -90,6 +97,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           .catch((error) => console.log("error", error));
       },
+
 
       actualizarEmpresa: (id, datos) => {
         var myHeaders = new Headers();

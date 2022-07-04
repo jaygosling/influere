@@ -1,6 +1,8 @@
 import React from "react";
 import "../../styles/home.css";
 import { Link } from "react-router-dom";
+import NumberFormat from "react-number-format";
+import { Col, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 
 export const CardsInflu = ({
   imagen,
@@ -10,36 +12,50 @@ export const CardsInflu = ({
   sector,
   ubicacion,
 }) => {
+  const userType = sessionStorage.getItem("userType");
+
   return (
-    <div className="card " style={{ width: "20rem" }}>
-      <span className="border border-primary rounded">
-        <img src={imagen} class="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">{nombre}</h5>
-          <ul className="card-text" style={{ listStyle: "none" }}>
-            <li>
-              <b>Instagram:</b> {username}
-            </li>
-            <li>
-              <b>Seguidores:</b> {seguidores}
-            </li>
-            <li>
+    <Col>
+      <Card>
+        <Card.Img variant="top" src={imagen} width="320" />
+        <Card.Body>
+          <Card.Title>
+            <h4 className="titulocards">
+              <b>{username}</b>
+            </h4>
+          </Card.Title>
+          <ListGroup variant="flush">
+            <ListGroup.Item>
+              <b>Seguidores:</b>{" "}
+              <NumberFormat
+                value={seguidores}
+                displayType={"text"}
+                thousandSeparator={true}
+              />
+            </ListGroup.Item>
+            <ListGroup.Item>
               <b>Categoria:</b> {sector}
-            </li>
-            <li>
+            </ListGroup.Item>
+            <ListGroup.Item>
               <b>Ciudad:</b> {ubicacion}
-            </li>
-          </ul>
-          <Link to={'/vistainfluPb/'+username}>
-          <button href="#" class="btn btn-primary rounded-pill">
-            VER MÁS
-          </button>
+            </ListGroup.Item>
+          </ListGroup>
+          <br></br>
+          <Link to={"/vistainfluPb/" + username}>
+            <button href="#" class="btn btn-primary rounded-pill">
+              VER MÁS
+            </button>
           </Link>
-          <button type="button" className="btn btn-danger likeBtn">
-            &#9825;
-          </button>
-        </div>
-      </span>
-    </div>
+          {userType == "empresa" ? (
+            <button type="button" className="btn btn-danger likeBtn">
+              &#9825;
+            </button>
+          ) : (
+            ""
+          )}
+        </Card.Body>
+      </Card>
+      <br></br>
+    </Col>
   );
 };

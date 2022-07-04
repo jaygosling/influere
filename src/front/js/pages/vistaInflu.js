@@ -4,6 +4,7 @@ import "../../styles/home.css";
 import { IframeInstagram } from "../component/iFrameInsta";
 import { useParams } from "react-router-dom";
 import { Headervistainflu } from "../component/headervistainflu";
+import NumberFormat from 'react-number-format';
 
 export const VistaInflu = () => {
   sessionStorage.setItem("justLogin", false);
@@ -50,7 +51,7 @@ export const VistaInflu = () => {
           </button>
           <ul class="dropdown-menu">
             <li type="button" style={{ float: "left" }}>
-              <a href={`https://www.instagram.com/${store.datosInfluencer.ig_user}`}>
+              <a href={`https://www.instagram.com/${store.datosInfluencer.ig_user}`} target="_blank">
                 <img
                   src={
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png"
@@ -120,9 +121,9 @@ export const VistaInflu = () => {
             <h4 className="title1 " style={{ opacity: "80%" }}>
               Usuario: {`${store.datosInfluencer.ig_user}`}
             </h4>
-            <h7 className="title1 " style={{ opacity: "80%" }}>
+            <h6 className="title1 " style={{ opacity: "80%" }}>
               Email: {`${store.datosInfluencer.email}`}
-            </h7>
+            </h6>
             <br></br>
             <span className="title1 " style={{ opacity: "80%" }}>
               Ubicación: {`${store.datosInfluencer.autonomia} (${store.datosInfluencer.ciudad})`}
@@ -166,7 +167,7 @@ export const VistaInflu = () => {
             <thead>
               <tr style={{ textAlign: "center" }}>
                 <th scope="col">{`${store.datosInfluencer.publicaciones}`}</th>
-                <th scope="col">{`${store.datosInfluencer.followers}`}</th>
+                <th scope="col"><NumberFormat value={`${store.datosInfluencer.followers}`} displayType={'text'} thousandSeparator={true}/></th>
                 <th scope="col">{`${store.datosInfluencer.seguidos}`}</th>
               </tr>
             </thead>

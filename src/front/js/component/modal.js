@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
 export const Modal = ({sesion}) => {
-  const { store, actions } = useContext(Context);
+  const { actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const token = sessionStorage.getItem("token");
@@ -78,16 +78,6 @@ export const Modal = ({sesion}) => {
                   onChange={(e) => setPassword(e.target.value)}
                   id="password"
                 />
-              </div>
-              <div className="mb-3 form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="exampleCheck1"
-                />
-                <label className="form-check-label" for="exampleCheck1">
-                  Recordar cuenta
-                </label>
               </div>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <button
