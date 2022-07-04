@@ -65,7 +65,7 @@ def iniciar_sesion():
     user = Influencers.query.filter_by(email=request_body['email']).first()
     if user:
         if user.password == request_body['password']:
-            tiempo = datetime.timedelta(minutes=60)
+            tiempo = datetime.timedelta(days=365)
             access_token = create_access_token(identity = request_body['email'], expires_delta= tiempo)
             return jsonify({
                 "mensaje": "inicio de sesion correcto",
