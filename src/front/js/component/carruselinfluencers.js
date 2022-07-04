@@ -2,25 +2,28 @@ import React, { useContext } from "react";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import { CardsInflu } from "./cardsInfluencers";
+import { Container, Row, Col } from "react-bootstrap";
 
 export const Carruselinfluencers = () => {
   const { store, actions } = useContext(Context);
   return (
-    <div class="container">
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <h4 className="antetitulo4">¿READY PARA DAR EL SALTO?</h4>
-      <h1
-        className="text-center pb-2 tituloabout"
-        href="https://3000-jaygosling-influere-ai7nxhchf88.ws-eu47.gitpod.io/Directorio"
-      >
-        DIRECTORIO DE INFLUENCERS
-      </h1>
-
-      <div className="container">
-        <div className="row my-5">
+    <Container>
+      <Row>
+        <Col>
+          <br></br>
+          <br></br>
+          <h4 className="antetitulo4">¿READY PARA DAR EL SALTO?</h4>
+          <h1
+            className="text-center pb-2 tituloabout"
+            href="https://3000-jaygosling-influere-ai7nxhchf88.ws-eu47.gitpod.io/Directorio"
+          >
+            DIRECTORIO DE INFLUENCERS
+          </h1>
+          <br></br>
+        </Col>
+      </Row>
+      <Row>
+        <div className="d-flex justify-content-between overFlow">
           {store.influencers?.map((obj, i) => {
             return (
               <div className="col-3">
@@ -37,11 +40,8 @@ export const Carruselinfluencers = () => {
             );
           })}
         </div>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-      </div>
-    </div>
+      </Row>
+      <br></br> <br></br>
+    </Container>
   );
 };
