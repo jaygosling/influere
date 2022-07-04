@@ -4,13 +4,15 @@ const getState = ({ getStore, getActions, setStore }) => {
       token: null,
       message: null,
       permiso: false,
-      userig: '',
-      userid: '',
       favInflu: [],
       posts: [],
       influencers: [],
       datosEmpresa: {},
-      datosInfluencer: {},
+      datosInfluencer: {
+        seguidos: "Cargando...",
+        followers: "Cargando...",
+        publicaciones: "Cargando...",
+      },
       profileData: {},
       demo: [
         {
@@ -32,7 +34,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ posts: [...store.posts, url] });
       },
 
-      
+
       addFavInflu: (ig_user) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -77,7 +79,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             return response.json();
           })
           .then(function (result) {
-            setStore({ datosInfluencer: result });
+            setStore({ datosInfluencer: { ...store.datosInfluencer, ...result } });
             fetch(
               `${process.env.BACKEND_URL}/api/instagram/${store.datosInfluencer.ig_user}`
             )
@@ -85,10 +87,13 @@ const getState = ({ getStore, getActions, setStore }) => {
                 return response.json();
               })
               .then(function (result) {
+                let moreData = {}
+                moreData.seguidos = result["seguidos"]
+                moreData.publicaciones = result["publicaciones"]
+                moreData.followers = result["followers"]
                 setStore({
-                  datosInfluencer: { ...store.datosInfluencer, ...result },
+                  datosInfluencer: { ...store.datosInfluencer, ...moreData },
                 });
-                actualizarInfluencer(id, datosInfluencer);
                 return console.log(result);
               })
 
@@ -116,7 +121,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (response) {
             if (response.ok == true) {
               alert("Usuario actualizado con éxito");
-              location.href= "/vistaemp/"+id
+              location.href = "/vistaemp/" + id
             } else {
               alert(
                 "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
@@ -147,7 +152,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (response) {
             if (response.ok == true) {
               alert("Usuario actualizado con éxito");
-              location.href= "/vistainflu/"+ig_user
+              location.href = "/vistainflu/" + ig_user
             } else {
               alert(
                 "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
@@ -308,7 +313,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       exampleFunction: () => {
         getActions().changeColor(0, "green");
       },
-      privado: (ig_user) => {
+      privado: () => {
         var myHeaders = new Headers();
         myHeaders.append(
           "Authorization",
@@ -322,34 +327,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
 
         fetch(
-          `${process.env.BACKEND_URL}/vistainflu/${ig_user}` ,
+          "https://3001-jaygosling-influere-gyow40i3nvc.ws-eu47.gitpod.io/privada",
           requestOptions
         )
-          .then((response) => response.json())
-          .then((result) => {
-            console.log(result);
-            setStore({ permiso: result.permiso });
-          })
-          .catch((error) => console.log("error", error));
-      },
-      privadoEmpresa: (id) => {
-        var myHeaders = new Headers();
-        myHeaders.append(
-          "Authorization",
-          `Bearer ${sessionStorage.getItem("token")}`
-        );
-
-        var requestOptions = {
-          method: "GET",
-          headers: myHeaders,
-          redirect: "follow",
-        };
-
-        fetch(
-          `${process.env.BACKEND_URL}/vistaemp/${id}` ,
-          requestOptions
-        )
-          .then((response) => response.json())
+          .then((response) => response.jeson())
           .then((result) => {
             console.log(result);
             setStore({ permiso: result.permiso });
@@ -357,7 +338,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("error", error));
       },
 
-      login: (email, password) => {
+      login: async (email, password) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -373,26 +354,25 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: "follow",
         };
 
-        fetch(
+        try {
+          const resp = await fetch(
             process.env.BACKEND_URL + "/login",
             requestOptions
-          )
-          .then((response) => response.json())
-          .then((data) => {
-          if (data.error != null) {
+          );
+          if (resp.status != 200) {
             alert("Correo o contraseña erroneo!");
             return false;
           }
 
+          const data = await resp.json();
           console.log("this come form the backend", data);
           sessionStorage.setItem("token", data.access_token);
-          sessionStorage.setItem("userType", "influencer");
-          sessionStorage.setItem("userig", data.userig);
+          sessionStorage.setItem("user", "influencer");
           setStore({ token: data.access_token });
-          setStore({ userig: data.userig });  
           return true;
-        })
-        .catch((error) => console.log("Error al iniciar sesion", error));
+        } catch (error) {
+          console.error("Error al iniciar sesion");
+        }
       },
       buscar: (categoria, ubicacion, seguidores, precioPubli) => {
         var myHeaders = new Headers();
@@ -423,7 +403,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("error", error));
       },
 
-      loginempresa:  (email, password) => {
+      loginempresa: async (email, password) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -439,31 +419,42 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: "follow",
         };
 
-        fetch(
+        try {
+          const resp = await fetch(
             process.env.BACKEND_URL + "/loginempresa",
             requestOptions
-          )
-          .then((response) => response.json())
-          .then((data) => {
-          if (data.error != null) {
+          );
+          if (resp.status != 200) {
             alert("Correo o contraseña erroneo!");
             return false;
           }
+
+          const data = await resp.json();
           console.log("this come form the backend", data);
           sessionStorage.setItem("token", data.access_token);
-          sessionStorage.setItem("userType", "empresa");
-          sessionStorage.setItem("userid", data.userid);
+          sessionStorage.setItem("user", "empresa");
           setStore({ token: data.access_token });
-          setStore({ userid: data.id });
           return true;
-      })
-          .catch((error) => console.log("Error al iniciar sesion", error));
+        } catch (error) {
+          console.error("Error al iniciar sesion");
+        }
       },
       getInfluencers: async () => {
         await fetch(process.env.BACKEND_URL + "/api/influencers")
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
+
+            /* for (let i = 0; i < data.length; i++) {
+              //fetch(`${process.env.BACKEND_URL}/api/instagram/${data[i].ig_user}`)
+              fetch(`${process.env.BACKEND_URL}/api/instagram/daninzrth`)
+                .then(function (result) {
+                  data[i]["followers"] = result.followers;
+                  data[i]["profilepic"] = result.profilepic;
+                })
+                .catch((error) => console.log("error", error));
+            }
+            console.log("data", data); */
             setStore({ influencers: data });
           })
           .catch((error) => console.log("error", error));

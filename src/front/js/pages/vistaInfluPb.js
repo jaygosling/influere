@@ -11,6 +11,7 @@ export const VistaInfluPb = () => {
   const { store, actions } = useContext(Context);
   const [url, setUrl] = useState("");
   const parametro = useParams();
+  const userType = sessionStorage.getItem("userType");
 
   useEffect(() => {
     actions.conseguirInfluencer(parametro.id);
@@ -32,6 +33,7 @@ export const VistaInfluPb = () => {
         }}
       >
         {/* <button type="button" class="btn btn-light"><i class="fas fa-home"><a class="dropdown-item" href={"/vistaInflu"}></a></i></button> */}
+        { userType == "empresa"?
         <button
           type="button"
           className="btn btn-primary"
@@ -39,7 +41,8 @@ export const VistaInfluPb = () => {
         >
           <a href={"/enviarEmail"}>Enviar mensaje</a>
         </button>
-
+        : ""}
+        { userType == "empresa"?
         <button
           type="button"
           className="btn btn-danger likeBtn"
@@ -50,6 +53,7 @@ export const VistaInfluPb = () => {
         >
           <i class="far fa-heart"></i>
         </button>
+        : ""}
       </div>
 
       <br></br>

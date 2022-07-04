@@ -11,6 +11,7 @@ export const CardsInflu = ({
   sector,
   ubicacion,
 }) => {
+  const userType = sessionStorage.getItem("userType");
   return (
     <Col>
       <Card>
@@ -38,6 +39,7 @@ export const CardsInflu = ({
               VER MÁS
             </button>
           </Link>
+          { userType == "empresa"?
           <button type="button" className="btn btn-danger likeBtn">
             &#9825;
           </button>
@@ -45,5 +47,6 @@ export const CardsInflu = ({
       </Card>
       <br></br>
     </Col>
+
   );
 };
