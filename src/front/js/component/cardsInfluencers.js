@@ -16,11 +16,8 @@ export const CardsInflu = ({
       <span className="border border-primary rounded">
         <img src={imagen} class="card-img-top" alt="..." />
         <div className="card-body">
-          <h5 className="card-title">{nombre}</h5>
+          <h4 className="card-title"><b>@{username}</b></h4>
           <ul className="card-text" style={{ listStyle: "none" }}>
-            <li>
-              <b>Instagram:</b> {username}
-            </li>
             <li>
               <b>Seguidores:</b> {seguidores}
             </li>
