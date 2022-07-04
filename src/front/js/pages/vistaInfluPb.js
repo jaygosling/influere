@@ -4,7 +4,7 @@ import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import { IframeInstagram } from "../component/iFrameInsta";
 import { VistaInflu } from "./vistaInflu";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Headervistainflu } from "../component/headervistainflu";
 import NumberFormat from 'react-number-format';
 
@@ -35,14 +35,43 @@ export const VistaInfluPb = () => {
       >
         {/* <button type="button" class="btn btn-light"><i class="fas fa-home"><a class="dropdown-item" href={"/vistaInflu"}></a></i></button> */}
         { userType == "empresa"?
+        <Link to="/enviarEmail">
         <button
           type="button"
           className="btn btn-primary"
           style={{ marginRight: "5px", maxWidth: "200px" }}
         >
-          <a href={"/enviarEmail"}>Enviar mensaje</a>
+          <a>Enviar mensaje</a>
         </button>
+        </Link>
         : ""}
+        <button
+            type="button"
+            class="btn btn-danger likeBtn dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style={{ marginRight: "5px", maxWidth: "50px" }}
+          >
+            <i class="fas fa-at"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li type="button" style={{ float: "left" }}>
+              <a href={`https://www.instagram.com/${store.datosInfluencer.ig_user}`} target="_blank">
+                <img
+                  src={
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png"
+                  }
+                  style={{
+                    maxWidth: "30px",
+                    maxHeight: "30px",
+                    marginTop: "5px",
+                    marginLeft: "10px",
+                  }}
+                />
+              </a>
+            </li>
+            
+          </ul>
         { userType == "empresa"?
         <button
           type="button"
