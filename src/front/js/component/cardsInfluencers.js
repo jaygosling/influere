@@ -1,7 +1,7 @@
 import React from "react";
 import "../../styles/home.css";
 import { Link } from "react-router-dom";
-import NumberFormat from 'react-number-format'
+import NumberFormat from "react-number-format";
 import { Col, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 
 export const CardsInflu = ({
@@ -14,7 +14,6 @@ export const CardsInflu = ({
 }) => {
   const userType = sessionStorage.getItem("userType");
 
-
   return (
     <Col>
       <Card>
@@ -22,12 +21,17 @@ export const CardsInflu = ({
         <Card.Body>
           <Card.Title>
             <h4 className="titulocards">
-              <b>@{username}</b>
+              <b>{username}</b>
             </h4>
           </Card.Title>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <b>Seguidores:</b> <NumberFormat value={seguidores} displayType={'text'} thousandSeparator={true}/>
+              <b>Seguidores:</b>{" "}
+              <NumberFormat
+                value={seguidores}
+                displayType={"text"}
+                thousandSeparator={true}
+              />
             </ListGroup.Item>
             <ListGroup.Item>
               <b>Categoria:</b> {sector}
@@ -42,14 +46,16 @@ export const CardsInflu = ({
               VER MÁS
             </button>
           </Link>
-          { userType == "empresa"?
-          <button type="button" className="btn btn-danger likeBtn">
-            &#9825;
-          </button> : ""}
+          {userType == "empresa" ? (
+            <button type="button" className="btn btn-danger likeBtn">
+              &#9825;
+            </button>
+          ) : (
+            ""
+          )}
         </Card.Body>
       </Card>
       <br></br>
     </Col>
-
   );
 };
