@@ -33,7 +33,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
 
-      addFavInflu: (ig_user) => {
+      addFavInflu: (ig_user, name, apellidos, categoria, ) => {
 
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
