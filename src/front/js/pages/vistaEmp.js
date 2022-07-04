@@ -69,40 +69,38 @@ export const VistaEmp = () => {
           </div>
           {/* ----------------------------------------------------------------------------------- */}
           <div className="container" style={{ maxWidth: "3000px" }}>
-            <div className="row container">
-              <div
-                className="col-md-7"
-                style={{ paddingLeft: "15px", textAlign: "right" }}
+            <div
+              className="container"
+              style={{ paddingLeft: "15px", textAlign: "center" }}
+            >
+              <h1 className="tituloabout" style={{ color: "#ffc107" }}>
+                DATOS DE EMPRESA
+              </h1>
+              <h1 className="title1" style={{ color: "#302880" }}>
+                Nombre:{" "}
+                {`${store.datosEmpresa.nombre} ${store.datosEmpresa.apellidos}`}
+              </h1>
+              <h4 className="title1 " style={{ opacity: "80%" }}>
+                Razón Social: {`${store.datosEmpresa.razon_social}`}
+              </h4>
+              <h4 className="title1 " style={{ opacity: "80%" }}>
+                Sector: {`${store.datosEmpresa.sector}`}
+              </h4>
+              <h5 className="title1 " style={{ opacity: "80%" }}>
+                Ubicación:{" "}
+                {`${store.datosEmpresa.autonomia} (${store.datosEmpresa.ciudad})`}
+              </h5>
+              <h7 className="title1 " style={{ opacity: "80%" }}>
+                Email: {`${store.datosInfluencer.email}`}
+              </h7>
+              <br></br>
+              <br></br>
+              <h6
+                className="title1 "
+                style={{ opacity: "40%", maxWidth: "100%" }}
               >
-                <h1 className="tituloabout" style={{ color: "#ffc107" }}>
-                  DATOS DE EMPRESA
-                </h1>
-                <h1 className="title1" style={{ color: "#302880" }}>
-                  Nombre:{" "}
-                  {`${store.datosEmpresa.nombre} ${store.datosEmpresa.apellidos}`}
-                </h1>
-                <h4 className="title1 " style={{ opacity: "80%" }}>
-                  Razón Social: {`${store.datosEmpresa.razon_social}`}
-                </h4>
-                <h4 className="title1 " style={{ opacity: "80%" }}>
-                  Sector: {`${store.datosEmpresa.sector}`}
-                </h4>
-                <h5 className="title1 " style={{ opacity: "80%" }}>
-                  Ubicación:{" "}
-                  {`${store.datosEmpresa.autonomia} (${store.datosEmpresa.ciudad})`}
-                </h5>
-                <h7 className="title1 " style={{ opacity: "80%" }}>
-                  Email: {`${store.datosInfluencer.email}`}
-                </h7>
-                <br></br>
-                <br></br>
-                <h6
-                  className="title1 "
-                  style={{ opacity: "40%", maxWidth: "100%" }}
-                >
-                  {`${store.datosEmpresa.bio}`}
-                </h6>
-              </div>
+                {`${store.datosEmpresa.bio}`}
+              </h6>
             </div>
             {/* ------------------------ */}
             <br></br>
@@ -121,7 +119,7 @@ export const VistaEmp = () => {
             <br></br>
             <br></br>
             {/* ------------------------ */}
-            <div className="row container">
+            <div className="row container-fluid">
               <div className="row ">
                 {/* {store.favInf?.map((e, id) => {
                         return (
