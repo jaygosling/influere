@@ -10,10 +10,10 @@ export const VistaInflu = () => {
   sessionStorage.setItem("justLogin", false);
   const { store, actions } = useContext(Context);
   // const [url, setUrl] = useState("");
-  const parametro  = useParams();
-  
+  const parametro = useParams();
+
   //  useEffect para que me consiga un actions cuando se renderice el componente y traer la informacion al perfil: 
-  useEffect(()=>{
+  useEffect(() => {
     actions.conseguirInfluencer(parametro.id);
     // actions.agregar(url);
   }, []);
@@ -38,8 +38,8 @@ export const VistaInflu = () => {
       >
         <div className="row"
           class="btn-group"
-          style={{ height: "40px", width: "40px", marginRight: "100px"}}
-         >
+          style={{ height: "40px", width: "40px", marginRight: "100px" }}
+        >
           <button
             type="button"
             class="btn btn-warning dropdown-toggle"
@@ -65,7 +65,7 @@ export const VistaInflu = () => {
                 />
               </a>
             </li>
-            
+
           </ul>
           <button
             type="button"
@@ -81,7 +81,7 @@ export const VistaInflu = () => {
                 Editar Perfil
               </a>
             </li>
-           
+
             <li>
               <hr class="dropdown-divider" />
             </li>
@@ -106,15 +106,15 @@ export const VistaInflu = () => {
               paddingLeft: "15px",
               textAlign: "right",
             }}>
-            <h1 className="tituloabout" style={{color: "#ffc107"}}>DATOS DEL INFLUENCER
-             </h1>
+            <h1 className="tituloabout" style={{ color: "#ffc107" }}>DATOS DEL INFLUENCER
+            </h1>
             <span
               action="/influencers"
               method="GET"
               className="title1"
               style={{ color: "#363263" }}
             ><strong> Nombre: {`${store.datosInfluencer.nombre} ${store.datosInfluencer.apellidos}`}</strong>
-             
+
             </span>
             <h2 className="title1 " style={{ opacity: "80%" }}>Sector: {`${store.datosInfluencer.categoria}`}
             </h2>
@@ -125,24 +125,24 @@ export const VistaInflu = () => {
               Email: {`${store.datosInfluencer.email}`}
             </h6>
             <br></br>
-            <span className="title1 " style={{ opacity: "80%"}}>
-              Ubicación: {`${store.datosInfluencer.autonomia} (${store.datosInfluencer.ciudad})`} 
-              
+            <span className="title1 " style={{ opacity: "80%" }}>
+              Ubicación: {`${store.datosInfluencer.autonomia} (${store.datosInfluencer.ciudad})`}
+
             </span>
             <br></br>
             <br></br>
             <h5
               className="title1 "
-              style={{ opacity: "40%", maxWidth: "100%", marginLeft:"50%" }}
+              style={{ opacity: "40%", maxWidth: "100%", marginLeft: "50%" }}
             > {`${store.datosInfluencer.bio}`}
-             
+
             </h5>
           </div>
           <div
             className="col-md-6 rounded-circle "
             style={{
               display: "flex",
-              placeContent:"left"
+              placeContent: "left"
             }}
           >
             <img
@@ -151,10 +151,10 @@ export const VistaInflu = () => {
                 maxWidth: "500px",
                 opacity: "100%",
                 transform: "revert",
-                marginLeft:"5%",
-                borderRadius:"15px"
+                marginLeft: "5%",
+                borderRadius: "15px"
 
-                
+
               }}
             />
           </div>
@@ -182,7 +182,7 @@ export const VistaInflu = () => {
         </div>
         <br></br>
 
-        <h1 className="tituloabout" style={{ textAlign: "center", color:"#ffc107"}}>
+        <h1 className="tituloabout" style={{ textAlign: "center", color: "#ffc107" }}>
           MIS ÚLTIMAS PUBLICACIONES{" "}
         </h1>
         {/* ---------------AGREGAR UN POST NUEVO-------------------------------------------------------------------------- */}
@@ -191,7 +191,7 @@ export const VistaInflu = () => {
           <h4 style={{ color: "#302880" }}>Agrega un nuevo post:</h4>
           */}
 
-          {/* <form>
+        {/* <form>
             <div className="todo-list">
               <div className="file-input">
                 <input
@@ -220,19 +220,35 @@ export const VistaInflu = () => {
         <br></br>
         <br></br>
         {/* --------------------ESPACIO DONDE SE AGREGARÁN LOS POST --------------------------------------------------------*/}
-        
-        <div className="row">
-          <div className="col-4">
-          <IframeInstagram url={store.datosInfluencer.post1} style = {{height:"600px", width:"300px", borderRadius: " 5px solid lightgrey" }}/>
-          <IframeInstagram url={store.datosInfluencer.post2} style = {{height:"600px", width:"300px", borderRadius: " 5px solid lightgrey" }}/>
-          <IframeInstagram url={store.datosInfluencer.post3} style = {{height:"600px", width:"300px", borderRadius: " 5px solid lightgrey" }}/>
+
+        <div className="row" style={{marginBottom:"50px"}}>
+          <div className="col-4" style={{display:" flex", justifyContent:"center", alignContent:"center"}} >
+            <IframeInstagram url={store.datosInfluencer.post1} style={{ height: "600px", width: "300px" }} />
           </div>
-          <div className="col-4">
-            
-            <IframeInstagram url={store.datosInfluencer.post4} style={{ height: "600px", width: "300px", borderRadius: " 5px solid lightgrey" }} />
-            <IframeInstagram url={store.datosInfluencer.post5} style={{ height: "600px", width: "300px", borderRadius: " 5px solid lightgrey"  }} />
-            <IframeInstagram url={store.datosInfluencer.post6} style={{ height: "600px", width: "300px", borderRadius: " 5px solid lightgrey"  }} />
-          </div> 
+          <div className="col-4" style={{display:" flex", justifyContent:"center", alignContent:"center"}}>
+            <IframeInstagram url={store.datosInfluencer.post2} style={{ height: "600px", width: "300px" }} />
+
+          </div>
+
+          <div className="col-4" style={{display:" flex", justifyContent:"center", alignContent:"center"}}>
+            <IframeInstagram url={store.datosInfluencer.post3} style={{ height: "600px", width: "300px" }} />
+
+          </div>
+        </div>
+        <div className="row" >
+          <div className="col-4" style={{display:" flex", justifyContent:"center", alignContent:"center"}}>
+            <IframeInstagram url={store.datosInfluencer.post4} style={{ height: "600px", width: "300px" }} />
+
+          </div>
+          <div className="col-4" style={{display:" flex", justifyContent:"center", alignContent:"center"}}>
+            <IframeInstagram url={store.datosInfluencer.post5} style={{ height: "600px", width: "300px"}} />
+
+          </div>
+
+          <div className="col-4" style={{display:" flex", justifyContent:"center", alignContent:"center"}}>
+            <IframeInstagram url={store.datosInfluencer.post6} style={{ height: "600px", width: "300px" }} />
+
+          </div>
         </div>
 
         {/* <div>

@@ -30,6 +30,8 @@ def conseguir_influencers(ig_user):
         return jsonify({"mensaje":"influencer no existente"})
 
 
+
+
 @api.route('/influencers', methods=['GET'])
 def all_influencers():
          
@@ -195,5 +197,47 @@ def registro_influencers():
     }
 
     return jsonify(response_body), 200
+
+@api.route('/favoritos', methods=['POST'])
+def addFavInfluencers():
+    
+    body = request.get_json()
+    fav_exists = Favoritos.query.filter_by(empresa_id = body["empresa_id"], influencer_id = body["influencer_id"]).first()
+    # fav_exists = Favoritos(empresa_id = body["empresa_id"], influencer_id = body["influencer_id"])
+    if fav_exists:
+        return ("Este usuario ya fue agregado a favoritos")
+    else:
+        fav_Influ = Favoritos(empresa_id = body["empresa_id"], influencer_id = body["influencer_id"])
+
+        db.session.add(fav_Influ)
+        db.session.commit()
+    
+    print("POST recibido")
+    response_body = {
+        "message": "Agregado a favoritos"
+    }
+
+    return jsonify(response_body), 200
+
+@api.route('/favoritos/<int:id>', methods = ['GET'])
+def conseguirFav(id): 
+        fav = Favoritos.query.filter_by(empresa_id=id).all()
+        fav = list(map(lambda x: x.serialize(),fav))
+       
+        datosInflu=[]
+        for i in fav:
+            influ =Influencers.query.filter_by(ig_user=i['influencer']).first()
+            # print(influ.)
+            datosInflu.append(influ.serialize())
+        if datosInflu:
+            return jsonify({"datos": datosInflu})
+        else:
+            return jsonify({"mensaje":"usuario no fue agregado a favorito"})
+
+
+
+
+
+
 
 

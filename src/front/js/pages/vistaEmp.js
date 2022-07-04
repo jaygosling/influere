@@ -12,7 +12,9 @@ export const VistaEmp = () => {
 
   useEffect(() => {
     actions.conseguirEmpresa(parametro.id);
+    actions.conseguirFav(parametro.id)
   }, []);
+  
 
   useEffect(() => {
     actions.privadoEmpresa(parametro.id);
@@ -115,29 +117,21 @@ export const VistaEmp = () => {
               </h1>
             </div>
 
-            {/* ------------------------ */}
-            <br></br>
-            <br></br>
-            {/* ------------------------ */}
-            <div className="row container-fluid">
-              <div className="row ">
-                {/* {store.favInf?.map((e, id) => {
+          {/* ------------------------ */}
+          <br></br>
+          <br></br>
+          {/* ------------------------ */}
+          <div className="row container">
+            <div className="row ">
+              
+              {store.favInflu?.map((obj, id) => {
                         return (
                             <div key={id} className="col-4">
-                                <CardsInflu name={e}
-                                />
+                                <CardsInflu nombre={obj.nombre} username={obj.ig_user} sector={obj.categoria} seguidores={obj.seguidores} i={id} imagen={obj.profilepic} ubicacion={obj.ciudad}/>
                             </div>
                         );
-                    })} */}
-                <di className="col-md-4">
-                  <CardsInflu />
-                </di>
-                <di className="col-md-4">
-                  <CardsInflu />
-                </di>
-                <di className="col-md-4">
-                  <CardsInflu />
-                </di>
+                    })} 
+                
               </div>
             </div>
           </div>

@@ -19,6 +19,7 @@ import { EditarEmpresa } from "./component/editar-empresa";
 import { EditarInfluencer } from "./component/editar-influencer";
 import EnviarEmail from "./component/enviarEmail";
 import { CloudinaryTest } from "./component/cloudinary-test";
+// import { AddFavInflu } from "./component/addFavInflu";
 
 //create your first component
 const Layout = () => {
@@ -71,6 +72,9 @@ const Layout = () => {
             <Route exact path="/vistaEmp/:id">
               <VistaEmp />
             </Route>
+            {/* <Route exact path="/addFavInflu/:id">
+              <AddFavInflu />
+            </Route> */}
             <Route>
               <h1>Not found!</h1>
             </Route>
