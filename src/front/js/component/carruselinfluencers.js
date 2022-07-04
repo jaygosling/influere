@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import { CardsInflu } from "./cardsInfluencers";
-import { Col, Card } from "react-bootstrap";
 
 export const Carruselinfluencers = () => {
   const { store, actions } = useContext(Context);
