@@ -2,6 +2,7 @@ import React from "react";
 import "../../styles/home.css";
 import { Link } from "react-router-dom";
 import NumberFormat from 'react-number-format'
+import { Col, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 
 export const CardsInflu = ({
   imagen,
@@ -15,33 +16,40 @@ export const CardsInflu = ({
 
 
   return (
-    <div className="card " style={{ width: "20rem" }}>
-      <span className="border border-primary rounded">
-        <img src={imagen} class="card-img-top" alt="..." />
-        <div className="card-body">
-          <h4 className="card-title titulocards"><b>@{username}</b></h4>
-          <ul className="card-text" style={{ listStyle: "none" }}>
-            <li>
-              <b>Seguidores:</b> <NumberFormat value={seguidores} displayType={'text'} thousandSeparator={true}/></li>
-            <li>
+    <Col>
+      <Card>
+        <Card.Img variant="top" src={imagen} width="320" />
+        <Card.Body>
+          <Card.Title>
+            <h5>
+              <b>{username}</b>
+            </h5>
+          </Card.Title>
+          <ListGroup variant="flush">
+            <ListGroup.Item>
+              <b>Seguidores:</b> <NumberFormat value={seguidores} displayType={'text'} thousandSeparator={true}/>
+            </ListGroup.Item>
+            <ListGroup.Item>
               <b>Categoria:</b> {sector}
-            </li>
-            <li>
+            </ListGroup.Item>
+            <ListGroup.Item>
               <b>Ciudad:</b> {ubicacion}
-            </li>
-          </ul>
-          <Link to={'/vistainfluPb/'+username}>
-          <button href="#" class="btn btn-primary rounded-pill">
-            VER MÁS
-          </button>
+            </ListGroup.Item>
+          </ListGroup>
+          <br></br>
+          <Link to={"/vistainfluPb/" + username}>
+            <button href="#" class="btn btn-primary rounded-pill">
+              VER MÁS
+            </button>
           </Link>
           { userType == "empresa"?
           <button type="button" className="btn btn-danger likeBtn">
             &#9825;
-          </button>
-          : ""}
-        </div>
-      </span>
-    </div>
+          </button> : ""}
+        </Card.Body>
+      </Card>
+      <br></br>
+    </Col>
+
   );
 };
