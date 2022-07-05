@@ -46,11 +46,13 @@ const getState = ({ getStore, getActions, setStore }) => {
           empresa_id: sessionStorage.getItem("userid"),
         });
 
+
         var requestOptions = {
           method: "POST",
           headers: myHeaders,
           body: raw,
           redirect: "follow",
+
         };
 
         fetch(process.env.BACKEND_URL + "/api/favoritos", requestOptions)
