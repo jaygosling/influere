@@ -70,26 +70,18 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("error", error));
       },
 
-      deleteFav: (username) => {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify({
-          influencer_id: username,
-          empresa_id: sessionStorage.getItem("userid"),
-        });
-
+      deleteFav: (id, ig_user) => {
         var requestOptions = {
-          method: "DELETE",
-          headers: myHeaders,
-          body: raw,
-          redirect: "follow",
+          method: 'DELETE',
+          redirect: 'follow'
         };
 
-        fetch(process.env.BACKEND_URL + "/api/favoritos/" + sessionStorage.getItem('userid') , requestOptions)
-          .then((response) => response.text())
-          .then((result) => console.log(result))
-          .catch((error) => console.log("error", error));
+        fetch(`${process.env.BACKEND_URL}/api/favoritos/${id}/${ig_user}`, requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+
+
       },
 
       conseguirInfluencer: (ig_user) => {

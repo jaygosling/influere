@@ -15,7 +15,7 @@ export const CardsInflu = ({
 }) => {
 
   function actualizarButton() {
-    
+
   }
 
 
@@ -69,9 +69,13 @@ export const CardsInflu = ({
           )}
           <button type="button" className="btn btn-danger likeBtn" style={{marginRight:"2px"}}
           onClick = {()=>{
-            actions.deleteFav(userid)
+            actions.deleteFav(userid, username);
+
           }}
-          ><a href={`/vistaEmp/${userid}}`} target="_blank" title="Die Homepage" rel="nofollow"></a><i class="far fa-trash-alt" ></i></button>
+          >
+
+          {/* <a href={`/vistaEmp/${userid}}`} target="_blank" title="Die Homepage" rel="nofollow"></a> */}
+          <i class="far fa-trash-alt" ></i></button>
         </Card.Body>
       </Card>
       <br></br>
