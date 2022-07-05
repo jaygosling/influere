@@ -53,7 +53,7 @@ export const CardsInflu = ({
             onClick={() => {
             
               actions.addFavInflu(username);
-            }}>
+            }}> <i class="far fa-trash-alt"></i>
               &#9825;
             </button>
           ) : (

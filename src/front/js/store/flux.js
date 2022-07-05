@@ -73,6 +73,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       },
 
+      deleteFav: ()=>{
+        
+      },
+
 
 
       conseguirInfluencer: (ig_user) => {
