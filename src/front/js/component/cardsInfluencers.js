@@ -13,6 +13,13 @@ export const CardsInflu = ({
   sector,
   ubicacion,
 }) => {
+
+  function actualizarButton() {
+    
+  }
+
+
+  const userid = sessionStorage.getItem("userid");
   const userType = sessionStorage.getItem("userType");
   const { store, actions } = useContext(Context); 
 
@@ -53,12 +60,18 @@ export const CardsInflu = ({
             onClick={() => {
             
               actions.addFavInflu(username);
-            }}> <i class="far fa-trash-alt"></i>
+            }}> 
               &#9825;
             </button>
+            
           ) : (
             ""
           )}
+          <button type="button" className="btn btn-danger likeBtn" style={{marginRight:"2px"}}
+          onClick = {()=>{
+            actions.deleteFav(userid)
+          }}
+          ><a href={`/vistaEmp/${userid}}`} target="_blank" title="Die Homepage" rel="nofollow"></a><i class="far fa-trash-alt" ></i></button>
         </Card.Body>
       </Card>
       <br></br>

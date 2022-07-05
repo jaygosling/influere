@@ -234,13 +234,13 @@ def conseguirFav(id):
             return jsonify({"mensaje":"usuario no fue agregado a favorito"})
 
 
-@api.route('/favoritos/<int:id>', methods = ['delete'])
+@api.route('/favoritos/<int:id>', methods = ['DELETE'])
 def deleteFav(id):
-    fav = Favoritos.query.get(id)
+    fav = Favoritos.query.filter_by(empresa_id=id).first()
     if fav: 
         db.session.delete(fav)
         db.session.commit()
-        return jsonify(({'mensaje': 'El influencer se ha eliminado con éxisito'}))
+        return jsonify(({'mensaje': 'El influencer se ha eliminado con éxito'}))
     else:
         return jsonify({'resultado': 'Este usuario no pudo eliminarse de la lista de favoritos'})
 
