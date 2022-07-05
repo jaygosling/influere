@@ -12,7 +12,7 @@ export const VistaEmp = () => {
 
   useEffect(() => {
     actions.conseguirEmpresa(parametro.id);
-    actions.conseguirFav(parametro.id)
+    actions.conseguirFav(parametro.id);
   }, []);
   
 

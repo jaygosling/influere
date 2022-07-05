@@ -4,8 +4,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       token: null,
       message: null,
       permiso: false,
-      userig: '',
-      userid: '',
+      userig: "",
+      userid: "",
       favInflu: [],
       posts: [],
       influencers: [],
@@ -36,44 +36,55 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ posts: [...store.posts, url] });
       },
 
-
-      addFavInflu: (id) => {
+      addFavInflu: (username) => {
         const store = getStore();
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
-         var raw = JSON.stringify({
-           "influencer_id": id,
-           "empresa_id": store.userid
-         });
+        var raw = JSON.stringify({
+          influencer_id: username,
+          empresa_id: sessionStorage.getItem("userid"),
+        });
+
 
         var requestOptions = {
-          method: 'POST',
+          method: "POST",
           headers: myHeaders,
           body: raw,
-          redirect: 'follow'
+          redirect: "follow",
+
         };
 
         fetch(process.env.BACKEND_URL + "/api/favoritos", requestOptions)
+          .then((response) => response.text())
+          .then((result) => console.log(result))
+          .catch((error) => console.log("error", error));
+      },
+      conseguirFav: (id) => {
+        var requestOptions = {
+          method: "GET",
+          redirect: "follow",
+        };
+
+        fetch(process.env.BACKEND_URL + "/api/favoritos/" + id, requestOptions)
+          .then((response) => response.json())
+          .then((result) => setStore({ favInflu: result.datos }))
+          .catch((error) => console.log("error", error));
+      },
+
+      deleteFav: (id, ig_user) => {
+        var requestOptions = {
+          method: 'DELETE',
+          redirect: 'follow'
+        };
+
+        fetch(`${process.env.BACKEND_URL}/api/favoritos/${id}/${ig_user}`, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
 
-      },
-      conseguirFav: (id)=>{
-        var requestOptions = {
-          method: 'GET',
-          redirect: 'follow'
-        };
-        
-        fetch("https://3001-jaygosling-influere-l3f4va1stxm.ws-eu51.gitpod.io/api/favoritos/"+ id, requestOptions)
-          .then(response => response.json())
-          .then(result => setStore({favInflu:result.datos}))
-          .catch(error => console.log('error', error));
 
       },
-
-
 
       conseguirInfluencer: (ig_user) => {
         var myHeaders = new Headers();
@@ -85,7 +96,9 @@ const getState = ({ getStore, getActions, setStore }) => {
             return response.json();
           })
           .then(function (result) {
-            setStore({ datosInfluencer: { ...store.datosInfluencer, ...result } });
+            setStore({
+              datosInfluencer: { ...store.datosInfluencer, ...result },
+            });
             fetch(
               `${process.env.BACKEND_URL}/api/instagram/${store.datosInfluencer.ig_user}`
             )
@@ -93,10 +106,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                 return response.json();
               })
               .then(function (result) {
-                let moreData = {}
-                moreData.seguidos = result["seguidos"]
-                moreData.publicaciones = result["publicaciones"]
-                moreData.followers = result["followers"]
+                let moreData = {};
+                moreData.seguidos = result["seguidos"];
+                moreData.publicaciones = result["publicaciones"];
+                moreData.followers = result["followers"];
                 setStore({
                   datosInfluencer: { ...store.datosInfluencer, ...moreData },
                 });
@@ -109,7 +122,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           .catch((error) => console.log("error", error));
       },
-
 
       actualizarEmpresa: (id, datos) => {
         var myHeaders = new Headers();
@@ -128,7 +140,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (response) {
             if (response.ok == true) {
               alert("Usuario actualizado con éxito");
-              location.href = "/vistaemp/" + id
+              location.href = "/vistaemp/" + id;
             } else {
               alert(
                 "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
@@ -159,7 +171,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (response) {
             if (response.ok == true) {
               alert("Usuario actualizado con éxito");
-              location.href = "/vistainflu/" + ig_user
+              location.href = "/vistainflu/" + ig_user;
             } else {
               alert(
                 "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
@@ -236,7 +248,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (response) {
             if (response.ok == true) {
               alert("Usuario creado con éxito");
-              location.href = '/';
+              location.href = "/";
             } else {
               alert(
                 "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
@@ -249,40 +261,42 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       conseguirFotoPerfil: (user) => {
-        const store = getStore()
+        const store = getStore();
         var myHeaders = new Headers();
-        var profilePicUrl = ""
+        var profilePicUrl = "";
         myHeaders.append("Content-Type", "application/json");
         fetch(`${process.env.BACKEND_URL}/api/instagram/${user}`)
           .then(function (response) {
-            return response.json()
+            return response.json();
           })
           .then(function (result) {
-            profilePicUrl = result.profilepic
-            store.profileData.followers = result.followers
-            return console.log(result)
-          })
+            profilePicUrl = result.profilepic;
+            store.profileData.followers = result.followers;
+            return console.log(result);
+          });
         var raw = JSON.stringify({
-          "file": `${profilePicUrl}`,
-          "upload_preset": "influere_uns",
-          "public_id": `${user}`
+          file: `${profilePicUrl}`,
+          upload_preset: "influere_uns",
+          public_id: `${user}`,
         });
 
         var requestOptions = {
-          method: 'POST',
+          method: "POST",
           headers: myHeaders,
           body: raw,
-          redirect: 'follow'
+          redirect: "follow",
         };
 
-        fetch("https://api.cloudinary.com/v1_1/influere/image/upload", requestOptions)
-          .then(response => response.text())
-          .then(result => {
-
-            store.profileData.picUrl = result.url
-            console.log(result)
+        fetch(
+          "https://api.cloudinary.com/v1_1/influere/image/upload",
+          requestOptions
+        )
+          .then((response) => response.text())
+          .then((result) => {
+            store.profileData.picUrl = result.url;
+            console.log(result);
           })
-          .catch(error => console.log('error', error));
+          .catch((error) => console.log("error", error));
       },
 
       registrarInfluencer: (datosInfluencer) => {
@@ -305,7 +319,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then(function (response) {
             if (response.ok == true) {
               alert("Usuario creado con éxito");
-              location.href = '/';
+              location.href = "/";
             } else {
               alert(
                 "Lo sentimos, no se ha podido crear el usuario. Por favor, contacta con nosotros."
@@ -357,10 +371,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: "follow",
         };
 
-        fetch(
-          `${process.env.BACKEND_URL}/vistaemp/${id}`,
-          requestOptions
-        )
+        fetch(`${process.env.BACKEND_URL}/vistaemp/${id}`, requestOptions)
           .then((response) => response.json())
           .then((result) => {
             console.log(result);
@@ -385,10 +396,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: "follow",
         };
 
-        fetch(
-          process.env.BACKEND_URL + "/login",
-          requestOptions
-        )
+        fetch(process.env.BACKEND_URL + "/login", requestOptions)
           .then((response) => response.json())
           .then((data) => {
             if (data.error != null) {
@@ -424,9 +432,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: "follow",
         };
 
-        fetch(process.env.BACKEND_URL + "/api/influencers/filter",
-          requestOptions)
-
+        fetch(
+          process.env.BACKEND_URL + "/api/influencers/filter",
+          requestOptions
+        )
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
@@ -451,10 +460,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: "follow",
         };
 
-        fetch(
-          process.env.BACKEND_URL + "/loginempresa",
-          requestOptions
-        )
+        fetch(process.env.BACKEND_URL + "/loginempresa", requestOptions)
           .then((response) => response.json())
           .then((data) => {
             if (data.error != null) {

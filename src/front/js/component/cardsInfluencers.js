@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Link } from "react-router-dom";
 import NumberFormat from "react-number-format";
@@ -12,7 +13,15 @@ export const CardsInflu = ({
   sector,
   ubicacion,
 }) => {
+
+  function actualizarButton() {
+
+  }
+
+
+  const userid = sessionStorage.getItem("userid");
   const userType = sessionStorage.getItem("userType");
+  const { store, actions } = useContext(Context); 
 
   return (
     <Col>
@@ -47,12 +56,26 @@ export const CardsInflu = ({
             </button>
           </Link>
           {userType == "empresa" ? (
-            <button type="button" className="btn btn-danger likeBtn">
+            <button type="button" className="btn btn-danger likeBtn"
+            onClick={() => {
+            
+              actions.addFavInflu(username);
+            }}> 
               &#9825;
             </button>
+            
           ) : (
             ""
           )}
+          <button type="button" className="btn btn-danger likeBtn" style={{marginRight:"2px"}}
+          onClick = {()=>{
+            actions.deleteFav(userid, username);
+
+          }}
+          >
+
+          {/* <a href={`/vistaEmp/${userid}}`} target="_blank" title="Die Homepage" rel="nofollow"></a> */}
+          <i class="far fa-trash-alt" ></i></button>
         </Card.Body>
       </Card>
       <br></br>

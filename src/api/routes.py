@@ -227,12 +227,26 @@ def conseguirFav(id):
         datosInflu=[]
         for i in fav:
             influ =Influencers.query.filter_by(ig_user=i['influencer']).first()
-            # print(influ.)
             datosInflu.append(influ.serialize())
         if datosInflu:
             return jsonify({"datos": datosInflu})
         else:
             return jsonify({"mensaje":"usuario no fue agregado a favorito"})
+
+
+@api.route('/favoritos/<int:id>/<string:ig_user>', methods = ['DELETE'])
+def deleteFav(id, ig_user):
+    fav = Favoritos.query.filter_by(empresa_id=id).filter_by(influencer_id= ig_user).first()
+    if fav: 
+        db.session.delete(fav)
+    # for i in fav:
+    #     influ= Influencers.query.filter_by(ig_user=i['influencer']).first()
+    # if influ: 
+    #     db.session.delete(inlfu)
+        db.session.commit()
+        return jsonify(({'mensaje': 'El influencer se ha eliminado con éxito'}))
+    else:
+        return jsonify({'resultado': 'Este usuario no pudo eliminarse de la lista de favoritos'})
 
 
 
