@@ -13,10 +13,18 @@ export const CardsInflu = ({
   sector,
   ubicacion,
 }) => {
+  const yourformelement = {};
+  yourformelement.submit = () => {};
 
-  function actualizarButton() {
-
-  }
+  function clicked() {
+    if (confirm('¿Está seguro de eliminar este Influencer de su lista?')) {
+      yourformelement.submit();
+      location.reload();
+    } else {
+      location.reload();
+      return false;
+    }
+  } 
 
 
   const userid = sessionStorage.getItem("userid");
@@ -70,6 +78,7 @@ export const CardsInflu = ({
           <button type="button" className="btn btn-danger likeBtn" style={{marginRight:"2px"}}
           onClick = {()=>{
             actions.deleteFav(userid, username);
+            clicked()
 
           }}
           >
