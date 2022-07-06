@@ -119,6 +119,11 @@ export const VistaInfluPb = () => {
             <h4 className="title1 " style={{ opacity: "80%" }}>
               Usuario: {`${store.datosInfluencer.ig_user}`}
             </h4>
+            {userType == "empresa"? 
+            <h4 className="title1 " style={{ opacity: "80%" }}>
+              Email: {`${store.datosInfluencer.email}`}
+            </h4>
+            : ""}
             <h6 className="title1 " style={{ opacity: "80%" }}>
               Provincia (ciudad):{" "}
               {`${store.datosInfluencer.autonomia} ${store.datosInfluencer.ciudad}`}

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import NumberFormat from "react-number-format";
 import { Col, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 
-export const CardsInflu = ({
+export const Cardsfav = ({
   imagen,
   nombre,
   username,
@@ -75,6 +75,16 @@ export const CardsInflu = ({
           ) : (
             ""
           )}
+          <button type="button" className="btn btn-danger likeBtn" style={{marginRight:"2px"}}
+          onClick = {()=>{
+            actions.deleteFav(userid, username);
+            clicked()
+
+          }}
+          >
+
+          {/* <a href={`/vistaEmp/${userid}}`} target="_blank" title="Die Homepage" rel="nofollow"></a> */}
+          <i class="far fa-trash-alt" ></i></button>
         </Card.Body>
       </Card>
       <br></br>

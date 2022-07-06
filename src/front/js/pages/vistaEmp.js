@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { CardsInflu } from "../component/cardsInfluencers";
+import { Cardsfav } from "../component/cardsfav";
 import { Headervistaempresa } from "../component/headervistaempresa";
 import { useParams } from "react-router-dom";
 
@@ -127,7 +127,7 @@ export const VistaEmp = () => {
               {store.favInflu?.map((obj, id) => {
                         return (
                             <div key={id} className="col-4">
-                                <CardsInflu nombre={obj.nombre} username={obj.ig_user} sector={obj.categoria} seguidores={obj.seguidores} i={id} imagen={obj.profilepic} ubicacion={obj.ciudad}/>
+                                <Cardsfav nombre={obj.nombre} username={obj.ig_user} sector={obj.categoria} seguidores={obj.seguidores} i={id} imagen={obj.profilepic} ubicacion={obj.ciudad}/>
                             </div>
                         );
                     })} 
