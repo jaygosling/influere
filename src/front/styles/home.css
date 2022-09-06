@@ -9,6 +9,10 @@
   font-family: "DM Sans", sans-serif;
 }
 
+.btn-danger {
+  color: #eaeaea !important;
+}
+
 .camposform {
   font-size: 18px;
   font-family: "DM Sans", sans-serif;
@@ -37,9 +41,7 @@ body {
 
 .tituloabout {
   font-family: "Raleway", sans-serif;
-  
 }
-
 
 .tituloabout2 {
   font-family: "Raleway", sans-serif;
