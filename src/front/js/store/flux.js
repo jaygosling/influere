@@ -247,7 +247,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         )
           .then(function (response) {
             if (response.ok == true) {
-              alert("Usuario creado con éxito");
+              alert("Usuario creado con éxito. A continuación serás redirigido a la página principal para que puedas iniciar sesión.");
               location.href = "/";
             } else {
               alert(
@@ -318,7 +318,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         )
           .then(function (response) {
             if (response.ok == true) {
-              alert("Usuario creado con éxito");
+              alert("Usuario creado con éxito. A continuación serás redirigido a la página principal para que puedas iniciar sesión.");
               location.href = "/";
             } else {
               alert(
