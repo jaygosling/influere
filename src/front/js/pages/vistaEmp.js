@@ -93,7 +93,7 @@ export const VistaEmp = () => {
                 {`${store.datosEmpresa.autonomia} (${store.datosEmpresa.ciudad})`}
               </h5>
               <h7 className="title1 " style={{ opacity: "80%" }}>
-                Email: {`${store.datosInfluencer.email}`}
+                Email: {`${store.datosEmpresa.email}`}
               </h7>
               <br></br>
               <br></br>
